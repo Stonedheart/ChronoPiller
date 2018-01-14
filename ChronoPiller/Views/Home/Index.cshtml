@@ -1,15 +1,37 @@
-﻿@{
+﻿
+@model List<ChronoPiller.Models.Prescription>
+
+@{
     ViewBag.Title = "Manage your prescriptions";
 }
 
-<div>
-    <button type="button" class="btn btn-default" action="">Add prescription</button>
-</div>
 
 <div>
-    Your prescriptions
-    <ol>
-        <li>
-        </li>
-    </ol>
+    @Html.ActionLink("Add Prescription", "PrescriptionDetails", "Home")
+</div>
+
+
+<div>
+    @{
+        if (Equals(Model.Count, 0))
+        {
+            <div>
+                Here will display Your prescription list.
+            </div>
+        }
+        else
+        {
+            <div>
+                Your prescriptions
+                <ul>
+                    @foreach (var prescription in Model)
+                    {
+                        <li>
+                            @prescription.Name
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    }
 </div>
