@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using ChronoPiller.Models;
 
 namespace ChronoPiller.Controllers
 {
@@ -10,21 +8,30 @@ namespace ChronoPiller.Controllers
     {
         public ActionResult Index()
         {
+            if (Session["prescriptions"] == null)
+            {
+                Session["prescriptions"] = new List<Prescription>();
+            }
+
+            return View((List<Prescription>)Session["prescriptions"]);
+        }
+
+        [HttpGet]
+        public ActionResult PrescriptionDetails()
+        {
             return View();
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult PrescriptionDetails(FormCollection form)
         {
-            ViewBag.Message = "Your application description page.";
+            var name = form["name"];
+            var prescription = new Prescription(name);
 
-            return View();
-        }
+            var prescriptions = (List<Prescription>) Session["prescriptions"];
+            prescriptions.Add(prescription);
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }
