@@ -1,5 +1,5 @@
 function ready() { $(function () {
-    console.log("WORKS!")
+    Notification.requestPermission()
     
 })
     
