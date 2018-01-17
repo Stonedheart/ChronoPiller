@@ -1,4 +1,5 @@
-﻿@{
+﻿@using System.Net.Mail
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -9,6 +10,12 @@
     </p>
 </div>
 <button id="remind">CLICK!</button>
+<br/>
+<form runat="server">
+    <label for="Mailbox">Gimme emai</label>
+    <input type="textbox" id="Mailbox" runat="server"/>
+<button id="email">SEND MAIL</button>
+</form>
 
 <div class="row">
     <div class="col-md-4">

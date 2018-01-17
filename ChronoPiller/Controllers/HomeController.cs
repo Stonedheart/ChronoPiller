@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
 
 namespace ChronoPiller.Controllers
 {
@@ -25,6 +29,11 @@ namespace ChronoPiller.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult SendMail()
+        {
+            return Redirect("http://joemonster.org/");
         }
     }
 }
