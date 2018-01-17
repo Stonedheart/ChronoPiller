@@ -47,11 +47,11 @@ namespace ChronoPiller.Controllers
                 };
             var mail = new MailMessage("l.bielenin@gmail.com", "l.bielenin@gmail.com")
             {
-                Subject = "Hej, Tatiana!",
+                Subject = "Hej, ActionLink tez dziala!",
                 Body = (id != null) ? "The Message is " + id : "The null message"
             };
             initClient.Send(mail);
-            return Redirect("http://joemonster.org/");
+            return Redirect("http://gmail.com/");
         }
     }
 }

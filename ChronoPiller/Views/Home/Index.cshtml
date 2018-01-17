@@ -14,7 +14,7 @@
 <form runat="server">
     <label for="Mailbox">Gimme emai</label>
     <input type="textbox" id="Mailbox" runat="server"/>
-<button id="email">SEND MAIL</button>
+@Html.ActionLink("Send mail!", "SendMail", "Home");
 </form>
 
 <div class="row">
