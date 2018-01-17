@@ -13,7 +13,6 @@ var remindOptions = {
 
 function checkForPermission() {
     $(function () {
-        console.log(Notification.permission);
         if (Notification.permission === 'granted') {
             var helloNote = new Notification('Already granted!');
 
@@ -34,7 +33,6 @@ function checkForPermission() {
 }
 
 function remind() {
-    console.log("I see function!");
     $(function () {
         $("#remind").click(function () {
             console.log("I see button!");
