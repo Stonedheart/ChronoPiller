@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
@@ -31,8 +32,25 @@ namespace ChronoPiller.Controllers
             return View();
         }
 
-        public ActionResult SendMail()
+        public ActionResult SendMail(string id = null)
         {
+            var initClient =
+                new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    Timeout = 10000,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential("l.bielenin@gmail.com", "WildCat217666"),
+                };
+            var mail = new MailMessage("l.bielenin@gmail.com", "l.bielenin@gmail.com")
+            {
+                Subject = "Hej, Tatiana!",
+                Body = (id != null) ? "The Message is " + id : "The null message"
+            };
+            initClient.Send(mail);
             return Redirect("http://joemonster.org/");
         }
     }
