@@ -151,6 +151,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\yoda.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -198,6 +199,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\NotificationJS\BrowserNotification.js" />
+    <Content Include="Scripts\NotificationJS\yoda.jpg" />
     <Content Include="Scripts\README.md" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
