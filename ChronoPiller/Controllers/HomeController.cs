@@ -10,6 +10,7 @@ using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ChronoPiller.Controllers
 {
@@ -69,11 +70,18 @@ namespace ChronoPiller.Controllers
         }
         
         [HttpGet]
-        public ActionResult Remind()
+        public ActionResult Remind(string clientDate)
         {
             var date = new DateTime(2017, 12, 1);
-            var dict = new Dictionary<string, string> {{"2", date.ToString()}};
+            var dateString = $"{date.Day}.{date.Month}.{date.Year}";
+            var dict = new Dictionary<string, string>
+            {
+                {"1" , clientDate},
+                {"2", dateString},
+                {"Are They Equal?", (clientDate.Equals(dateString)).ToString()}
+            };
             var json = JsonConvert.SerializeObject(dict, Formatting.Indented);
+            
             return Json(json, JsonRequestBehavior.AllowGet);
         }
     }

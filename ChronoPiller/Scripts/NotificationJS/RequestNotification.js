@@ -3,18 +3,10 @@ var options = {
     icon: '../Content/Images/yoda.jpg'
 };
 
-var remindOptions = {
-    body: "Go on!\n",
-    icon: '../Content/Images/yoda.jpg',
-    requireInteraction: true,
-    sticky: true
-};
-
-
 function checkForPermission() {
     $(function () {
         if (Notification.permission === 'granted') {
-            var helloNote = new Notification('Already granted!', options);
+            console.log('granted!');
 
         } else {
 
