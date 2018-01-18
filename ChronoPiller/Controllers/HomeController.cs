@@ -72,7 +72,7 @@ namespace ChronoPiller.Controllers
         [HttpGet]
         public ActionResult Remind(string clientDate)
         {
-            var date = new DateTime(2017, 12, 1);
+            var date = new DateTime(2018, 1, 18);
             var dateString = $"{date.Day}.{date.Month}.{date.Year}";
             var dict = new Dictionary<string, string>
             {
