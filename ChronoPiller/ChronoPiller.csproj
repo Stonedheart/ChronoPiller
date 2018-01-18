@@ -148,6 +148,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Reminders\PushReminder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -198,7 +199,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\NotificationJS\BrowserNotification.js" />
+    <Content Include="Scripts\NotificationJS\RemindNotification.js" />
+    <Content Include="Scripts\NotificationJS\RequestNotification.js" />
     <Content Include="Scripts\NotificationJS\yoda.jpg" />
     <Content Include="Scripts\README.md" />
     <Content Include="Scripts\respond.js" />

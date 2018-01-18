@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
+using Newtonsoft.Json;
 
 namespace ChronoPiller.Controllers
 {
@@ -49,11 +50,31 @@ namespace ChronoPiller.Controllers
                 };
             var mail = new MailMessage("l.bielenin@gmail.com", "l.bielenin@gmail.com")
             {
-                Subject = "Hej, ActionLink tez dziala!",
+                Subject = "Tak to się robi!",
                 Body = (id != null) ? "The Message is " + id : "The null message"
             };
             initClient.Send(mail);
             return Redirect("http://gmail.com/");
+        }
+
+        public ActionResult Movies()
+        {
+            var movies = new List<object>();
+
+            movies.Add(new {Title = "Ghostbusters", Genre = "Comedy", Year = 1984});
+            movies.Add(new {Title = "Gone with Wind", Genre = "Drama", Year = 1939});
+            movies.Add(new {Title = "Star Wars", Genre = "Science Fiction", Year = 1977});
+
+            return Json(movies, JsonRequestBehavior.AllowGet);
+        }
+        
+        [HttpGet]
+        public ActionResult Remind()
+        {
+            var date = new DateTime(2017, 12, 1);
+            var dict = new Dictionary<string, string> {{"2", date.ToString()}};
+            var json = JsonConvert.SerializeObject(dict, Formatting.Indented);
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -14,7 +14,7 @@ var remindOptions = {
 function checkForPermission() {
     $(function () {
         if (Notification.permission === 'granted') {
-            var helloNote = new Notification('Already granted!');
+            var helloNote = new Notification('Already granted!', options);
 
         } else {
 
@@ -32,19 +32,3 @@ function checkForPermission() {
 
 }
 
-function remind() {
-    $(function () {
-        $("#remind").click(function () {
-            console.log("I see button!");
-            var reminderNote = new Notification("Take your pill!", remindOptions);
-            reminderNote.onclick = function (ev) {
-                ev.preventDefault();
-                new Notification("Das gut, \nkeep da good work, my man!", options);
-            }
-
-        })
-
-
-    })
-
-}
