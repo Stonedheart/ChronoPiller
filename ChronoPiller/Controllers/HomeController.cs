@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Services.Description;
 using System.Web.UI;
@@ -43,7 +44,8 @@ namespace ChronoPiller.Controllers
                     Timeout = 10000,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("l.bielenin@gmail.com", "WildCat217666"),
+                    Credentials = new NetworkCredential(WebConfigurationManager.AppSettings["mailAccount"],
+                        WebConfigurationManager.AppSettings["mailPassword"]),
                 };
             var mail = new MailMessage("l.bielenin@gmail.com", "l.bielenin@gmail.com")
             {
