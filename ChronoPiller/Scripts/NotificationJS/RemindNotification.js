@@ -6,8 +6,6 @@ var remindOptions = {
 };
 
 
-
-
 function remind() {
     var date = new Date();
     var dateString = (date.getDate()) + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
@@ -22,8 +20,18 @@ function remind() {
             },
             success: function (result) {
 
-                console.log(result);
-                new Notification("Accepted JSON!", remindOptions)
+                if (result === true) {
+                    new Notification("TAKE YOU PILL", remindOptions);
+                    // $.ajax({
+                    //     url: "/Home/SendMail",
+                    //     type: "GET",
+                    //     success: function () {
+                    //         console.log("MAIL SENT")
+                    //        
+                    //     }
+                    // })
+                }
+                
             }
         }).done(function () {
             console.log("Done!")

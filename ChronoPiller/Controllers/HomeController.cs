@@ -14,6 +14,20 @@ using Newtonsoft.Json.Linq;
 
 namespace ChronoPiller.Controllers
 {
+    public class Person
+    {
+        public string Name;
+        public int Age;
+        public string Description;
+
+        public Person(string name, int age, string description)
+        {
+            Name = name;
+            Age = age;
+            Description = description;
+        }
+    }
+
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -35,54 +49,33 @@ namespace ChronoPiller.Controllers
             return View();
         }
 
-        public ActionResult SendMail(string id = null)
-        {
-            var initClient =
-                new SmtpClient
-                {
-                    Host = "smtp.gmail.com",
-                    Port = 587,
-                    EnableSsl = true,
-                    Timeout = 10000,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(WebConfigurationManager.AppSettings["mailAccount"],
-                        WebConfigurationManager.AppSettings["mailPassword"]),
-                };
-            var mail = new MailMessage("l.bielenin@gmail.com", "l.bielenin@gmail.com")
-            {
-                Subject = "Tak to się robi!",
-                Body = (id != null) ? "The Message is " + id : "The null message"
-            };
-            initClient.Send(mail);
-            return Redirect("http://gmail.com/");
-        }
-
-        public ActionResult Movies()
-        {
-            var movies = new List<object>();
-
-            movies.Add(new {Title = "Ghostbusters", Genre = "Comedy", Year = 1984});
-            movies.Add(new {Title = "Gone with Wind", Genre = "Drama", Year = 1939});
-            movies.Add(new {Title = "Star Wars", Genre = "Science Fiction", Year = 1977});
-
-            return Json(movies, JsonRequestBehavior.AllowGet);
-        }
-        
-        [HttpGet]
-        public ActionResult Remind(string clientDate)
-        {
-            var date = new DateTime(2018, 1, 18);
-            var dateString = $"{date.Day}.{date.Month}.{date.Year}";
-            var dict = new Dictionary<string, string>
-            {
-                {"1" , clientDate},
-                {"2", dateString},
-                {"Are They Equal?", (clientDate.Equals(dateString)).ToString()}
-            };
-            var json = JsonConvert.SerializeObject(dict, Formatting.Indented);
-            
-            return Json(json, JsonRequestBehavior.AllowGet);
-        }
+//        public ActionResult OrderToSentMail()
+//        {
+//            return Redirect("/Home/SendMail");
+//        }
+//
+//
+//        public ActionResult SampleJson()
+//        {
+//            var person1 = new Person("Lucas", 21, "Happy fellow");
+//            var person2 = new Person("Andrzej", 42, "Non happy fellow");
+//            var json2 = JsonConvert.SerializeObject(person2);
+//            var list = new List<Person>() {person1, person2};
+//
+//
+//            return Json(list, JsonRequestBehavior.AllowGet);
+//        }
+//
+//
+//        public ActionResult Movies()
+//        {
+//            var movies = new List<object>();
+//
+//            movies.Add(new {Title = "Ghostbusters", Genre = "Comedy", Year = 1984});
+//            movies.Add(new {Title = "Gone with Wind", Genre = "Drama", Year = 1939});
+//            movies.Add(new {Title = "Star Wars", Genre = "Science Fiction", Year = 1977});
+//
+//            return Json(movies, JsonRequestBehavior.AllowGet);
+//        }
     }
 }
