@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using ChronoPiller.Models;
 
@@ -17,13 +18,13 @@ namespace ChronoPiller.Controllers
         }
 
         [HttpGet]
-        public ActionResult PrescriptionDetails()
+        public ActionResult AddPrescription()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult PrescriptionDetails(FormCollection form)
+        public ActionResult AddPrescription(FormCollection form)
         {
             var name = form["name"];
             var prescription = new Prescription(name);
