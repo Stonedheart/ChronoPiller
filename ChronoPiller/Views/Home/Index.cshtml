@@ -1,15 +1,12 @@
-﻿
-@model List<ChronoPiller.Models.Prescription>
+﻿@model List<ChronoPiller.Models.Prescription>
 
 @{
     ViewBag.Title = "Manage your prescriptions";
 }
 
-
 <div>
-    @Html.ActionLink("Add Prescription", "PrescriptionDetails", "Home")
+    @Html.ActionLink("Add Prescription", "AddPrescription", "Home")
 </div>
-
 
 <div>
     @{
@@ -23,14 +20,32 @@
         {
             <div>
                 Your prescriptions
-                <ul>
-                    @foreach (var prescription in Model)
-                    {
-                        <li>
-                            @prescription.Name
-                        </li>
+            </div>
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Prescription Name
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                    </thead>
+                    @{
+                        foreach (var prescription in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @prescription.Name
+                                </td>
+                                <td>
+                                    @Html.ActionLink("View", "PrescriptionDetails", "Home", new { id = prescription.Name }, null)
+                                </td>
+                            </tr>
+                        }
                     }
-                </ul>
+                </table>
             </div>
         }
     }
