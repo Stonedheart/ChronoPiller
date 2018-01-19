@@ -34,5 +34,20 @@ namespace ChronoPiller.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public ActionResult PrescriptionDetails(string id)
+        {
+            var prescriptions = (List<Prescription>)Session["prescriptions"];
+
+            foreach (var prescription in prescriptions)
+            {
+                if (Equals(prescription.Name, id))
+                {
+                    return View(prescription);
+                }
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
