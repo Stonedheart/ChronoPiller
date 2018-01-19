@@ -49,5 +49,33 @@ namespace ChronoPiller.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public ActionResult MedicineDetails(string id)
+        {
+            return View("MedicineDetails", (object)id);
+        }
+
+        [HttpPost]
+        public ActionResult MedicineDetails(FormCollection form)
+        {
+            var name = form["name"];
+            var startUseDate = form["startUseDate"];
+            var interval = form["interval"];
+            var prescriptionId = form["prescriptionId"];
+
+            var medicine = new Medicine(name, DateTime.Parse(startUseDate), int.Parse(interval));
+            var prescriptions = (List<Prescription>) Session["prescriptions"];
+
+            foreach (var prescription in prescriptions)
+            {
+                if (prescription.Name == prescriptionId)
+                {
+                    prescription.Medicines.Add(medicine);
+                }
+            }
+
+            return RedirectToAction("PrescriptionDetails", "Home", new { id = prescriptionId });
+        }
     }
 }
