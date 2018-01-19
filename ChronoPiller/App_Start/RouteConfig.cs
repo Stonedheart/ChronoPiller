@@ -12,13 +12,7 @@ namespace ChronoPiller
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
-                name: "PrescriptionDetails",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "PrescriptionDetails", id = UrlParameter.Optional }
+                defaults: new {controller = "Home", action = "Index", id = UrlParameter.Optional}
             );
         }
     }
