@@ -11,7 +11,7 @@ function remind() {
     var dateString = (date.getDate()) + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
     $(
         $.ajax({
-            url: '/Home/Remind/',
+            url: '/Notification/Check',
             type: 'GET',
             data: {'clientDate': dateString},
             contentType: 'application/json',

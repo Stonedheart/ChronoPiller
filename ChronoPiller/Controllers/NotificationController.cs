@@ -10,7 +10,7 @@ namespace ChronoPiller.Controllers
     {
         
         [HttpGet]
-        public ActionResult Remind(string clientDate)
+        public ActionResult Check(string clientDate)
         {
             var date = new DateTime(2018, 1, 19);
             var dateString = $"{date.Day}.{date.Month}.{date.Year}";
