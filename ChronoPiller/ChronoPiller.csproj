@@ -53,9 +53,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Reminders\PushReminder.cs" />
     <Compile Include="Models\Medicine.cs" />
     <Compile Include="Models\Prescription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,6 +112,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\NotificationJS\RemindNotification.js" />
+    <Content Include="Scripts\NotificationJS\RequestNotification.js" />
     <Content Include="Scripts\NotificationJS\BrowserNotification.js" />
     <Content Include="Scripts\NotificationJS\yoda.jpg" />
     <Content Include="Scripts\popper-utils.js" />
