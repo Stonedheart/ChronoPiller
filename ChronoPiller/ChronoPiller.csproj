@@ -203,6 +203,8 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\AddPrescription.cshtml" />
+    <Content Include="Views\Home\MedicineDetails.cshtml" />
     <Content Include="Views\Home\PrescriptionDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
