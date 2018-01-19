@@ -1,23 +1,37 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿
+@model List<ChronoPiller.Models.Prescription>
+
+@{
+    ViewBag.Title = "Manage your prescriptions";
 }
 
-<div class="jumbotron">
-    <h1>Reminders test</h1>
-    <p>
-        <a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a>
-    </p>
-</div>
-<button id="remind">CLICK!</button>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            jw.
-        </p>
-        <p>
-            <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a>
-        </p>
-    </div>
+<div>
+    @Html.ActionLink("Add Prescription", "PrescriptionDetails", "Home")
+</div>
+
+
+<div>
+    @{
+        if (Equals(Model.Count, 0))
+        {
+            <div>
+                Here will display Your prescription list.
+            </div>
+        }
+        else
+        {
+            <div>
+                Your prescriptions
+                <ul>
+                    @foreach (var prescription in Model)
+                    {
+                        <li>
+                            @prescription.Name
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    }
 </div>
