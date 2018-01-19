@@ -11,6 +11,7 @@ namespace ChronoPiller.Models
         public Medicine(string name, DateTime startUseDate, int interval)
         {
             Name = name;
+            StartUseDate = startUseDate;
             Interval = interval;
         }
     }
