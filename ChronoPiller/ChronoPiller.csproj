@@ -57,6 +57,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Reminders\AbstractReminder.cs" />
     <Compile Include="Models\Reminders\PushReminder.cs" />
     <Compile Include="Models\Medicine.cs" />
     <Compile Include="Models\Prescription.cs" />
