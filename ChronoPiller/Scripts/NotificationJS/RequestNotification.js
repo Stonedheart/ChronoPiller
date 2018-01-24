@@ -4,23 +4,21 @@ var options = {
 };
 
 function checkForPermission() {
-    $(function () {
+    $(function() {
         if (Notification.permission === 'granted') {
             console.log('granted!');
 
         } else {
 
-            Notification.requestPermission().then(function (result) {
+            Notification.requestPermission().then(function(result) {
                 if (result === 'granted') {
                     var grantedNote = new Notification("Granted Now", options);
-                }
-                else {
+                } else {
 
-                    console.log("Failed")
+                    console.log("Failed");
                 }
-            })
+            });
         }
-    })
-
+    });
 }
 
