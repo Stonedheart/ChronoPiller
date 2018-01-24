@@ -6,10 +6,10 @@ namespace ChronoPiller.Models.Reminders
 {
     public abstract class AbstractReminder
     {
-        public Dictionary<string, int> PillsQuantity;
-        public DateTime Time;
+        public int UserId { get; set; }
+        public Dictionary<string, int> PillsQuantity { get; set; }
+        public DateTime Time { get; set; }
 
         public abstract void Send();
-
     }
 }
