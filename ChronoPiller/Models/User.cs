@@ -14,5 +14,11 @@ namespace ChronoPiller.Models
         public string Password { get; set; }
         [NotMapped]
         public List<Prescription> Prescriptions = new List<Prescription>();
+
+        public User(string login, string password)
+        {
+            Login = login;
+            Password = password;
+        }
     }
 }
