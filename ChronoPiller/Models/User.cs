@@ -4,13 +4,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChronoPiller.Models
 {
-    public class Medicine
+    public class User
     {
         [Key]
         public int Id { get; set; }
         [Required]
-        public string Name { get; set; }
+        public string Login { get; set; }
+        [Required]
+        public string Password { get; set; }
         [NotMapped]
-        public List<MedicineBox> MedicineBoxes { get; set; }
+        public List<Prescription> Prescriptions = new List<Prescription>();
     }
 }
