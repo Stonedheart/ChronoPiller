@@ -6,6 +6,13 @@ namespace ChronoPiller.Models
 {
     public class PrescriptedMedicine
     {
+        public PrescriptedMedicine(string name, DateTime start, int interval)
+        {
+            Name = name;
+            StartUsageDate = start;
+            Interval = interval;
+        }
+
         [Key]
         public int Id { get; set; }
         [NotMapped]

@@ -15,5 +15,10 @@ namespace ChronoPiller.Models
         [Required]
         public DateTime ExpirationDate { get; set; }
         public List<PrescriptedMedicine> Medicines = new List<PrescriptedMedicine>();
+
+        public Prescription(string name)
+        {
+            Name = name;
+        }
     }
 }

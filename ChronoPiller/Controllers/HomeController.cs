@@ -64,7 +64,7 @@ namespace ChronoPiller.Controllers
             var interval = form["interval"];
             var prescriptionId = form["prescriptionId"];
 
-            var medicine = new Medicine(name, DateTime.Parse(startUseDate), int.Parse(interval));
+            var medicine = new PrescriptedMedicine(name, DateTime.Parse(startUseDate), int.Parse(interval));
             var prescriptions = (List<Prescription>) Session["prescriptions"];
 
             foreach (var prescription in prescriptions)
