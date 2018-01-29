@@ -9,7 +9,9 @@ namespace ChronoPiller
     {
         public void Configuration(IAppBuilder app)
         {
-            GlobalConfiguration.Configuration.UseSqlServerStorage("MailerDb", new SqlServerStorageOptions()
+            GlobalConfiguration.Configuration.UseSqlServerStorage(
+                @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ChronoPiller.DAL.ChronoPillerDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
+                new SqlServerStorageOptions()
             {
                 QueuePollInterval = TimeSpan.FromSeconds(1)
             });
