@@ -8,6 +8,10 @@ namespace ChronoPiller.Controllers
 {
     public class NotificationController : Controller
     {
+        public void PrepareEmailTemplates()
+        {
+            
+        }
         
         [HttpGet]
         public ActionResult Check(string clientDate)
@@ -41,5 +45,6 @@ namespace ChronoPiller.Controllers
             };
             initClient.Send(mail);
         }
+
     }
 }

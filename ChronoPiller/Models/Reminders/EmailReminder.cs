@@ -4,10 +4,10 @@ namespace ChronoPiller.Models.Reminders
 {
     public class EmailReminder : Email
     {
-        public EmailReminder(string viewName, string to, string name) : base(viewName)
+        public EmailReminder(string viewName, string to, string Prescriptionname) : base(viewName)
         {
             To = to;
-            Name = name;
+            Name = Prescriptionname;
         }
 
         public string Name { get; set; }
