@@ -45,5 +45,14 @@ namespace ChronoPiller.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public ActionResult PrescriptionDetails(string id)
+        {
+            var dbContext = new ChronoPillerDB();
+            var prescription = dbContext.Prescriptions.FirstOrDefault(y => y.Name ==id);
+
+            return View(prescription);
+        }
     }
 }
