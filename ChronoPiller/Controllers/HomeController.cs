@@ -41,6 +41,7 @@ namespace ChronoPiller.Controllers
 
             var jobId = $"{prescription.Name}";
             var cronDailyAt12 = @"0 0 12 1/1 * ? *";
+
             RecurringJob.AddOrUpdate(jobId, () => NotificationController.SendEmail(reminderEmail), Cron.Daily);
             BackgroundJob.Enqueue(() => NotificationController.SendEmail(confirmationEmail));
 
