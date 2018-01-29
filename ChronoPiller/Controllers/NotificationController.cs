@@ -1,18 +1,26 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Web.Configuration;
+using System.Web.Hosting;
 using System.Web.Mvc;
+using Postal;
 
 namespace ChronoPiller.Controllers
 {
     public class NotificationController : Controller
     {
-        public void PrepareEmailTemplates()
+        public void PrepareEmailTemplates(Email email)
         {
-            
+            var viewsPath = Path.GetFullPath(HostingEnvironment.MapPath(@"~/Views/Emails"));
+            var engines = new ViewEngineCollection {new FileSystemRazorViewEngine(viewsPath)};
+
+            var mailService = new EmailService(engines);
+
+            mailService.Send(email);
         }
-        
+
         [HttpGet]
         public ActionResult Check(string clientDate)
         {
@@ -23,7 +31,7 @@ namespace ChronoPiller.Controllers
 
             return Json(res, JsonRequestBehavior.AllowGet);
         }
-        
+
         public void SendMail(string id = null)
         {
             var initClient =
@@ -45,6 +53,5 @@ namespace ChronoPiller.Controllers
             };
             initClient.Send(mail);
         }
-
     }
 }
