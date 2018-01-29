@@ -49,15 +49,22 @@ namespace ChronoPiller.Controllers
         public ActionResult PrescriptionDetails(string id)
         {
             var prescriptions = (List<Prescription>)Session["prescriptions"];
-
-            foreach (var prescription in prescriptions)
+            try
             {
-                if (Equals(prescription.Name, id))
+                foreach (var prescription in prescriptions)
                 {
-                    return View(prescription);
+                    if (Equals(prescription.Name, id))
+                    {
+                        return View(prescription);
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
             return RedirectToAction("Index");
+            
         }
 
         [HttpGet]
