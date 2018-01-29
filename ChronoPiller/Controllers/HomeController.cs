@@ -39,7 +39,7 @@ namespace ChronoPiller.Controllers
 
             var jobId = $"{prescription.Name}";
             var cronDailyAt12 = @"0 0 12 1/1 * ? *";
-            RecurringJob.AddOrUpdate(jobId, () => );
+            RecurringJob.AddOrUpdate(jobId, () => NotificationController.SendEmail(reminderEmail), cronDailyAt12);
             return RedirectToAction("Index");
         }
 
