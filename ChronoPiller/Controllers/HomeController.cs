@@ -16,7 +16,7 @@ namespace ChronoPiller.Controllers
                 Session["prescriptions"] = new List<Prescription>();
             }
 
-            return View((List<Prescription>)Session["prescriptions"]);
+            return View((List<Prescription>) Session["prescriptions"]);
         }
 
         [HttpGet]
@@ -32,11 +32,12 @@ namespace ChronoPiller.Controllers
             var userEmail = form["email"];
             var prescription = new Prescription(name);
 
+
             var prescriptions = (List<Prescription>) Session["prescriptions"];
             prescriptions.Add(prescription);
 
-            var reminderEmail = new EmailReminder("EmailReminder", "l.bielenin@gmail.com", prescription.Name);
-            var confirmationEmail = new EmailReminder("EmailConfirmation", "l.bielenin@gmail.com", prescription.Name);
+            var reminderEmail = new EmailReminder("EmailReminder", userEmail, prescription.Name);
+            var confirmationEmail = new EmailReminder("EmailConfirmation", userEmail, prescription.Name);
 
             var jobId = $"{prescription.Name}";
             var cronDailyAt12 = @"0 0 12 1/1 * ? *";
@@ -49,7 +50,7 @@ namespace ChronoPiller.Controllers
         [HttpGet]
         public ActionResult PrescriptionDetails(string id)
         {
-            var prescriptions = (List<Prescription>)Session["prescriptions"];
+            var prescriptions = (List<Prescription>) Session["prescriptions"];
             try
             {
                 foreach (var prescription in prescriptions)
@@ -65,13 +66,12 @@ namespace ChronoPiller.Controllers
                 System.Diagnostics.Debug.WriteLine(e);
             }
             return RedirectToAction("Index");
-            
         }
 
         [HttpGet]
         public ActionResult MedicineDetails(string id)
         {
-            return View("MedicineDetails", (object)id);
+            return View("MedicineDetails", (object) id);
         }
 
         [HttpPost]
@@ -93,7 +93,7 @@ namespace ChronoPiller.Controllers
                 }
             }
 
-            return RedirectToAction("PrescriptionDetails", "Home", new { id = prescriptionId });
+            return RedirectToAction("PrescriptionDetails", "Home", new {id = prescriptionId});
         }
     }
 }
