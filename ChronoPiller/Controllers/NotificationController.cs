@@ -11,7 +11,7 @@ namespace ChronoPiller.Controllers
 {
     public class NotificationController : Controller
     {
-        public void PrepareEmailTemplates(Email email)
+        public void SendEmail(Email email)
         {
             var viewsPath = Path.GetFullPath(HostingEnvironment.MapPath(@"~/Views/Emails"));
             var engines = new ViewEngineCollection {new FileSystemRazorViewEngine(viewsPath)};
