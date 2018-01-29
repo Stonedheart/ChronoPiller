@@ -62,6 +62,22 @@
     <Compile Include="Migrations\201801261339513_ModelsWithAnnotations.Designer.cs">
       <DependentUpon>201801261339513_ModelsWithAnnotations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801291101561_PrescriptionNameNotNull.cs" />
+    <Compile Include="Migrations\201801291101561_PrescriptionNameNotNull.Designer.cs">
+      <DependentUpon>201801291101561_PrescriptionNameNotNull.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801291123449_PrescriptionExpirationdateNullable.cs" />
+    <Compile Include="Migrations\201801291123449_PrescriptionExpirationdateNullable.Designer.cs">
+      <DependentUpon>201801291123449_PrescriptionExpirationdateNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801291127388_PrescriptionExpirationDateRemoved.cs" />
+    <Compile Include="Migrations\201801291127388_PrescriptionExpirationDateRemoved.Designer.cs">
+      <DependentUpon>201801291127388_PrescriptionExpirationDateRemoved.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801291132207_PrescriptionListOfMedicinesNotMapped.cs" />
+    <Compile Include="Migrations\201801291132207_PrescriptionListOfMedicinesNotMapped.Designer.cs">
+      <DependentUpon>201801291132207_PrescriptionListOfMedicinesNotMapped.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Medicine.cs" />
     <Compile Include="Models\MedicineBox.cs" />
@@ -245,6 +261,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201801261339513_ModelsWithAnnotations.resx">
       <DependentUpon>201801261339513_ModelsWithAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801291101561_PrescriptionNameNotNull.resx">
+      <DependentUpon>201801291101561_PrescriptionNameNotNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801291123449_PrescriptionExpirationdateNullable.resx">
+      <DependentUpon>201801291123449_PrescriptionExpirationdateNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801291127388_PrescriptionExpirationDateRemoved.resx">
+      <DependentUpon>201801291127388_PrescriptionExpirationDateRemoved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801291132207_PrescriptionListOfMedicinesNotMapped.resx">
+      <DependentUpon>201801291132207_PrescriptionListOfMedicinesNotMapped.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
