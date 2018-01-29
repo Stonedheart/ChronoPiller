@@ -35,11 +35,12 @@ namespace ChronoPiller.Controllers
             prescriptions.Add(prescription);
 
             var reminderEmail = new EmailReminder("EmailReminder", "l.bielenin@gmail.com", prescription.Name);
-//            var confirmationEmail = new EmailReminder("EmailReminder", "l.bielenin@gmail.com", prescription.Name);
+//            var confirmationEmail = new EmailReminder("EmailConfirmation", "l.bielenin@gmail.com", prescription.Name);
 
             var jobId = $"{prescription.Name}";
             var cronDailyAt12 = @"0 0 12 1/1 * ? *";
             RecurringJob.AddOrUpdate(jobId, () => NotificationController.SendEmail(reminderEmail), cronDailyAt12);
+
             return RedirectToAction("Index");
         }
 
