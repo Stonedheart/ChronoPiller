@@ -15,6 +15,7 @@ namespace ChronoPiller.Controllers
             user.Id = dbContext.Users.First().Id;
             user.Login = dbContext.Users.First().Login;
             user.Prescriptions = dbContext.Prescriptions.Select(x => x).ToList();
+            dbContext.Dispose();
 
             return View(user);
         }
@@ -42,6 +43,7 @@ namespace ChronoPiller.Controllers
             prescription.User = user;
             dbContext.Prescriptions.Add(prescription);
             dbContext.SaveChanges();
+            dbContext.Dispose();
 
             return RedirectToAction("Index");
         }
@@ -51,6 +53,10 @@ namespace ChronoPiller.Controllers
         {
             var dbContext = new ChronoPillerDB();
             var prescription = dbContext.Prescriptions.FirstOrDefault(y => y.Name ==id);
+            var prescriptedMedicines = dbContext.PrescriptedMedicines.Where(x => x.PrescriptionId == prescription.Id).ToList();
+
+            prescription.Medicines = prescriptedMedicines;
+            dbContext.Dispose();
 
             return View(prescription);
         }
