@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using ChronoPiller.Models;
+using ChronoPiller.Models.Reminders;
+using Hangfire;
 
 namespace ChronoPiller.Controllers
 {
@@ -32,6 +34,12 @@ namespace ChronoPiller.Controllers
             var prescriptions = (List<Prescription>) Session["prescriptions"];
             prescriptions.Add(prescription);
 
+            var reminderEmail = new EmailReminder("EmailReminder", "l.bielenin@gmail.com", prescription.Name);
+//            var confirmationEmail = new EmailReminder("EmailReminder", "l.bielenin@gmail.com", prescription.Name);
+
+            var jobId = $"{prescription.Name}";
+            var cronDailyAt12 = @"0 0 12 1/1 * ? *";
+            RecurringJob.AddOrUpdate(jobId, () => );
             return RedirectToAction("Index");
         }
 
