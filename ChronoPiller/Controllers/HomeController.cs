@@ -29,6 +29,7 @@ namespace ChronoPiller.Controllers
         public ActionResult AddPrescription(FormCollection form)
         {
             var name = form["name"];
+            var userEmail = form["email"];
             var prescription = new Prescription(name);
 
             var prescriptions = (List<Prescription>) Session["prescriptions"];
