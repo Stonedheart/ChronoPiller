@@ -9,8 +9,8 @@
 
 <div>
     @{
-        @Html.ActionLink("Add Med", "MedicineDetails", "Home", new {id = Model.Name}, null)
-        if (Equals(Model.Medicines.Count, 0))
+        @Html.ActionLink("Add Med", "MedicineDetails", "Home", new {id = Model.Id}, null)
+        if (Equals(Model.PrescriptedMedicines.Count, 0))
         {
             <div>
                 Here will display medicines list.
@@ -29,7 +29,7 @@
                                 Med Name
                             </th>
                             <th>
-                                StartUseDate
+                                StartUsageDate
                             </th>
                             <th>
                                 Pills/Day
@@ -37,7 +37,7 @@
                         </tr>
                     </thead>
                     @{
-                        foreach (var med in Model.Medicines)
+                        foreach (var med in Model.PrescriptedMedicines)
                         {
                             <tr>
                                 <td>
