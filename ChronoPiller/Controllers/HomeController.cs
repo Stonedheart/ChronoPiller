@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc;
 using ChronoPiller.DAL;
 using ChronoPiller.Models;
@@ -49,16 +53,84 @@ namespace ChronoPiller.Controllers
         }
 
         [HttpGet]
-        public ActionResult PrescriptionDetails(string id)
+        public ActionResult PrescriptionDetails(int id)
         {
             var dbContext = new ChronoPillerDB();
-            var prescription = dbContext.Prescriptions.FirstOrDefault(y => y.Name ==id);
-            var prescriptedMedicines = dbContext.PrescriptedMedicines.Where(x => x.PrescriptionId == prescription.Id).ToList();
+            var prescription = dbContext.Prescriptions.FirstOrDefault(y => y.Id == id);
+            var prescriptedMedicines = dbContext.PrescriptedMedicines
+                .Join(dbContext.MedicineBoxes,
+                    prescriptedMed => prescriptedMed.MedicineBoxId,
+                    medBox => medBox.Id,
+                    (prescriptedMed, medBox) => new {prescriptedMed, medBox})
+                .Join(dbContext.Medicines,
+                    medBox => medBox.medBox.MedicineId,
+                    med => med.Id,
+                    (medBox, med) => new {medBox, med})
+                .Select(x => new {
+                    Name = x.med.Name,
+                    StartUsageDate = x.medBox.prescriptedMed.StartUsageDate,
+                    PrescriptedBoxCount = x.medBox.prescriptedMed.PrescriptedBoxCount,
+                    Dose = x.medBox.prescriptedMed.Dose,
+                    Interval = x.medBox.prescriptedMed.Interval,
+                    PrescriptionId = x.medBox.prescriptedMed.PrescriptionId,
+                    MedicineBoxId = x.medBox.medBox.Id})
+                .AsEnumerable()
+                .Select(x => new PrescriptedMedicine {
+                    Name = x.Name,
+                    StartUsageDate = x.StartUsageDate,
+                    PrescriptedBoxCount = x.PrescriptedBoxCount,
+                    Dose = x.Dose,
+                    Interval = x.Interval,
+                    PrescriptionId = x.PrescriptionId,
+                    MedicineBoxId = x.MedicineBoxId})
+                .ToList();
 
-            prescription.Medicines = prescriptedMedicines;
+            prescription.PrescriptedMedicines = prescriptedMedicines;
             dbContext.Dispose();
 
             return View(prescription);
+        }
+
+        [HttpGet]
+        public ActionResult MedicineDetails(int id)
+        {
+            return View("MedicineDetails", id);
+        }
+
+        [HttpPost]
+        public ActionResult MedicineDetails(FormCollection form)
+        {
+            var name = form["name"];
+            var startUsageDate = form["startUsageDate"];
+            var interval = form["interval"];
+            var prescriptionId = form["prescriptionId"];
+            var dose = form["dose"];
+            var prescriptedBoxCount = form["prescriptedBoxCount"];
+            var activeSubstanceAmountInMg = form["activeSubstanceAmountInMg"];
+            var medicineBoxCapacity = form["medicineBoxCapacity"];
+
+            var dbContext = new ChronoPillerDB();
+
+            var medicine = new Medicine(name);
+            dbContext.Medicines.Add(medicine);
+            dbContext.SaveChanges();
+
+
+            var medicineId = dbContext.Medicines.FirstOrDefault(x => x.Name == medicine.Name).Id;
+            var medicineBox = new MedicineBox(medicineId, int.Parse(medicineBoxCapacity),
+                float.Parse(activeSubstanceAmountInMg));
+            dbContext.MedicineBoxes.Add(medicineBox);
+            dbContext.SaveChanges();
+
+            var medicineBoxId = dbContext.MedicineBoxes.FirstOrDefault(x => x.MedicineId == medicineId).Id;
+            var prescriptedMedicine = new PrescriptedMedicine(name, DateTime.Parse(startUsageDate),
+                int.Parse(prescriptedBoxCount), int.Parse(dose), int.Parse(interval), int.Parse(prescriptionId),
+                medicineBoxId);
+            dbContext.PrescriptedMedicines.Add(prescriptedMedicine);
+            dbContext.SaveChanges();
+            dbContext.Dispose();
+
+            return RedirectToAction("PrescriptionDetails", "Home", new {id = int.Parse(prescriptionId)});
         }
     }
 }
