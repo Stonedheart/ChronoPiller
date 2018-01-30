@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc;
 using ChronoPiller.DAL;
 using ChronoPiller.Models;
@@ -67,6 +63,7 @@ namespace ChronoPiller.Controllers
                     med => med.Id,
                     (medBox, med) => new {medBox, med})
                 .Select(x => new {
+                    Id = x.medBox.prescriptedMed.Id,
                     Name = x.med.Name,
                     StartUsageDate = x.medBox.prescriptedMed.StartUsageDate,
                     PrescriptedBoxCount = x.medBox.prescriptedMed.PrescriptedBoxCount,
@@ -76,6 +73,7 @@ namespace ChronoPiller.Controllers
                     MedicineBoxId = x.medBox.medBox.Id})
                 .AsEnumerable()
                 .Select(x => new PrescriptedMedicine {
+                    Id = x.Id,
                     Name = x.Name,
                     StartUsageDate = x.StartUsageDate,
                     PrescriptedBoxCount = x.PrescriptedBoxCount,
@@ -83,6 +81,7 @@ namespace ChronoPiller.Controllers
                     Interval = x.Interval,
                     PrescriptionId = x.PrescriptionId,
                     MedicineBoxId = x.MedicineBoxId})
+                .Where(x=> x.PrescriptionId == id)
                 .ToList();
 
             prescription.PrescriptedMedicines = prescriptedMedicines;
