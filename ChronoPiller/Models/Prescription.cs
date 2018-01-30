@@ -26,16 +26,5 @@ namespace ChronoPiller.Models
             Name = name;
             DateOfIssue = dateOfIssue;
         }
-
-//        public void SetPrescriptedMedicineList(List<object> listToConvert)
-//        {
-//            var prescriptedMedList = new List<PrescriptedMedicine>();
-//
-//            foreach (var prescriptedMed in listToConvert)
-//            {
-//                prescriptedMedList.Add(
-//                    new PrescriptedMedicine(prescriptedMed.Name, prescriptedMed.StartUsageDate, prescriptedMed.PrescriptedBoxCount, prescriptedMed.Dose, prescriptedMed.);
-//            }
-//        }
     }
 }
