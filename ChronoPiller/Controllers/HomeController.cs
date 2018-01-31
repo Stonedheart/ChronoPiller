@@ -28,6 +28,11 @@ namespace ChronoPiller.Controllers
         [HttpPost]
         public ActionResult AddPrescription(FormCollection form)
         {
+            if (Session["prescriptions"] == null)
+            {
+                Session["prescriptions"] = new List<Prescription>();
+            }
+
             var name = form["name"];
             var userEmail = form["email"];
             var prescription = new Prescription(name);
@@ -36,13 +41,26 @@ namespace ChronoPiller.Controllers
             var prescriptions = (List<Prescription>) Session["prescriptions"];
             prescriptions.Add(prescription);
 
-            var reminderEmail = new EmailReminder("EmailReminder", userEmail, prescription.Name);
-            var confirmationEmail = new EmailReminder("EmailConfirmation", userEmail, prescription.Name);
+            var reminderEmail = new EmailReminder
+            {
+                To = userEmail,
+                Name = prescription.Name,
+                ViewName = "EmailReminder"
+            };
+            var confirmationEmail = new EmailReminder
+            {
+                To = userEmail,
+                Name = prescription.Name,
+                ViewName = "EmailConfirmation"
+            }; 
 
             var jobId = $"{prescription.Name}";
             var cronDailyAt12 = @"0 0 12 1/1 * ? *";
 
-            RecurringJob.AddOrUpdate(jobId, () => NotificationController.SendEmail(reminderEmail), Cron.Daily);
+            RecurringJob.AddOrUpdate(() => System.Diagnostics.Debug.WriteLine("co jakis czas cokolwiek"), Cron.Minutely);
+                
+
+            RecurringJob.AddOrUpdate(() => NotificationController.SendMail("dupadupa"), Cron.Minutely);
             BackgroundJob.Enqueue(() => NotificationController.SendEmail(confirmationEmail));
 
             return RedirectToAction("Index");
