@@ -12,5 +12,20 @@ namespace ChronoPiller.Models
         public string Name { get; set; }
         [NotMapped]
         public List<MedicineBox> MedicineBoxes { get; set; }
+
+        public Medicine(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public Medicine(string name)
+        {
+            Name = name;
+        }
+
+        public Medicine()
+        {
+        }
     }
 }

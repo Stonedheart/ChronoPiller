@@ -15,7 +15,7 @@ namespace ChronoPiller.Models
         [Required]
         public DateTime DateOfIssue { get; set; }
         [NotMapped]
-        public List<PrescriptedMedicine> Medicines { get; set; }
+        public List<PrescriptedMedicine> PrescriptedMedicines { get; set; }
 
         public Prescription()
         {
@@ -26,6 +26,5 @@ namespace ChronoPiller.Models
             Name = name;
             DateOfIssue = dateOfIssue;
         }
-
     }
 }
