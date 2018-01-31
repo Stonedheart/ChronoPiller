@@ -17,5 +17,17 @@ namespace ChronoPiller.Models
         public float ActiveSubstanceAmountInMg { get; set; }
         [NotMapped]
         public List<PrescriptedMedicine> OccurancesOnPrescriptions { get; set; }
+
+        public MedicineBox(int medicineId, int capacity, float activeSubstanceAmountInMg)
+        {
+            MedicineId = medicineId;
+            Capacity = capacity;
+            ActiveSubstanceAmountInMg = activeSubstanceAmountInMg;
+        }
+
+        public MedicineBox()
+        {
+            
+        }
     }
 }

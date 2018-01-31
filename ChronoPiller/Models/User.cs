@@ -13,6 +13,16 @@ namespace ChronoPiller.Models
         [Required]
         public string Password { get; set; }
         [NotMapped]
-        public List<Prescription> Prescriptions = new List<Prescription>();
+        public List<Prescription> Prescriptions { get; set; }
+
+        public User()
+        {
+        }
+
+        public User(string login, string password)
+        {
+            Login = login;
+            Password = password;
+        }
     }
 }

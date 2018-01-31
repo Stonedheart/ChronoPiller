@@ -1,8 +1,12 @@
-﻿@model List<ChronoPiller.Models.Prescription>
+﻿@model ChronoPiller.Models.User
 
 @{
     ViewBag.Title = "Manage your prescriptions";
 }
+
+<div>
+    <h2>Hello @Model.Login organize Your prescriptions</h2>
+</div>
 
 <div>
     @Html.ActionLink("Add Prescription", "AddPrescription", "Home")
@@ -10,7 +14,7 @@
 
 <div>
     @{
-        if (Equals(Model.Count, 0))
+        if (Equals(Model.Prescriptions.Count, 0))
         {
             <div>
                 Here will display Your prescription list.
@@ -24,23 +28,23 @@
             <div>
                 <table class="table table-striped">
                     <thead>
-                        <tr>
-                            <th>
-                                Prescription Name
-                            </th>
-                            <th>
-                            </th>
-                        </tr>
+                    <tr>
+                        <th>
+                            Prescription Name
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
                     </thead>
                     @{
-                        foreach (var prescription in Model)
+                        foreach (var prescription in Model.Prescriptions)
                         {
                             <tr>
                                 <td>
                                     @prescription.Name
                                 </td>
                                 <td>
-                                    @Html.ActionLink("View", "PrescriptionDetails", "Home", new { id = prescription.Name }, null)
+                                    @Html.ActionLink("View", "PrescriptionDetails", "Home", new {id = prescription.Id}, null)
                                 </td>
                             </tr>
                         }

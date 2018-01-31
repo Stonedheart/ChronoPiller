@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using ChronoPiller.DAL;
 using ChronoPiller.Models;
-using ChronoPiller.Models.Reminders;
-using Hangfire;
 
 namespace ChronoPiller.Controllers
 {
@@ -11,12 +10,14 @@ namespace ChronoPiller.Controllers
     {
         public ActionResult Index()
         {
-            if (Session["prescriptions"] == null)
-            {
-                Session["prescriptions"] = new List<Prescription>();
-            }
+            var dbContext = new ChronoPillerDB();
+            var user = dbContext.Users.First();
+            user.Id = dbContext.Users.First().Id;
+            user.Login = dbContext.Users.First().Login;
+            user.Prescriptions = dbContext.Prescriptions.Select(x => x).ToList();
+            dbContext.Dispose();
 
-            return View((List<Prescription>) Session["prescriptions"]);
+            return View(user);
         }
 
         [HttpGet]
@@ -28,91 +29,107 @@ namespace ChronoPiller.Controllers
         [HttpPost]
         public ActionResult AddPrescription(FormCollection form)
         {
-            if (Session["prescriptions"] == null)
-            {
-                Session["prescriptions"] = new List<Prescription>();
-            }
-
             var name = form["name"];
-            var userEmail = form["email"];
-            var prescription = new Prescription(name);
+            var dateOfIssue = form["dateOfIssue"];
+            var prescription = new Prescription(name, DateTime.Parse(dateOfIssue));
 
+            var dbContext = new ChronoPillerDB();
 
-            var prescriptions = (List<Prescription>) Session["prescriptions"];
-            prescriptions.Add(prescription);
+            var user = dbContext.Users.First();
+            user.Id = dbContext.Users.First().Id;
+            user.Prescriptions = dbContext.Prescriptions.Select(x => x).ToList();
+            user.Prescriptions.Add(prescription);
 
-            var reminderEmail = new EmailReminder
-            {
-                To = userEmail,
-                Name = prescription.Name,
-                ViewName = "EmailReminder"
-            };
-            var confirmationEmail = new EmailReminder
-            {
-                To = userEmail,
-                Name = prescription.Name,
-                ViewName = "EmailConfirmation"
-            }; 
-
-            var jobId = $"{prescription.Name}";
-            var cronDailyAt12 = @"0 0 12 1/1 * ? *";
-
-            RecurringJob.AddOrUpdate(() => System.Diagnostics.Debug.WriteLine("co jakis czas cokolwiek"), Cron.Minutely);
-                
-
-            RecurringJob.AddOrUpdate(() => NotificationController.SendMail("dupadupa"), Cron.Minutely);
-            BackgroundJob.Enqueue(() => NotificationController.SendEmail(confirmationEmail));
+            prescription.User = user;
+            dbContext.Prescriptions.Add(prescription);
+            dbContext.SaveChanges();
+            dbContext.Dispose();
 
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public ActionResult PrescriptionDetails(string id)
+        public ActionResult PrescriptionDetails(int id)
         {
-            var prescriptions = (List<Prescription>) Session["prescriptions"];
-            try
-            {
-                foreach (var prescription in prescriptions)
-                {
-                    if (Equals(prescription.Name, id))
-                    {
-                        return View(prescription);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine(e);
-            }
-            return RedirectToAction("Index");
+            var dbContext = new ChronoPillerDB();
+            var prescription = dbContext.Prescriptions.FirstOrDefault(y => y.Id == id);
+            var prescriptedMedicines = dbContext.PrescriptedMedicines
+                .Join(dbContext.MedicineBoxes,
+                    prescriptedMed => prescriptedMed.MedicineBoxId,
+                    medBox => medBox.Id,
+                    (prescriptedMed, medBox) => new {prescriptedMed, medBox})
+                .Join(dbContext.Medicines,
+                    medBox => medBox.medBox.MedicineId,
+                    med => med.Id,
+                    (medBox, med) => new {medBox, med})
+                .Select(x => new {
+                    Id = x.medBox.prescriptedMed.Id,
+                    Name = x.med.Name,
+                    StartUsageDate = x.medBox.prescriptedMed.StartUsageDate,
+                    PrescriptedBoxCount = x.medBox.prescriptedMed.PrescriptedBoxCount,
+                    Dose = x.medBox.prescriptedMed.Dose,
+                    Interval = x.medBox.prescriptedMed.Interval,
+                    PrescriptionId = x.medBox.prescriptedMed.PrescriptionId,
+                    MedicineBoxId = x.medBox.medBox.Id})
+                .AsEnumerable()
+                .Select(x => new PrescriptedMedicine {
+                    Id = x.Id,
+                    Name = x.Name,
+                    StartUsageDate = x.StartUsageDate,
+                    PrescriptedBoxCount = x.PrescriptedBoxCount,
+                    Dose = x.Dose,
+                    Interval = x.Interval,
+                    PrescriptionId = x.PrescriptionId,
+                    MedicineBoxId = x.MedicineBoxId})
+                .Where(x=> x.PrescriptionId == id)
+                .ToList();
+
+            prescription.PrescriptedMedicines = prescriptedMedicines;
+            dbContext.Dispose();
+
+            return View(prescription);
         }
 
         [HttpGet]
-        public ActionResult MedicineDetails(string id)
+        public ActionResult MedicineDetails(int id)
         {
-            return View("MedicineDetails", (object) id);
+            return View("MedicineDetails", id);
         }
 
         [HttpPost]
         public ActionResult MedicineDetails(FormCollection form)
         {
             var name = form["name"];
-            var startUseDate = form["startUseDate"];
+            var startUsageDate = form["startUsageDate"];
             var interval = form["interval"];
             var prescriptionId = form["prescriptionId"];
+            var dose = form["dose"];
+            var prescriptedBoxCount = form["prescriptedBoxCount"];
+            var activeSubstanceAmountInMg = form["activeSubstanceAmountInMg"];
+            var medicineBoxCapacity = form["medicineBoxCapacity"];
 
-            var medicine = new PrescriptedMedicine(name, DateTime.Parse(startUseDate), int.Parse(interval));
-            var prescriptions = (List<Prescription>) Session["prescriptions"];
+            var dbContext = new ChronoPillerDB();
 
-            foreach (var prescription in prescriptions)
-            {
-                if (prescription.Name == prescriptionId)
-                {
-                    prescription.Medicines.Add(medicine);
-                }
-            }
+            var medicine = new Medicine(name);
+            dbContext.Medicines.Add(medicine);
+            dbContext.SaveChanges();
 
-            return RedirectToAction("PrescriptionDetails", "Home", new {id = prescriptionId});
+
+            var medicineId = dbContext.Medicines.FirstOrDefault(x => x.Name == medicine.Name).Id;
+            var medicineBox = new MedicineBox(medicineId, int.Parse(medicineBoxCapacity),
+                float.Parse(activeSubstanceAmountInMg));
+            dbContext.MedicineBoxes.Add(medicineBox);
+            dbContext.SaveChanges();
+
+            var medicineBoxId = dbContext.MedicineBoxes.FirstOrDefault(x => x.MedicineId == medicineId).Id;
+            var prescriptedMedicine = new PrescriptedMedicine(name, DateTime.Parse(startUsageDate),
+                int.Parse(prescriptedBoxCount), int.Parse(dose), int.Parse(interval), int.Parse(prescriptionId),
+                medicineBoxId);
+            dbContext.PrescriptedMedicines.Add(prescriptedMedicine);
+            dbContext.SaveChanges();
+            dbContext.Dispose();
+
+            return RedirectToAction("PrescriptionDetails", "Home", new {id = int.Parse(prescriptionId)});
         }
     }
 }

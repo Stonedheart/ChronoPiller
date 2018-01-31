@@ -31,5 +31,21 @@ namespace ChronoPiller.Models
         [ForeignKey("MedicineBox")]
         public int MedicineBoxId { get; set; }
         public MedicineBox MedicineBox { get; set; }
+
+        public PrescriptedMedicine(string name, DateTime startUsageDate, int prescriptedBoxCount, int dose, int interval, int prescriptionId, int medicineBoxId)
+        {
+            Name = name;
+            StartUsageDate = startUsageDate;
+            PrescriptedBoxCount = prescriptedBoxCount;
+            Dose = dose;
+            Interval = interval;
+            PrescriptionId = prescriptionId;
+            MedicineBoxId = medicineBoxId;
+        }
+
+        public PrescriptedMedicine()
+        {
+            
+        }
     }
 }

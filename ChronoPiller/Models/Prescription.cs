@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChronoPiller.Models
 {
@@ -8,17 +9,22 @@ namespace ChronoPiller.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
         public User User { get; set; }
         [Required]
         public DateTime DateOfIssue { get; set; }
-        [Required]
-        public DateTime ExpirationDate { get; set; }
-        public List<PrescriptedMedicine> Medicines = new List<PrescriptedMedicine>();
+        [NotMapped]
+        public List<PrescriptedMedicine> PrescriptedMedicines { get; set; }
 
-        public Prescription(string name)
+        public Prescription()
+        {
+        }
+
+        public Prescription(string name, DateTime dateOfIssue)
         {
             Name = name;
+            DateOfIssue = dateOfIssue;
         }
     }
 }
