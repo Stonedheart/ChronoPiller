@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using ChronoPiller.DAL;
+using ChronoPiller.Models;
 
 namespace ChronoPiller.Controllers
 {
@@ -10,21 +10,40 @@ namespace ChronoPiller.Controllers
     {
         public ActionResult Index()
         {
+            var dbContext = new ChronoPillerDB();
+            var user = dbContext.Users.First();
+            user.Id = dbContext.Users.First().Id;
+            user.Login = dbContext.Users.First().Login;
+            user.Prescriptions = dbContext.Prescriptions.Select(x => x).ToList();
+
+            return View(user);
+        }
+
+        [HttpGet]
+        public ActionResult AddPrescription()
+        {
             return View();
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult AddPrescription(FormCollection form)
         {
-            ViewBag.Message = "Your application description page.";
+            var name = form["name"];
+            var dateOfIssue = form["dateOfIssue"];
+            var prescription = new Prescription(name, DateTime.Parse(dateOfIssue));
 
-            return View();
-        }
+            var dbContext = new ChronoPillerDB();
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+            var user = dbContext.Users.First();
+            user.Id = dbContext.Users.First().Id;
+            user.Prescriptions = dbContext.Prescriptions.Select(x => x).ToList();
+            user.Prescriptions.Add(prescription);
 
-            return View();
+            prescription.User = user;
+            dbContext.Prescriptions.Add(prescription);
+            dbContext.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }

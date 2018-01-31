@@ -1,31 +1,56 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model ChronoPiller.Models.User
+
+@{
+    ViewBag.Title = "Manage your prescriptions";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div>
+    <h2>Hello @Model.Login organize Your prescriptions</h2>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+<div>
+    @Html.ActionLink("Add Prescription", "AddPrescription", "Home")
+</div>
+
+<div>
+    @{
+        if (Equals(Model.Prescriptions.Count, 0))
+        {
+            <div>
+                Here will display Your prescription list.
+            </div>
+        }
+        else
+        {
+            <div>
+                Your prescriptions
+            </div>
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            Prescription Name
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                    </thead>
+                    @{
+                        foreach (var prescription in Model.Prescriptions)
+                        {
+                            <tr>
+                                <td>
+                                    @prescription.Name
+                                </td>
+                                <td>
+                                    @Html.ActionLink("View", "PrescriptionDetails", "Home", new {id = prescription.Name}, null)
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        }
+    }
 </div>

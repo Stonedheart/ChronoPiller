@@ -1,0 +1,59 @@
+﻿@model ChronoPiller.Models.Prescription
+
+@{
+    ViewBag.Title = "title";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+
+<div>
+    @{
+        @Html.ActionLink("Add Med", "MedicineDetails", "Home", new {id = Model.Name}, null)
+        if (Equals(Model.Medicines.Count, 0))
+        {
+            <div>
+                Here will display medicines list.
+            </div>
+        }
+        else
+        {
+            <div>
+                Meds on this prescription
+            </div>
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Med Name
+                            </th>
+                            <th>
+                                StartUseDate
+                            </th>
+                            <th>
+                                Pills/Day
+                            </th>
+                        </tr>
+                    </thead>
+                    @{
+                        foreach (var med in Model.Medicines)
+                        {
+                            <tr>
+                                <td>
+                                    @med.Name
+                                </td>
+                                <td>
+                                    @med.StartUsageDate
+                                </td>
+                                <td>
+                                    @med.Interval
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        }
+    }
+</div>

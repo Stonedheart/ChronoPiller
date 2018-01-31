@@ -1,11 +1,21 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+
+
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-3.2.1.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    @Styles.Render("~/Content/bootstrap.css")
+    @Scripts.Render("~/Scripts/modernizr-2.6.2.js")
+    <script src="@Url.Content("~/Scripts/bootstrap.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.bundle.js")"></script>
+    <script src="@Url.Content("~/Scripts/NotificationJS/BrowserNotification.js")"></script>
+    <script>checkForPermission()</script>
+    <script>remind()</script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -35,8 +45,8 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+@*    @Scripts.Render("~/bundles/jquery")*@
+@*    @Scripts.Render("~/bundles/bootstrap")*@
+@*    @RenderSection("scripts", required: false)*@
 </body>
 </html>

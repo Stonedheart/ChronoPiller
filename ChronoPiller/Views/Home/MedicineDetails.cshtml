@@ -1,0 +1,19 @@
+﻿@model string
+
+@{
+    ViewBag.Title = "title";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<h2>Provide medicine details</h2>
+<h4>@Model</h4>
+
+<div>
+    <form method="post">
+        Name <input name="name"/><br/>
+        When You should start taking dose<input name="startUseDate" type="date"/><br/>   
+        Pills/Day <input name="interval" type="number"/><br/>
+        <input type="hidden" name="prescriptionId" value="@Model" />
+        <input type="submit" text="Add Med"/>
+    </form>
+</div>
