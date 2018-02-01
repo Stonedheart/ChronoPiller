@@ -79,6 +79,7 @@
       <DependentUpon>201801291132207_PrescriptionListOfMedicinesNotMapped.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DefaultEmailClient.cs" />
     <Compile Include="Models\Medicine.cs" />
     <Compile Include="Models\MedicineBox.cs" />
     <Compile Include="Models\Reminders\EmailReminder.cs" />
