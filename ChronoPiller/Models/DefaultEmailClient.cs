@@ -5,17 +5,19 @@ namespace ChronoPiller.Models
 {
     public class DefaultEmailClient : SmtpClient
     {
-        private const string Host = "smtp.gmail.com";
-        private const int Port = 587;
-        private const bool EnableSsl = true;
-        public int Timeout = 20000;
-        private const SmtpDeliveryMethod DeliveryMethod = SmtpDeliveryMethod.Network;
-        private const bool UseDefaultCredentials = false;
-        public NetworkCredential Credentials;
 
-        public DefaultEmailClient(string defaultName, string defaultPassword)
+
+        public DefaultEmailClient(string name, string pass)
         {
-            Credentials = new NetworkCredential(defaultName, defaultPassword);
+
+            Host = "smtp.gmail.com";
+            Port = 587;
+            EnableSsl = true;
+            Timeout = 20000;
+            DeliveryMethod = SmtpDeliveryMethod.Network;
+            UseDefaultCredentials = false;
+            Credentials = new NetworkCredential(name, pass);
+
         }
     }
 }
