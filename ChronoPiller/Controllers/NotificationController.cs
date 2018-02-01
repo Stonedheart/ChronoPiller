@@ -6,11 +6,14 @@ using System.Web.Configuration;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using ChronoPiller.DAL;
+using ChronoPiller.Models;
 
 namespace ChronoPiller.Controllers
 {
     public class NotificationController : Controller
     {
+        public static DefaultEmailClient EmailClient = new DefaultEmailClient("l.bielenin@gmail.com", "WildCat217666");
+
         [HttpGet]
         public ActionResult Check(string clientDate)
         {
@@ -22,26 +25,14 @@ namespace ChronoPiller.Controllers
             return Json(res, JsonRequestBehavior.AllowGet);
         }
 
-        public static void SendMail(string id = null)
+        public static void SendMail()
         {
-            var initClient =
-                new SmtpClient
-                {
-                    Host = "smtp.gmail.com",
-                    Port = 587,
-                    EnableSsl = true,
-                    Timeout = 20000,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("l.bielenin@gmail.com",
-                        "WildCat217666"),
-                };
             var mail = new MailMessage("l.bielenin@gmail.com", "l.bielenin@gmail.com")
             {
-                Subject = "A ZNOWU dziala przez ajax?",
-                Body = (id != null) ? "Your message is: " + id : "Your message is null"
+                Subject = "Dupadupa",
+                Body = "coś innego"
             };
-            initClient.Send(mail);
+            EmailClient.Send(mail);
         }
     }
 }
