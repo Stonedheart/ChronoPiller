@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
-using Postal;
 
 namespace ChronoPiller.Models.Reminders
 {
-    public class EmailReminder : Email
+    public class EmailReminder
     {
         public string Name { get; set; }
 

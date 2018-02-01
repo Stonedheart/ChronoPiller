@@ -6,23 +6,11 @@ using System.Web.Configuration;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using ChronoPiller.DAL;
-using Postal;
 
 namespace ChronoPiller.Controllers
 {
     public class NotificationController : Controller
     {
-        public static void SendEmail(Email email)
-        {
-            var viewsPath = Path.GetFullPath(HostingEnvironment.MapPath(@"~/Views/Emails"));
-            var engines = new ViewEngineCollection();
-            engines.Add(new FileSystemRazorViewEngine(viewsPath));
-
-            var mailService = new EmailService(engines);
-
-            mailService.Send(email);
-        }
-
         [HttpGet]
         public ActionResult Check(string clientDate)
         {
