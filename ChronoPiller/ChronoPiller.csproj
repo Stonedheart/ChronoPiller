@@ -82,7 +82,7 @@
     <Compile Include="Models\DefaultEmailClient.cs" />
     <Compile Include="Models\Medicine.cs" />
     <Compile Include="Models\MedicineBox.cs" />
-    <Compile Include="Models\Reminders\EmailReminder.cs" />
+    <Compile Include="Models\Reminders\EmailFactory.cs" />
     <Compile Include="Models\Reminders\PushReminder.cs" />
     <Compile Include="Models\PrescriptedMedicine.cs" />
     <Compile Include="Models\Prescription.cs" />

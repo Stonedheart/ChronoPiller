@@ -2,7 +2,7 @@
 
 namespace ChronoPiller.Models.Reminders
 {
-    public class EmailReminder : MailMessage
+    public class EmailFactory
     {
         public static MailMessage GetEmailReminder(Prescription prescription)
         {
