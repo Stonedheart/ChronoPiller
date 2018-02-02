@@ -14,8 +14,8 @@ namespace ChronoPiller.Controllers
 {
     public class NotificationController : Controller
     {
-        public static readonly string _mailName = MailSettingsSectionGroup["userName"];
-        public static readonly string _mailPassword = MailSettingsSectionGroup["password"];
+        public static readonly string _mailName = "chronopiller@gmail.com";
+        public static readonly string _mailPassword = "dupadupadupa";
 
         public static DefaultEmailClient EmailClient =
             new DefaultEmailClient(_mailName, _mailPassword);
@@ -33,12 +33,10 @@ namespace ChronoPiller.Controllers
 
         public static void SendMail()
         {
-            Debug.WriteLine("NAME: " + _mailName);
-            Debug.WriteLine("PASS: " + _mailPassword);
-            var mail = new MailMessage("l.bielenin@gmail.com", "l.bielenin@gmail.com")
+            var mail = new MailMessage("chrono@piller.com", "l.bielenin@gmail.com")
             {
-                Subject = "Dupadupa",
-                Body = "coś innego"
+                Subject = "Tak yo pill",
+                Body = "It is a high time to take your prescripted medicine!"
             };
             EmailClient.Send(mail);
         }
