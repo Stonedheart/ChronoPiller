@@ -9,6 +9,7 @@ using System.Web.Hosting;
 using System.Web.Mvc;
 using ChronoPiller.DAL;
 using ChronoPiller.Models;
+using ChronoPiller.Models.Reminders;
 
 namespace ChronoPiller.Controllers
 {
@@ -39,6 +40,13 @@ namespace ChronoPiller.Controllers
                 Body = "It is a high time to take your prescripted medicine!"
             };
             EmailClient.Send(mail);
+        }
+
+        public static void SendConfirmation(Prescription prescription)
+        {
+            var mail = EmailFactory.GetEmailConfirmation(prescription);
+            EmailClient.Send(mail);
+
         }
     }
 }
