@@ -1,4 +1,5 @@
 ﻿using System.Net.Mail;
+using System.Text;
 
 namespace ChronoPiller.Models.Reminders
 {
@@ -6,14 +7,16 @@ namespace ChronoPiller.Models.Reminders
     {
         public static MailMessage GetEmailReminder(Prescription prescription)
         {
+            var sb = new StringBuilder();
+            prescription.PrescriptedMedicines.ForEach(x => sb.Append(x.Name + ", "));
+
             var email = new MailMessage("chrono@piller.com", "chronopiller@gmail.com");
             email.Subject = "Take your daily dose!";
             email.Body = $"Hello there!\n\n" +
                          $"Your friendly neighbourhood ChronoPiller would like to remind you about " +
-                         $"your daily dose of {prescription.PrescriptedMedicines} from prescription {prescription.Name}!\n\n" +
+                         $"your daily dose of {sb} from prescription {prescription.Name}!\n\n" +
                          $"Take it or You'll be sorry!\n\n" +
                          $"Cheers!";
-
             return email;
         }
 
