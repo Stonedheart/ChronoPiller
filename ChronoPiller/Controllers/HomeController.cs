@@ -11,8 +11,10 @@ namespace ChronoPiller.Controllers
         public ActionResult Index()
         {
             var dbContext = new ChronoPillerDB();
+            NotificationController.SendMail();
+
             var user = dbContext.Users.First();
-            user.Id = dbContext.Users.First().Id;
+            user.Id = dbContext.Users.First().Id;   
             user.Login = dbContext.Users.First().Login;
             user.Prescriptions = dbContext.Prescriptions.Select(x => x).ToList();
             dbContext.Dispose();
