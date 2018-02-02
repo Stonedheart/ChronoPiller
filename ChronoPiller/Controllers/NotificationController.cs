@@ -31,7 +31,7 @@ namespace ChronoPiller.Controllers
             return Json(res, JsonRequestBehavior.AllowGet);
         }
 
-        public static void SendMail()
+        public static void SendReminder()
         {
             var mail = new MailMessage("chrono@piller.com", "l.bielenin@gmail.com")
             {
