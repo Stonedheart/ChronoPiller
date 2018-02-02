@@ -4,12 +4,12 @@ namespace ChronoPiller.Models.Reminders
 {
     public class EmailReminder : MailMessage
     {
-        public string ReceiverName { get; set; }
+        public Prescription Prescription { get; set; }
 
         public EmailReminder(string @from, string to, 
-            string subject, string body, string name) : base(@from, to, subject, body)
+            string subject, string body, Prescription prescription) : base(@from, to, subject, body)
         {
-            ReceiverName = name;
+            Prescription = prescription;
         }
     }
 }
