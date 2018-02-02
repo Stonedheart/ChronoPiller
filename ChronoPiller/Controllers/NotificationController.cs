@@ -32,13 +32,9 @@ namespace ChronoPiller.Controllers
             return Json(res, JsonRequestBehavior.AllowGet);
         }
 
-        public static void SendReminder()
+        public static void SendReminder(Prescription prescription)
         {
-            var mail = new MailMessage("chrono@piller.com", "l.bielenin@gmail.com")
-            {
-                Subject = "Tak yo pill",
-                Body = "It is a high time to take your prescripted medicine!"
-            };
+            var mail = EmailFactory.GetEmailReminder(prescription);
             EmailClient.Send(mail);
         }
 
