@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security.Claims;
+using System.Web.Helpers;
 using Hangfire;
 using Hangfire.SqlServer;
 using Microsoft.Owin.Security.Cookies;
@@ -37,9 +39,11 @@ namespace ChronoPiller
 
             // Hardcoded for now 
 
-            app.UseGoogleAuthentication(
-                clientId: "sijfnoejnio",
-                clientSecret: "jmpfoaejfaef");
+//            app.UseGoogleAuthentication(
+//                clientId: "sijfnoejnio",
+//                clientSecret: "jmpfoaejfaef");
+
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
         }
     }
 }
