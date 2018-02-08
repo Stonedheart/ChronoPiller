@@ -82,6 +82,14 @@
     <Compile Include="Migrations\201802021517017_DeleteRecurringUser.Designer.cs">
       <DependentUpon>201802021517017_DeleteRecurringUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802081408450_Add-User-Auth.cs" />
+    <Compile Include="Migrations\201802081408450_Add-User-Auth.Designer.cs">
+      <DependentUpon>201802081408450_Add-User-Auth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802081442557_Delete-Redundant-Columns.cs" />
+    <Compile Include="Migrations\201802081442557_Delete-Redundant-Columns.Designer.cs">
+      <DependentUpon>201802081442557_Delete-Redundant-Columns.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DefaultEmailClient.cs" />
     <Compile Include="Models\Medicine.cs" />
@@ -514,6 +522,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802021517017_DeleteRecurringUser.resx">
       <DependentUpon>201802021517017_DeleteRecurringUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802081408450_Add-User-Auth.resx">
+      <DependentUpon>201802081408450_Add-User-Auth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802081442557_Delete-Redundant-Columns.resx">
+      <DependentUpon>201802081442557_Delete-Redundant-Columns.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
