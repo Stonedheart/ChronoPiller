@@ -1,15 +1,15 @@
-﻿@model ChronoPiller.Models.User
+﻿@model ChronoPiller.Models.ChronoUser
 
 @{
     ViewBag.Title = "Manage your prescriptions";
 }
 
 <div>
-    <h2>Hello @Model.Login organize Your prescriptions</h2>
+    <h2>Hello @Model.UserName organize Your prescriptions</h2>
 </div>
 
 <div>
-    @Html.ActionLink("Add Prescription", "AddPrescription", "Home")
+    @Html.ActionLink("Add Prescription", "Add", "Prescription")
 </div>
 
 <div>
@@ -44,7 +44,7 @@
                                     @prescription.Name
                                 </td>
                                 <td>
-                                    @Html.ActionLink("View", "PrescriptionDetails", "Home", new {id = prescription.Id}, null)
+                                    @Html.ActionLink("View", "Details", "Prescription", new {id = prescription.Id}, null)
                                 </td>
                             </tr>
                         }

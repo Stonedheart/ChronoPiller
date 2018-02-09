@@ -7,13 +7,13 @@ namespace ChronoPiller.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class PrescriptionNameNotNull : IMigrationMetadata
+    public sealed partial class ChronoUserDeleteLogin : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(PrescriptionNameNotNull));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ChronoUserDeleteLogin));
         
         string IMigrationMetadata.Id
         {
-            get { return "201801291101561_PrescriptionNameNotNull"; }
+            get { return "201802091402198_ChronoUser-Delete-Login"; }
         }
         
         string IMigrationMetadata.Source

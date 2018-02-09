@@ -8,33 +8,37 @@ var remindOptions = {
 
 function remind() {
     var date = new Date();
-    var dateString = (date.getDate()) + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
+    var dateString = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
     $(
         $.ajax({
             url: '/Notification/Check',
             type: 'GET',
-            data: {'clientDate': dateString},
+            data: { 'clientDate': dateString },
             contentType: 'application/json',
-            fail: function () {
-                console.log("FAILED")
+            fail: function(data) {
+                console.log("Couldn't send " + data);
             },
-            success: function (result) {
+            success: function(result) {
 
                 if (result === true) {
                     new Notification("TAKE YOU PILL", remindOptions);
-                    // $.ajax({
-                    //     url: "/Home/SendMail",
-                    //     type: "GET",
-                    //     success: function () {
-                    //         console.log("MAIL SENT")
-                    //        
-                    //     }
-                    // })
+                    $.ajax({
+                        url: "/Notification/SendMail",
+                        type: "GET",
+                        contentType: 'application/json',
+                        success: function() {
+                            console.log("MAIL SENT");
+
+                        },
+                        fail: function() {
+                            console.log("Mail not sent.");
+                        }
+                    });
                 }
-                
+
             }
-        }).done(function () {
-            console.log("Done!")
+        }).done(function() {
+            console.log("Done!");
         }));
 
 

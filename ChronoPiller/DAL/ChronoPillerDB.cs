@@ -1,11 +1,15 @@
 ﻿using System.Data.Entity;
 using ChronoPiller.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ChronoPiller.DAL
 {
-    public class ChronoPillerDB : DbContext
+    public class ChronoPillerDb : IdentityDbContext<ChronoUser, ChronoRole,
+        int, ChronoUserLogin, ChronoUserRole, ChronoUserClaim>
     {
-        public DbSet<User> Users { get; set; }
+        public ChronoPillerDb() : base("ChronoPiller.DAL.ChronoPillerDB")
+        { }
+        public override IDbSet<ChronoUser> Users { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<PrescriptedMedicine> PrescriptedMedicines { get; set; }
         public DbSet<MedicineBox> MedicineBoxes { get; set; }

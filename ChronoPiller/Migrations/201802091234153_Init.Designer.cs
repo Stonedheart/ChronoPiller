@@ -7,13 +7,13 @@ namespace ChronoPiller.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class PrescriptionExpirationdateNullable : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(PrescriptionExpirationdateNullable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201801291123449_PrescriptionExpirationdateNullable"; }
+            get { return "201802091234153_Init"; }
         }
         
         string IMigrationMetadata.Source

@@ -3,16 +3,16 @@ namespace ChronoPiller.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class PrescriptionExpirationDateRemoved : DbMigration
+    public partial class ChronoUserDeleteLogin : DbMigration
     {
         public override void Up()
         {
-            DropColumn("dbo.Prescriptions", "ExpirationDate");
+            DropColumn("dbo.AspNetUsers", "Login");
         }
         
         public override void Down()
         {
-            AddColumn("dbo.Prescriptions", "ExpirationDate", c => c.DateTime(nullable: false));
+            AddColumn("dbo.AspNetUsers", "Login", c => c.String(nullable: false));
         }
     }
 }
