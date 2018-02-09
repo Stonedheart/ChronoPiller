@@ -4,6 +4,7 @@
   <Import Project="..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,23 +54,18 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MedicineController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
-    <Compile Include="DAL\ChronoPillerDB.cs" />
+    <Compile Include="Controllers\PrescriptionController.cs" />
+    <Compile Include="DAL\ChronoPillerDb.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201802091234153_Init.cs" />
-    <Compile Include="Migrations\201802091234153_Init.Designer.cs">
-      <DependentUpon>201802091234153_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802091402198_ChronoUser-Delete-Login.cs" />
-    <Compile Include="Migrations\201802091402198_ChronoUser-Delete-Login.Designer.cs">
-      <DependentUpon>201802091402198_ChronoUser-Delete-Login.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\DefaultEmailClient.cs" />
     <Compile Include="Models\Medicine.cs" />
     <Compile Include="Models\MedicineBox.cs" />
+    <Compile Include="Models\DefaultEmailClient.cs" />
+    <Compile Include="Models\Reminders\AbstractReminder.cs" />
     <Compile Include="Models\Reminders\EmailFactory.cs" />
     <Compile Include="Models\Reminders\PushReminder.cs" />
     <Compile Include="Models\PrescriptedMedicine.cs" />
@@ -138,9 +134,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -151,15 +145,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\AddPrescription.cshtml" />
-    <Content Include="Views\Home\MedicineDetails.cshtml" />
-    <Content Include="Views\Home\PrescriptionDetails.cshtml" />
-    <Content Include="Views\Emails\Web.config" />
-    <Content Include="Views\Emails\EmailReminder.cshtml" />
-    <Content Include="Views\Emails\EmailConfirmation.cshtml" />
+    <Content Include="Views\Prescription\Add.cshtml" />
+    <Content Include="Views\Medicine\Add.cshtml" />
+    <Content Include="Views\Prescription\Details.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -485,17 +474,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="Scripts\index.d.ts" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201802091234153_Init.resx">
-      <DependentUpon>201802091234153_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802091402198_ChronoUser-Delete-Login.resx">
-      <DependentUpon>201802091402198_ChronoUser-Delete-Login.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
