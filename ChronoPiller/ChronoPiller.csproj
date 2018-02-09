@@ -58,37 +58,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801261339513_ModelsWithAnnotations.cs" />
-    <Compile Include="Migrations\201801261339513_ModelsWithAnnotations.Designer.cs">
-      <DependentUpon>201801261339513_ModelsWithAnnotations.cs</DependentUpon>
+    <Compile Include="Migrations\201802091234153_Init.cs" />
+    <Compile Include="Migrations\201802091234153_Init.Designer.cs">
+      <DependentUpon>201802091234153_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801291101561_PrescriptionNameNotNull.cs" />
-    <Compile Include="Migrations\201801291101561_PrescriptionNameNotNull.Designer.cs">
-      <DependentUpon>201801291101561_PrescriptionNameNotNull.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801291123449_PrescriptionExpirationdateNullable.cs" />
-    <Compile Include="Migrations\201801291123449_PrescriptionExpirationdateNullable.Designer.cs">
-      <DependentUpon>201801291123449_PrescriptionExpirationdateNullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801291127388_PrescriptionExpirationDateRemoved.cs" />
-    <Compile Include="Migrations\201801291127388_PrescriptionExpirationDateRemoved.Designer.cs">
-      <DependentUpon>201801291127388_PrescriptionExpirationDateRemoved.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801291132207_PrescriptionListOfMedicinesNotMapped.cs" />
-    <Compile Include="Migrations\201801291132207_PrescriptionListOfMedicinesNotMapped.Designer.cs">
-      <DependentUpon>201801291132207_PrescriptionListOfMedicinesNotMapped.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802021517017_DeleteRecurringUser.cs" />
-    <Compile Include="Migrations\201802021517017_DeleteRecurringUser.Designer.cs">
-      <DependentUpon>201802021517017_DeleteRecurringUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802081408450_Add-User-Auth.cs" />
-    <Compile Include="Migrations\201802081408450_Add-User-Auth.Designer.cs">
-      <DependentUpon>201802081408450_Add-User-Auth.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802081442557_Delete-Redundant-Columns.cs" />
-    <Compile Include="Migrations\201802081442557_Delete-Redundant-Columns.Designer.cs">
-      <DependentUpon>201802081442557_Delete-Redundant-Columns.cs</DependentUpon>
+    <Compile Include="Migrations\201802091402198_ChronoUser-Delete-Login.cs" />
+    <Compile Include="Migrations\201802091402198_ChronoUser-Delete-Login.Designer.cs">
+      <DependentUpon>201802091402198_ChronoUser-Delete-Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DefaultEmailClient.cs" />
@@ -466,6 +442,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
@@ -505,38 +482,20 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801261339513_ModelsWithAnnotations.resx">
-      <DependentUpon>201801261339513_ModelsWithAnnotations.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801291101561_PrescriptionNameNotNull.resx">
-      <DependentUpon>201801291101561_PrescriptionNameNotNull.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801291123449_PrescriptionExpirationdateNullable.resx">
-      <DependentUpon>201801291123449_PrescriptionExpirationdateNullable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801291127388_PrescriptionExpirationDateRemoved.resx">
-      <DependentUpon>201801291127388_PrescriptionExpirationDateRemoved.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801291132207_PrescriptionListOfMedicinesNotMapped.resx">
-      <DependentUpon>201801291132207_PrescriptionListOfMedicinesNotMapped.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802021517017_DeleteRecurringUser.resx">
-      <DependentUpon>201802021517017_DeleteRecurringUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802081408450_Add-User-Auth.resx">
-      <DependentUpon>201802081408450_Add-User-Auth.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802081442557_Delete-Redundant-Columns.resx">
-      <DependentUpon>201802081442557_Delete-Redundant-Columns.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201802091234153_Init.resx">
+      <DependentUpon>201802091234153_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802091402198_ChronoUser-Delete-Login.resx">
+      <DependentUpon>201802091402198_ChronoUser-Delete-Login.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

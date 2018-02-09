@@ -17,7 +17,7 @@ namespace ChronoPiller
         {
             ConfigureAuth(app);
             GlobalConfiguration.Configuration.UseSqlServerStorage(
-                @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ChronoPiller.DAL.ChronoPillerDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
+                @"ChronoPiller.DAL.ChronoPillerDB",
                 new SqlServerStorageOptions()
                 {
                     QueuePollInterval = TimeSpan.FromSeconds(1)
@@ -32,7 +32,7 @@ namespace ChronoPiller
             var options = new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("Account/Login")
+                LoginPath = new PathString("/Account/Login")
             };
             app.UseCookieAuthentication(options);
 

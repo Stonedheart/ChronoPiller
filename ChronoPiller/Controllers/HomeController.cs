@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web.Mvc;
 using ChronoPiller.DAL;
@@ -12,15 +13,32 @@ namespace ChronoPiller.Controllers
     {
         public ActionResult Index()
         {
-            var dbContext = new ChronoPillerDB();
+            ChronoUser user1;
+            var user = new ChronoUser("CoolName", "jan@wp.pl", "afaefe");
 
-            var user = dbContext.Users.First();
-            user.Id = dbContext.Users.First().Id;
-            user.Login = dbContext.Users.First().Login;
-            user.Prescriptions = dbContext.Prescriptions.Select(x => x).ToList();
-            dbContext.Dispose();
+            using (var dbContext = new ChronoPillerDb())
+            {
+                try
+                {
+                    if (dbContext.Users.FirstOrDefault(x => x.UserName == user.UserName) == null)
+                    {
+                        dbContext.Users.Add(user);
+                        dbContext.SaveChanges();
+                    }
+                }
+                catch (DbEntityValidationException e)
+                {
+                    System.Diagnostics.Debug.WriteLine(e.ToString());
+                }
+            }
+            using (var dbContext = new ChronoPillerDb())
+            {
+                user1 = dbContext.Users.FirstOrDefault();
+                user1.Id = dbContext.Users.FirstOrDefault().Id;
+                user1.Prescriptions = dbContext.Prescriptions.Select(x => x).ToList();
+            }
 
-            return View(user);
+            return View(user1);
         }
 
         [HttpGet]
@@ -36,7 +54,7 @@ namespace ChronoPiller.Controllers
             var dateOfIssue = form["dateOfIssue"];
             var prescription = new Prescription(name, DateTime.Parse(dateOfIssue));
 
-            var dbContext = new ChronoPillerDB();
+            var dbContext = new ChronoPillerDb();
 
             var user = dbContext.Users.First();
             user.Id = dbContext.Users.First().Id;
@@ -55,10 +73,10 @@ namespace ChronoPiller.Controllers
         [HttpGet]
         public ActionResult PrescriptionDetails(int id)
         {
-            var dbContext = new ChronoPillerDB();
+            var dbContext = new ChronoPillerDb();
             var prescription = dbContext.Prescriptions.FirstOrDefault(y => y.Id == id);
             prescription.PrescriptedMedicines = GetPrescriptedMedsList(prescription.Id);
-           
+
             dbContext.Dispose();
 
             return View(prescription);
@@ -82,7 +100,7 @@ namespace ChronoPiller.Controllers
             var activeSubstanceAmountInMg = form["activeSubstanceAmountInMg"];
             var medicineBoxCapacity = form["medicineBoxCapacity"];
 
-            var dbContext = new ChronoPillerDB();
+            var dbContext = new ChronoPillerDb();
 
             var medicine = new Medicine(name);
             dbContext.Medicines.Add(medicine);
@@ -115,15 +133,15 @@ namespace ChronoPiller.Controllers
 
         public List<PrescriptedMedicine> GetPrescriptedMedsList(int id)
         {
-            var dbContext = new ChronoPillerDB();
+            var dbContext = new ChronoPillerDb();
             var prescriptedMeds = dbContext.PrescriptedMedicines.Join(dbContext.MedicineBoxes,
                     prescriptedMed => prescriptedMed.MedicineBoxId,
                     medBox => medBox.Id,
-                    (prescriptedMed, medBox) => new { prescriptedMed, medBox })
+                    (prescriptedMed, medBox) => new {prescriptedMed, medBox})
                 .Join(dbContext.Medicines,
                     medBox => medBox.medBox.MedicineId,
                     med => med.Id,
-                    (medBox, med) => new { medBox, med })
+                    (medBox, med) => new {medBox, med})
                 .Select(x => new
                 {
                     Id = x.medBox.prescriptedMed.Id,
@@ -153,6 +171,5 @@ namespace ChronoPiller.Controllers
 
             return prescriptedMeds;
         }
-
     }
 }

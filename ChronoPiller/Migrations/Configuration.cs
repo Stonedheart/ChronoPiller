@@ -5,14 +5,14 @@ namespace ChronoPiller.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<DAL.ChronoPillerDB>
+    internal sealed class Configuration : DbMigrationsConfiguration<ChronoPiller.DAL.ChronoPillerDb>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(ChronoPiller.DAL.ChronoPillerDB context)
+        protected override void Seed(ChronoPiller.DAL.ChronoPillerDb context)
         {
             //  This method will be called after migrating to the latest version.
 
