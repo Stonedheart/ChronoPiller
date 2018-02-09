@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using ChronoPiller.DAL;
+using ChronoPiller.Models;
 
 namespace ChronoPiller.Controllers
 {
@@ -8,14 +9,19 @@ namespace ChronoPiller.Controllers
     {
         public ActionResult Index()
         {
-            var dbContext = new ChronoPillerDB();
-            var user = dbContext.Users.First();
-            user.Id = dbContext.Users.First().Id;
-            user.Login = dbContext.Users.First().Login;
-            user.Prescriptions = dbContext.Prescriptions.Select(x => x).ToList();
-            dbContext.Dispose();
+            return View(GetDefaultUser());
+        }
 
-            return View(user);
+        public static User GetDefaultUser()
+        {
+            User user;
+
+            using (ChronoPillerDB dbContext = new ChronoPillerDB())
+            {
+                user = dbContext.Users.First();
+                user.Prescriptions = dbContext.Prescriptions.Select(x => x).ToList();
+            }
+            return user;
         }
     }
 }
