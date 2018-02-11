@@ -47,7 +47,7 @@ namespace ChronoPiller.Models
 
 
     public class ChronoUser : IdentityUser<int, ChronoUserLogin, ChronoUserRole,
-        ChronoUserClaim>
+        ChronoUserClaim>, IUser<string>
     {
 
         [Required]
