@@ -105,6 +105,14 @@ namespace ChronoPiller.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOut()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Home");
+        }
+
         private IAuthenticationManager AuthenticationManager
         {
             get
@@ -131,4 +139,5 @@ namespace ChronoPiller.Controllers
             return RedirectToAction("Index", "Home");
         }
     }
+
 }
