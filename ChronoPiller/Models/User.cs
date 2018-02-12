@@ -55,8 +55,6 @@ namespace ChronoPiller.Models
         [Key]
         public override int Id { get; set; }
 
-        [Required]
-        public string Password { get; set; }
 
         [NotMapped]
         public List<Prescription> Prescriptions { get; set; }
@@ -65,13 +63,6 @@ namespace ChronoPiller.Models
         {
         }
 
-
-        public ChronoUser(string name, string email, string password)
-        {
-            UserName = name;
-            Email = email;
-            Password = password;
-        }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(
             UserManager<ChronoUser, int> manager)
