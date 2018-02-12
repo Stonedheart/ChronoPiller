@@ -37,7 +37,7 @@ namespace ChronoPiller
             app.CreatePerOwinContext<ChronoSignInManager>(ChronoSignInManager.Create);
             app.CreatePerOwinContext<RoleManager<ChronoRole, int>>(
                 (options, context) =>
-                    new RoleManager<ChronoRole, int>(new RoleStore<ChronoRole, int, ChronoUserRole>(db)));
+                    new RoleManager<ChronoRole, int>(new RoleStore<ChronoRole, int, ChronoUserRole>(context.Get<ChronoDbContext>())));
             // Enable the application to use a cookie to store information for the signed in user
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
