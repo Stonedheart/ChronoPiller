@@ -67,6 +67,10 @@
     <Compile Include="Migrations\201802121535058_Modify-User-PK.Designer.cs">
       <DependentUpon>201802121535058_Modify-User-PK.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802122006255_Remove-Unused-Password-Property.cs" />
+    <Compile Include="Migrations\201802122006255_Remove-Unused-Password-Property.Designer.cs">
+      <DependentUpon>201802122006255_Remove-Unused-Password-Property.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="App_Start\ChronoUserManager.cs" />
@@ -488,6 +492,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201802121535058_Modify-User-PK.resx">
       <DependentUpon>201802121535058_Modify-User-PK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802122006255_Remove-Unused-Password-Property.resx">
+      <DependentUpon>201802122006255_Remove-Unused-Password-Property.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
