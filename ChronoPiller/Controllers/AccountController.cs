@@ -105,6 +105,17 @@ namespace ChronoPiller.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        public async Task<ActionResult> ConfirmEmail(int userId, string code)
+        {
+            if (userId == default(int) || code == null)
+            {
+                return View("Error");
+            }
+            var result = await UserManager.ConfirmEmailAsync(userId, code);
+            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOut()
