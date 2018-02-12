@@ -50,7 +50,7 @@ namespace ChronoPiller.Models
 
 
     public class ChronoUser : IdentityUser<int, ChronoUserLogin, ChronoUserRole,
-        ChronoUserClaim>, IUser<int>
+        ChronoUserClaim>
     {
         [Key]
         public override int Id { get; set; }
