@@ -1,4 +1,6 @@
 using System;
+using ChronoPiller.DAL;
+using ChronoPiller.Models;
 using Hangfire;
 using Hangfire.SqlServer;
 using Microsoft.AspNet.Identity;
@@ -26,6 +28,8 @@ namespace ChronoPiller
 
         public void ConfigureAuth(IAppBuilder app)
         {
+            app.CreatePerOwinContext(() => new ChronoPillerDb());
+            app.CreatePerOwinContext<ChronoUserManager>(ChronoUserManager.Create);
             // Enable the application to use a cookie to store information for the signed in user
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
