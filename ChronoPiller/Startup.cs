@@ -35,12 +35,19 @@ namespace ChronoPiller
             app.CreatePerOwinContext<ChronoUserManager>(ChronoUserManager.Create);
             app.CreatePerOwinContext<RoleManager<ChronoRole, int>>(
                 (options, context) =>
-                new RoleManager<ChronoRole, int>(new RoleStore<ChronoRole, int, ChronoUserRole>(db)));
+                    new RoleManager<ChronoRole, int>(new RoleStore<ChronoRole, int, ChronoUserRole>(db)));
             // Enable the application to use a cookie to store information for the signed in user
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login")
+                LoginPath = new PathString("/Account/Login"),
+                Provider = new CookieAuthenticationProvider
+                {
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ChronoUserManager, ChronoUser, int>(
+                        validateInterval: TimeSpan.FromMinutes(30),
+                        regenerateIdentityCallback: (manager, user) => user.GenerateUserIdentityAsync(manager),
+                        getUserIdCallback: (id) => (id.GetUserId<int>()))
+                }
             });
         }
     }
