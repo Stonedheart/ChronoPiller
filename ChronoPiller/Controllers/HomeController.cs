@@ -12,7 +12,7 @@ namespace ChronoPiller.Controllers
         {
             if (GetDefaultUser() == null)
             {
-                var user = new ChronoUser("CoolName", "jan@wp.pl", "afaefe");
+                var user = new ChronoUser("CoolName", "jan@wp.pl", "megamegaandrzej11");
 
                 using (var dbContext = new ChronoDbContext())
                 {
