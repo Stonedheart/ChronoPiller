@@ -10,6 +10,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 
+[assembly: OwinStartupAttribute(typeof(ChronoPiller.Startup))]
 namespace ChronoPiller
 {
     public class Startup
