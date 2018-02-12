@@ -34,7 +34,7 @@ namespace ChronoPiller
         {
             app.CreatePerOwinContext(ChronoDbContext.Create);
             app.CreatePerOwinContext<ChronoUserManager>(ChronoUserManager.Create);
-            app.CreatePerOwinContext<ChronoSignInManager>(ChronoSignInManager.Create)
+            app.CreatePerOwinContext<ChronoSignInManager>(ChronoSignInManager.Create);
             app.CreatePerOwinContext<RoleManager<ChronoRole, int>>(
                 (options, context) =>
                     new RoleManager<ChronoRole, int>(new RoleStore<ChronoRole, int, ChronoUserRole>(db)));
