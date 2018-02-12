@@ -9,7 +9,6 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ChronoPiller.Models
 {
-
     public class ChronoUserRole : IdentityUserRole<int>
     {
     }
@@ -27,15 +26,19 @@ namespace ChronoPiller.Models
         public ChronoRole()
         {
         }
+
         public ChronoRole(string name)
         {
             Name = name;
         }
     }
 
-    public class ChronoUserStore : UserStore<ChronoUser, ChronoRole, int, ChronoUserLogin, ChronoUserRole, ChronoUserClaim>
+    public class
+        ChronoUserStore : UserStore<ChronoUser, ChronoRole, int, ChronoUserLogin, ChronoUserRole, ChronoUserClaim>
     {
-        public ChronoUserStore(ChronoDbContext context) : base(context) { }
+        public ChronoUserStore(ChronoDbContext context) : base(context)
+        {
+        }
     }
 
     public class ChronoRoleStore : RoleStore<ChronoRole, int, ChronoUserRole>
@@ -49,6 +52,9 @@ namespace ChronoPiller.Models
     public class ChronoUser : IdentityUser<int, ChronoUserLogin, ChronoUserRole,
         ChronoUserClaim>, IUser<int>
     {
+        [Key]
+        public override int Id { get; set; }
+
         [Required]
         public string Password { get; set; }
 
@@ -77,8 +83,5 @@ namespace ChronoPiller.Models
             // Add custom user claims here 
             return userIdentity;
         }
-
-
     }
-
 }
