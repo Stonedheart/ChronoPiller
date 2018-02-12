@@ -14,5 +14,10 @@ namespace ChronoPiller.DAL
         public DbSet<PrescriptedMedicine> PrescriptedMedicines { get; set; }
         public DbSet<MedicineBox> MedicineBoxes { get; set; }
         public DbSet<Medicine> Medicines { get; set; }
+
+        public static ChronoDbContext Create()
+        {
+            return new ChronoDbContext();
+        }
     }
 }
