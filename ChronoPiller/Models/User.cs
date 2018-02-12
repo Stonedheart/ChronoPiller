@@ -47,9 +47,8 @@ namespace ChronoPiller.Models
 
 
     public class ChronoUser : IdentityUser<int, ChronoUserLogin, ChronoUserRole,
-        ChronoUserClaim>, IUser<string>
+        ChronoUserClaim>, IUser<int>
     {
-
         [Required]
         public string Password { get; set; }
 
@@ -78,6 +77,8 @@ namespace ChronoPiller.Models
             // Add custom user claims here 
             return userIdentity;
         }
+
+
     }
 
 }
