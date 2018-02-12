@@ -1,4 +1,6 @@
-﻿using ChronoPiller.DAL;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
+using ChronoPiller.DAL;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -15,7 +17,8 @@ namespace ChronoPiller.Models
 
         public static ChronoUserManager Create(IdentityFactoryOptions<ChronoUserManager> options, IOwinContext context)
         {
-            var manager = new ChronoUserManager(new ChronoUserStore(context.Get<ChronoDbContext>()));
+            var manager = new ChronoUserManager(
+                new UserStore<ChronoUser, ChronoRole, int, ChronoUserLogin, ChronoUserRole, ChronoUserClaim>(context.Get<ChronoDbContext>()));
             manager.UserValidator = new UserValidator<ChronoUser, int>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
@@ -62,6 +65,17 @@ namespace ChronoPiller.Models
     {
         public ChronoSignInManager(UserManager<ChronoUser, int> userManager, IAuthenticationManager authenticationManager) : base(userManager, authenticationManager)
         {
+        }
+
+        public override Task<ClaimsIdentity> CreateUserIdentityAsync(ChronoUser user)
+        {
+            return user.GenerateUserIdentityAsync((ChronoUserManager) UserManager);
+        }
+
+        public static ChronoSignInManager Create(IdentityFactoryOptions<ChronoSignInManager> options,
+            IOwinContext context)
+        {
+            return new ChronoSignInManager(context.GetUserManager<ChronoUserManager>(), context.Authentication);
         }
     }
 }
