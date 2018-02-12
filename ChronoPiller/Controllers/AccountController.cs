@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using ChronoPiller.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 
 namespace ChronoPiller.Controllers
 {
@@ -104,6 +105,13 @@ namespace ChronoPiller.Controllers
             return View(model);
         }
 
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
 
         private void AddErrors(IdentityResult result)
         {
