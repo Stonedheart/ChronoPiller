@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using Microsoft.Owin.Security;
 
 namespace ChronoPiller.Models
 {
@@ -54,6 +55,13 @@ namespace ChronoPiller.Models
             }
 
             return manager;
+        }
+    }
+
+    public class ChronoSignInManager : SignInManager<ChronoUser, int>
+    {
+        public ChronoSignInManager(UserManager<ChronoUser, int> userManager, IAuthenticationManager authenticationManager) : base(userManager, authenticationManager)
+        {
         }
     }
 }
