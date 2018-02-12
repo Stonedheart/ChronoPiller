@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ChronoPiller.DAL;
 using Microsoft.AspNet.Identity;
@@ -33,6 +34,10 @@ namespace ChronoPiller.Models
                 RequireLowercase = true,
                 RequireUppercase = false
             };
+            manager.UserLockoutEnabledByDefault = false;
+            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
+
             // Register two factor authentication providers. This application uses Phone 
             // and Emails as a step of receiving a code for verifying the user 
             // You can write your own provider and plug in here.
