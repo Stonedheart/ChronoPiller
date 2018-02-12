@@ -36,7 +36,7 @@ namespace ChronoPiller.Controllers
 
         private void SavePrescriptionToDb(Prescription prescription)
         {
-            using (var dbContext = new ChronoPillerDb())
+            using (var dbContext = new ChronoDbContext())
             {
                 dbContext.Prescriptions.Add(prescription);
                 dbContext.SaveChanges();
@@ -48,7 +48,7 @@ namespace ChronoPiller.Controllers
         {
             int prescriptionId;
 
-            using (ChronoPillerDb dbContext = new ChronoPillerDb())
+            using (ChronoDbContext dbContext = new ChronoDbContext())
             {
                 prescriptionId = dbContext.Prescriptions.FirstOrDefault(x => x.Name == prescription.Name).Id;
             }
@@ -61,7 +61,7 @@ namespace ChronoPiller.Controllers
         {
             Prescription prescription;
 
-            using (var dbContext = new ChronoPillerDb())
+            using (var dbContext = new ChronoDbContext())
             {
                 prescription = dbContext.Prescriptions.FirstOrDefault(y => y.Id == id);
             }
@@ -75,7 +75,7 @@ namespace ChronoPiller.Controllers
         {
             List<PrescriptedMedicine> prescriptedMedicines;
 
-            using (var dbContext = new ChronoPillerDb())
+            using (var dbContext = new ChronoDbContext())
             {
                 prescriptedMedicines = dbContext.PrescriptedMedicines
                     .Join(dbContext.MedicineBoxes,

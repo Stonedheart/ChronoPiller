@@ -15,7 +15,7 @@ namespace ChronoPiller.Models
 
         public static ChronoUserManager Create(IdentityFactoryOptions<ChronoUserManager> options, IOwinContext context)
         {
-            var manager = new ChronoUserManager(new ChronoUserStore(context.Get<ChronoPillerDb>()));
+            var manager = new ChronoUserManager(new ChronoUserStore(context.Get<ChronoDbContext>()));
             manager.UserValidator = new UserValidator<ChronoUser, int>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,

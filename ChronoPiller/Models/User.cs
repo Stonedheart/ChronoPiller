@@ -35,12 +35,12 @@ namespace ChronoPiller.Models
 
     public class ChronoUserStore : UserStore<ChronoUser, ChronoRole, int, ChronoUserLogin, ChronoUserRole, ChronoUserClaim>
     {
-        public ChronoUserStore(ChronoPillerDb context) : base(context) { }
+        public ChronoUserStore(ChronoDbContext context) : base(context) { }
     }
 
     public class ChronoRoleStore : RoleStore<ChronoRole, int, ChronoUserRole>
     {
-        public ChronoRoleStore(ChronoPillerDb context) : base(context)
+        public ChronoRoleStore(ChronoDbContext context) : base(context)
         {
         }
     }

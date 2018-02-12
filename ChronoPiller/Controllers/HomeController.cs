@@ -14,7 +14,7 @@ namespace ChronoPiller.Controllers
             {
                 var user = new ChronoUser("CoolName", "jan@wp.pl", "afaefe");
 
-                using (var dbContext = new ChronoPillerDb())
+                using (var dbContext = new ChronoDbContext())
                 {
                     try
                     {
@@ -37,7 +37,7 @@ namespace ChronoPiller.Controllers
         {
             ChronoUser user;
 
-            using (var dbContext = new ChronoPillerDb())
+            using (var dbContext = new ChronoDbContext())
             {
                 user = dbContext.Users.FirstOrDefault();
                 if (user == null)

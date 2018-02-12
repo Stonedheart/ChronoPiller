@@ -30,7 +30,7 @@ namespace ChronoPiller
 
         public void ConfigureAuth(IAppBuilder app)
         {
-            var db = new ChronoPillerDb();
+            var db = new ChronoDbContext();
             app.CreatePerOwinContext(() => db);
             app.CreatePerOwinContext<ChronoUserManager>(ChronoUserManager.Create);
             app.CreatePerOwinContext<RoleManager<ChronoRole, int>>(
