@@ -3,26 +3,24 @@ using System.Linq;
 using System.Web.Mvc;
 using ChronoPiller.DAL;
 using ChronoPiller.Models;
+using Microsoft.AspNet.Identity;
+using Owin.Security.Providers.Orcid.Message;
 
 namespace ChronoPiller.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
             if (GetDefaultUser() == null)
             {
-                var user = new ChronoUser("CoolName", "jan@wp.pl", "megamegaandrzej11");
 
                 using (var dbContext = new ChronoDbContext())
                 {
                     try
                     {
-                        if (dbContext.Users.FirstOrDefault(x => x.UserName == user.UserName) == null)
-                        {
-                            dbContext.Users.Add(user);
-                            dbContext.SaveChanges();
-                        }
+
                     }
                     catch (DbEntityValidationException e)
                     {
