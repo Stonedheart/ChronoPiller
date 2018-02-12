@@ -17,23 +17,24 @@ namespace ChronoPiller
     {
         public void Configuration(IAppBuilder app)
         {
-            GlobalConfiguration.Configuration.UseSqlServerStorage(
-                @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ChronoPiller.DAL.ChronoPillerDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
-                new SqlServerStorageOptions()
-                {
-                    QueuePollInterval = TimeSpan.FromSeconds(1)
-                });
+
             ConfigureAuth(app);
 
+            GlobalConfiguration.Configuration.UseSqlServerStorage(
+    @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ChronoPiller.DAL.ChronoPillerDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
+    new SqlServerStorageOptions
+    {
+        QueuePollInterval = TimeSpan.FromSeconds(1)
+    });
             app.UseHangfireDashboard();
             app.UseHangfireServer();
         }
 
         public void ConfigureAuth(IAppBuilder app)
         {
-            var db = new ChronoDbContext();
-            app.CreatePerOwinContext(() => db);
+            app.CreatePerOwinContext(ChronoDbContext.Create);
             app.CreatePerOwinContext<ChronoUserManager>(ChronoUserManager.Create);
+            app.CreatePerOwinContext<ChronoSignInManager>(ChronoSignInManager.Create)
             app.CreatePerOwinContext<RoleManager<ChronoRole, int>>(
                 (options, context) =>
                     new RoleManager<ChronoRole, int>(new RoleStore<ChronoRole, int, ChronoUserRole>(db)));
