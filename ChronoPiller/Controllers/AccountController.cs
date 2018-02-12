@@ -25,14 +25,14 @@ namespace ChronoPiller.Controllers
 
         public ChronoSignInManager SignInManager
         {
-            get { return _signInManager ?? HttpContext.GetOwinContext().Get<ChronoSignInManager>(); }
-            private set { _signInManager = value; }
+            get => _signInManager ?? HttpContext.GetOwinContext().Get<ChronoSignInManager>();
+            private set => _signInManager = value;
         }
 
         public ChronoUserManager UserManager
         {
-            get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ChronoUserManager>(); }
-            private set { _userManager = value; }
+            get => _userManager ?? HttpContext.GetOwinContext().GetUserManager<ChronoUserManager>();
+            private set => _userManager = value;
         }
 
         [AllowAnonymous]
