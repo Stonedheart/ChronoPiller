@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using ChronoPiller.DAL;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 
 namespace ChronoPiller.Models
 {
@@ -48,6 +50,19 @@ namespace ChronoPiller.Models
         }
     }
 
+    public class ChronoRoleManager : RoleManager<ChronoRole, int>
+    {
+        public ChronoRoleManager(IRoleStore<ChronoRole, int> roleStore)
+            : base(roleStore)
+        {
+        }
+
+        public static ChronoRoleManager Create(IdentityFactoryOptions<ChronoRoleManager> options, IOwinContext context)
+        {
+            return new ChronoRoleManager(new RoleStore<ChronoRole, int, ChronoUserRole>(context.Get<ChronoDbContext>()));
+        }
+    }
+
 
     public class ChronoUser : IdentityUser<int, ChronoUserLogin, ChronoUserRole,
         ChronoUserClaim>
@@ -55,9 +70,7 @@ namespace ChronoPiller.Models
         [Key]
         public override int Id { get; set; }
 
-
-        [NotMapped]
-        public List<Prescription> Prescriptions { get; set; }
+        public ICollection<Prescription> Prescriptions { get; set; }
 
         public ChronoUser()
         {

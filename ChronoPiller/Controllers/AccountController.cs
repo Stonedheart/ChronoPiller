@@ -135,9 +135,9 @@ namespace ChronoPiller.Controllers
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+//
+//        [HttpPost]
+//        [ValidateAntiForgeryToken]
         public ActionResult LogOut()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);

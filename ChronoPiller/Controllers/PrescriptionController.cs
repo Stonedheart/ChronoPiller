@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using ChronoPiller.DAL;
 using ChronoPiller.Models;
 using Hangfire;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace ChronoPiller.Controllers
 {
@@ -22,8 +25,9 @@ namespace ChronoPiller.Controllers
             var name = form["name"];
             var dateOfIssue = form["dateOfIssue"];
             var prescription = new Prescription(name, DateTime.Parse(dateOfIssue));
-
-            var user = HomeController.GetDefaultUser();
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ChronoUserManager>()
+                .FindById(Convert.ToInt32(userId));
             user.Prescriptions.Add(prescription);
 
             SavePrescriptionToDb(prescription);

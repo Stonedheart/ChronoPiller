@@ -63,13 +63,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201802121535058_Modify-User-PK.cs" />
-    <Compile Include="Migrations\201802121535058_Modify-User-PK.Designer.cs">
-      <DependentUpon>201802121535058_Modify-User-PK.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802122006255_Remove-Unused-Password-Property.cs" />
-    <Compile Include="Migrations\201802122006255_Remove-Unused-Password-Property.Designer.cs">
-      <DependentUpon>201802122006255_Remove-Unused-Password-Property.cs</DependentUpon>
+    <Compile Include="Migrations\201802131306108_Init.cs" />
+    <Compile Include="Migrations\201802131306108_Init.Designer.cs">
+      <DependentUpon>201802131306108_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -490,11 +486,8 @@
     <Content Include="Scripts\jquery-3.2.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201802121535058_Modify-User-PK.resx">
-      <DependentUpon>201802121535058_Modify-User-PK.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802122006255_Remove-Unused-Password-Property.resx">
-      <DependentUpon>201802122006255_Remove-Unused-Password-Property.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802131306108_Init.resx">
+      <DependentUpon>201802131306108_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

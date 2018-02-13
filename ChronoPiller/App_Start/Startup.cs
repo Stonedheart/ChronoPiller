@@ -1,4 +1,5 @@
 using System;
+using System.Web;
 using ChronoPiller.DAL;
 using ChronoPiller.Models;
 using Hangfire;
@@ -11,21 +12,21 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(ChronoPiller.Startup))]
+
 namespace ChronoPiller
 {
     public class Startup
     {
         public void Configuration(IAppBuilder app)
         {
-
             ConfigureAuth(app);
 
             GlobalConfiguration.Configuration.UseSqlServerStorage(
-    @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ChronoPiller.DAL.ChronoPillerDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
-    new SqlServerStorageOptions
-    {
-        QueuePollInterval = TimeSpan.FromSeconds(1)
-    });
+                @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ChronoPiller.DAL.ChronoPillerDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
+                new SqlServerStorageOptions
+                {
+                    QueuePollInterval = TimeSpan.FromSeconds(1)
+                });
             app.UseHangfireDashboard();
             app.UseHangfireServer();
         }
@@ -35,9 +36,8 @@ namespace ChronoPiller
             app.CreatePerOwinContext(ChronoDbContext.Create);
             app.CreatePerOwinContext<ChronoUserManager>(ChronoUserManager.Create);
             app.CreatePerOwinContext<ChronoSignInManager>(ChronoSignInManager.Create);
-            app.CreatePerOwinContext<RoleManager<ChronoRole, int>>(
-                (options, context) =>
-                    new RoleManager<ChronoRole, int>(new RoleStore<ChronoRole, int, ChronoUserRole>(context.Get<ChronoDbContext>())));
+            app.CreatePerOwinContext<ChronoRoleManager>(ChronoRoleManager.Create);
+
             // Enable the application to use a cookie to store information for the signed in user
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
@@ -51,6 +51,12 @@ namespace ChronoPiller
                         getUserIdCallback: (id) => (id.GetUserId<int>()))
                 }
             });
+            var roleManager = HttpContext.Current.GetOwinContext().Get<ChronoRoleManager>();
+            if (!roleManager.RoleExists("User"))
+            {
+                var role = new ChronoRole("User");
+
+            }
         }
     }
 }

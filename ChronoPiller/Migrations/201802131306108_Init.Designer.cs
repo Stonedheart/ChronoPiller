@@ -7,13 +7,13 @@ namespace ChronoPiller.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class ModifyUserPK : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ModifyUserPK));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201802121535058_Modify-User-PK"; }
+            get { return "201802131306108_Init"; }
         }
         
         string IMigrationMetadata.Source

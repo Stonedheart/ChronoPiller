@@ -5,7 +5,7 @@
 }
 
 <div>
-    <h2>Hello @Model.UserName organize Your prescriptions</h2>
+    <h2>Hello @Model.UserName and @Model.Email organize Your prescriptions</h2>
 </div>
 
 <div>
@@ -14,7 +14,7 @@
 
 <div>
     @{
-        if (Equals(Model.Prescriptions.Count, 0))
+        if (Equals(Model.Prescriptions.Count, 0) || Equals(Model.Prescriptions, null))
         {
             <div>
                 Here will display Your prescription list.
