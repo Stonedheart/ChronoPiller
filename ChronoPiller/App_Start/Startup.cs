@@ -1,11 +1,9 @@
 using System;
-using System.Web;
 using ChronoPiller.DAL;
 using ChronoPiller.Models;
 using Hangfire;
 using Hangfire.SqlServer;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
@@ -51,12 +49,6 @@ namespace ChronoPiller
                         getUserIdCallback: (id) => (id.GetUserId<int>()))
                 }
             });
-            var roleManager = HttpContext.Current.GetOwinContext().Get<ChronoRoleManager>();
-            if (!roleManager.RoleExists("User"))
-            {
-                var role = new ChronoRole("User");
-
-            }
         }
     }
 }
