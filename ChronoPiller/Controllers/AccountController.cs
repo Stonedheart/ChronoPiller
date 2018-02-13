@@ -196,5 +196,14 @@ namespace ChronoPiller.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+    
+        public void CreateUserRole()
+        {
+            if (!_roleManager.RoleExists("User"))
+            {
+                var role = new ChronoRole("User");
+                _roleManager.Create(role);
+            }
+        }
     }
 }
