@@ -28,6 +28,15 @@ namespace ChronoPiller.Controllers
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             var user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ChronoUserManager>()
                 .FindById(Convert.ToInt32(userId));
+
+            using (var db = new ChronoDbContext())
+            {
+                user.Prescriptions = db.Prescriptions.Where(x => x.UserId == user.Id).ToList();
+            }
+
+
+            prescription.UserId = user.Id;
+                
             user.Prescriptions.Add(prescription);
 
             SavePrescriptionToDb(prescription);
