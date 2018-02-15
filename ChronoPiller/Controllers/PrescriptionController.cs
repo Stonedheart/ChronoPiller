@@ -13,6 +13,18 @@ namespace ChronoPiller.Controllers
 {
     public class PrescriptionController : Controller
     {
+        private static string _currentUserId;
+        private static ChronoUser _currentUser;
+
+        public string CurrentUserId => _currentUserId ??
+                                       (_currentUserId = System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+        public ChronoUser CurrentUser => _currentUser ??
+                                         (_currentUser = System.Web.HttpContext.Current.GetOwinContext()
+                                             .GetUserManager<ChronoUserManager>()
+                                             .FindById(int.Parse(_currentUserId)));
+
+
         [HttpGet]
         public ActionResult Add()
         {
@@ -22,12 +34,11 @@ namespace ChronoPiller.Controllers
         [HttpPost]
         public ActionResult Add(FormCollection form)
         {
+
             var name = form["name"];
             var dateOfIssue = form["dateOfIssue"];
             var prescription = new Prescription(name, DateTime.Parse(dateOfIssue));
-            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            var user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ChronoUserManager>()
-                .FindById(Convert.ToInt32(userId));
+            var user = CurrentUser;
 
             using (var db = new ChronoDbContext())
             {
@@ -36,7 +47,7 @@ namespace ChronoPiller.Controllers
 
 
             prescription.UserId = user.Id;
-                
+
             user.Prescriptions.Add(prescription);
 
             SavePrescriptionToDb(prescription);
@@ -44,7 +55,7 @@ namespace ChronoPiller.Controllers
             BackgroundJob.Enqueue(() => NotificationController.SendConfirmation(prescription));
             var prescriptionId = GePrescriptionId(prescription);
 
-            return RedirectToAction("Add", "Medicine", new { id = prescriptionId });
+            return RedirectToAction("Add", "Medicine", new {id = prescriptionId});
         }
 
         private void SavePrescriptionToDb(Prescription prescription)
@@ -54,7 +65,6 @@ namespace ChronoPiller.Controllers
                 dbContext.Prescriptions.Add(prescription);
                 dbContext.SaveChanges();
             }
-            
         }
 
         private int GePrescriptionId(Prescription prescription)
@@ -94,11 +104,11 @@ namespace ChronoPiller.Controllers
                     .Join(dbContext.MedicineBoxes,
                         prescriptedMed => prescriptedMed.MedicineBoxId,
                         medBox => medBox.Id,
-                        (prescriptedMed, medBox) => new { prescriptedMed, medBox })
+                        (prescriptedMed, medBox) => new {prescriptedMed, medBox})
                     .Join(dbContext.Medicines,
                         medBox => medBox.medBox.MedicineId,
                         med => med.Id,
-                        (medBox, med) => new { medBox, med })
+                        (medBox, med) => new {medBox, med})
                     .Select(x => new
                     {
                         Id = x.medBox.prescriptedMed.Id,
