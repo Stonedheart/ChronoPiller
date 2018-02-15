@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Net;
-using System.Net.Configuration;
-using System.Net.Mail;
-using System.Web.Configuration;
-using System.Web.Hosting;
 using System.Web.Mvc;
-using ChronoPiller.DAL;
 using ChronoPiller.Models;
 using ChronoPiller.Models.Reminders;
 
@@ -42,7 +34,6 @@ namespace ChronoPiller.Controllers
         {
             var mail = EmailFactory.GetEmailConfirmation(prescription);
             EmailClient.Send(mail);
-
         }
     }
 }

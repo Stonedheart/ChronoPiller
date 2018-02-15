@@ -14,6 +14,9 @@ namespace ChronoPiller.Models
         public string Name { get; set; }
         [Required]
         public DateTime DateOfIssue { get; set; }
+        [ForeignKey("User")]
+        public int UserId { get; set; }
+        public ChronoUser User { get; set; }
         [NotMapped]
         public List<PrescriptedMedicine> PrescriptedMedicines { get; set; }
 

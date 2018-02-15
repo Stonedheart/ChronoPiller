@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using ChronoPiller.DAL;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 
 namespace ChronoPiller.Models
 {
-
     public class ChronoUserRole : IdentityUserRole<int>
     {
     }
@@ -27,21 +28,38 @@ namespace ChronoPiller.Models
         public ChronoRole()
         {
         }
+
         public ChronoRole(string name)
         {
             Name = name;
         }
     }
 
-    public class ChronoUserStore : UserStore<ChronoUser, ChronoRole, int, ChronoUserLogin, ChronoUserRole, ChronoUserClaim>
+    public class
+        ChronoUserStore : UserStore<ChronoUser, ChronoRole, int, ChronoUserLogin, ChronoUserRole, ChronoUserClaim>
     {
-        public ChronoUserStore(ChronoPillerDb context) : base(context) { }
+        public ChronoUserStore(ChronoDbContext context) : base(context)
+        {
+        }
     }
 
     public class ChronoRoleStore : RoleStore<ChronoRole, int, ChronoUserRole>
     {
-        public ChronoRoleStore(ChronoPillerDb context) : base(context)
+        public ChronoRoleStore(ChronoDbContext context) : base(context)
         {
+        }
+    }
+
+    public class ChronoRoleManager : RoleManager<ChronoRole, int>
+    {
+        public ChronoRoleManager(IRoleStore<ChronoRole, int> roleStore)
+            : base(roleStore)
+        {
+        }
+
+        public static ChronoRoleManager Create(IdentityFactoryOptions<ChronoRoleManager> options, IOwinContext context)
+        {
+            return new ChronoRoleManager(new RoleStore<ChronoRole, int, ChronoUserRole>(context.Get<ChronoDbContext>()));
         }
     }
 
@@ -49,24 +67,15 @@ namespace ChronoPiller.Models
     public class ChronoUser : IdentityUser<int, ChronoUserLogin, ChronoUserRole,
         ChronoUserClaim>
     {
+        [Key]
+        public override int Id { get; set; }
 
-        [Required]
-        public string Password { get; set; }
-
-        [NotMapped]
-        public List<Prescription> Prescriptions { get; set; }
+        public ICollection<Prescription> Prescriptions { get; set; }
 
         public ChronoUser()
         {
         }
 
-
-        public ChronoUser(string name, string email, string password)
-        {
-            UserName = name;
-            Email = email;
-            Password = password;
-        }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(
             UserManager<ChronoUser, int> manager)
@@ -79,5 +88,4 @@ namespace ChronoPiller.Models
             return userIdentity;
         }
     }
-
 }

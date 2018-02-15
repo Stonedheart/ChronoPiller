@@ -49,7 +49,7 @@ namespace ChronoPiller.Controllers
         {
             Prescription prescription;
 
-            using (var context = new ChronoPillerDb())
+            using (var context = new ChronoDbContext())
             {
                 prescription = context.Prescriptions.FirstOrDefault(x => x.Id == id);
             }
@@ -64,7 +64,7 @@ namespace ChronoPiller.Controllers
         {
             int medicineBoxId;
 
-            using (var dbContext = new ChronoPillerDb())
+            using (var dbContext = new ChronoDbContext())
             {
                 medicineBoxId = dbContext.MedicineBoxes.FirstOrDefault(x => x.MedicineId == medicineId).Id;
             }
@@ -76,7 +76,7 @@ namespace ChronoPiller.Controllers
         {
             int medicineId;
 
-            using (var dbContext = new ChronoPillerDb())
+            using (var dbContext = new ChronoDbContext())
             {
                 medicineId = dbContext.Medicines.FirstOrDefault(x => x.Name == medicine.Name).Id;
             }
@@ -86,7 +86,7 @@ namespace ChronoPiller.Controllers
 
         private void SaveMedToDb(Medicine medicine)
         {
-            using (var dbContext = new ChronoPillerDb())
+            using (var dbContext = new ChronoDbContext())
             {
                 dbContext.Medicines.Add(medicine);
                 dbContext.SaveChanges();
@@ -95,7 +95,7 @@ namespace ChronoPiller.Controllers
 
         private void SaveMedBoxToDb(MedicineBox medBox)
         {
-            using (var dbContext = new ChronoPillerDb())
+            using (var dbContext = new ChronoDbContext())
             {
                 dbContext.MedicineBoxes.Add(medBox);
                 dbContext.SaveChanges();
@@ -104,7 +104,7 @@ namespace ChronoPiller.Controllers
 
         private void SavePrescriptedMedToDb(PrescriptedMedicine prescriptedMedicine)
         {
-            using (var dbContext = new ChronoPillerDb())
+            using (var dbContext = new ChronoDbContext())
             {
                 dbContext.PrescriptedMedicines.Add(prescriptedMedicine);
                 dbContext.SaveChanges();
