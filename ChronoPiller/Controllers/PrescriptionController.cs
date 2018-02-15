@@ -13,17 +13,11 @@ namespace ChronoPiller.Controllers
 {
     public class PrescriptionController : Controller
     {
-        private static string _currentUserId;
-        private static ChronoUser _currentUser;
-
-        public string CurrentUserId => _currentUserId ??
-                                       (_currentUserId = System.Web.HttpContext.Current.User.Identity.GetUserId());
-
-        public ChronoUser CurrentUser => _currentUser ??
-                                         (_currentUser = System.Web.HttpContext.Current.GetOwinContext()
-                                             .GetUserManager<ChronoUserManager>()
-                                             .FindById(int.Parse(_currentUserId)));
-
+        public ChronoUser GetCurrentUser()
+        {
+            var currentUserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            return System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ChronoUserManager>().FindById(int.Parse(currentUserId));
+        }
 
         [HttpGet]
         public ActionResult Add()
@@ -53,13 +47,12 @@ namespace ChronoPiller.Controllers
                 dateOfIssue = DateTime.Today.ToString();
             }
             var prescription = new Prescription(name, DateTime.Parse(dateOfIssue));
-            var user = CurrentUser;
+            var user = GetCurrentUser();
 
             using (var db = new ChronoDbContext())
             {
                 user.Prescriptions = db.Prescriptions.Where(x => x.UserId == user.Id).ToList();
             }
-
 
             prescription.UserId = user.Id;
 
@@ -86,7 +79,7 @@ namespace ChronoPiller.Controllers
         {
             int prescriptionId;
 
-            using (ChronoDbContext dbContext = new ChronoDbContext())
+            using (var dbContext = new ChronoDbContext())
             {
                 prescriptionId = dbContext.Prescriptions.FirstOrDefault(x => x.Name == prescription.Name).Id;
             }
