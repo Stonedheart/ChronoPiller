@@ -34,9 +34,24 @@ namespace ChronoPiller.Controllers
         [HttpPost]
         public ActionResult Add(FormCollection form)
         {
-
-            var name = form["name"];
-            var dateOfIssue = form["dateOfIssue"];
+            string name;
+            string dateOfIssue;
+            try
+            {
+                name = form["name"];
+            }
+            catch (NullReferenceException e)
+            {
+                name = "Prescription: " + DateTime.Today;
+            }
+            try
+            {
+                dateOfIssue = form["dateOfIssue"];
+            }
+            catch (NullReferenceException e)
+            {
+                dateOfIssue = DateTime.Today.ToString();
+            }
             var prescription = new Prescription(name, DateTime.Parse(dateOfIssue));
             var user = CurrentUser;
 
