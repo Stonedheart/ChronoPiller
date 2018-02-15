@@ -51,12 +51,6 @@ namespace ChronoPiller
                         getUserIdCallback: (id) => (id.GetUserId<int>()))
                 }
             });
-            var roleManager = HttpContext.Current.GetOwinContext().Get<ChronoRoleManager>();
-            if (!roleManager.RoleExists("User"))
-            {
-                var role = new ChronoRole("User");
-
-            }
         }
     }
 }
