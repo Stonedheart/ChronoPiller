@@ -1,11 +1,9 @@
 using System;
-using System.Web;
 using ChronoPiller.DAL;
 using ChronoPiller.Models;
 using Hangfire;
 using Hangfire.SqlServer;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;

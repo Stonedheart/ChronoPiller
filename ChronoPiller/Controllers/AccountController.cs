@@ -14,6 +14,7 @@ namespace ChronoPiller.Controllers
     {
         private ChronoSignInManager _signInManager;
         private ChronoUserManager _userManager;
+        private ChronoRoleManager _roleManager;
 
         public AccountController()
         {
@@ -23,6 +24,12 @@ namespace ChronoPiller.Controllers
         {
             UserManager = userManager;
             SignInManager = signInManager;
+        }
+
+        public ChronoRoleManager RoleManager
+        {
+            get => System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ChronoRoleManager>();
+            private set => _roleManager = value;
         }
 
         public ChronoSignInManager SignInManager
@@ -189,6 +196,23 @@ namespace ChronoPiller.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+        
+        public void CreateUserRole()
+        {
+            if (!_roleManager.RoleExists("User"))
+            {
+                var role = new ChronoRole("User");
+                _roleManager.Create(role);
+            }
+        }
+        
+        public void CreateAdminRole()
+        {
+            if (!_roleManager.RoleExists("Admin"))
+            {
+                var role = new ChronoRole("Admin");
+                _roleManager.Create(role);
+            }
+        }
     }
-
 }
