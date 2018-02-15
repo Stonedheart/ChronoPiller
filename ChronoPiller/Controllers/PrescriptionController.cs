@@ -40,7 +40,7 @@ namespace ChronoPiller.Controllers
             {
                 name = form["name"];
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException)
             {
                 name = "Prescription: " + DateTime.Today;
             }
@@ -48,7 +48,7 @@ namespace ChronoPiller.Controllers
             {
                 dateOfIssue = form["dateOfIssue"];
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException)
             {
                 dateOfIssue = DateTime.Today.ToString();
             }
