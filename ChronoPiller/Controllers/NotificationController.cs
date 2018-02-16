@@ -7,8 +7,8 @@ namespace ChronoPiller.Controllers
 {
     public class NotificationController : Controller
     {
-        public static readonly string _mailName = "chronopiller@gmail.com";
-        public static readonly string _mailPassword = "dupadupadupa";
+        public const string _mailName = "chronopiller@gmail.com";
+        public const string _mailPassword = "dupadupadupa";
 
         public static DefaultEmailClient EmailClient =
             new DefaultEmailClient(_mailName, _mailPassword);
