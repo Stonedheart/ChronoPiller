@@ -14,7 +14,7 @@ namespace ChronoPiller.Models.Reminders
         {
             From = "chronopiller@gmail.com";
             To = to;
-            Email = new MailMessage(From, to);
+            Email = new MailMessage();
             _builder = new StringBuilder();
         }
 

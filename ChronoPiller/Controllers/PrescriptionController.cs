@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ChronoPiller.DAL;
 using ChronoPiller.Models;
 using Hangfire;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 
 namespace ChronoPiller.Controllers
 {
