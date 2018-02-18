@@ -5,16 +5,16 @@ namespace ChronoPiller.Models.Reminders
 {
     public class EmailFactory
     {
-        public string From;
+        public readonly string From;
         public string To;
         public MailMessage Email;
         private readonly StringBuilder _builder;
 
-        public EmailFactory(string @from, string to)
+        public EmailFactory(string to)
         {
-            From = @from;
+            From = "chronopiller@gmail.com";
             To = to;
-            Email = new MailMessage(from, to);
+            Email = new MailMessage(From, to);
             _builder = new StringBuilder();
         }
 
