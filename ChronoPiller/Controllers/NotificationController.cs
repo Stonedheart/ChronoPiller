@@ -24,15 +24,17 @@ namespace ChronoPiller.Controllers
             return Json(res, JsonRequestBehavior.AllowGet);
         }
 
-        public static void SendReminder(Prescription prescription)
+        public static void SendReminder(string to, Prescription prescription)
         {
-            var mail = EmailFactory.GetEmailReminder(prescription);
+            var factory = new EmailFactory(to);
+            var mail = factory.GetEmailReminder(prescription);
             EmailClient.Send(mail);
         }
 
-        public static void SendConfirmation(Prescription prescription)
+        public static void SendConfirmation(string to, Prescription prescription)
         {
-            var mail = EmailFactory.GetEmailConfirmation(prescription);
+            var factory = new EmailFactory(to);
+            var mail = factory.GetEmailConfirmation(prescription);
             EmailClient.Send(mail);
         }
     }
