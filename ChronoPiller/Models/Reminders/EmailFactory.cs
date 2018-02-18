@@ -8,15 +8,17 @@ namespace ChronoPiller.Models.Reminders
         public string From;
         public string To;
         public MailMessage Email;
+        private StringBuilder _builder;
 
         public EmailFactory(string @from, string to, MailMessage email)
         {
             From = @from;
             To = to;
             Email = new MailMessage(from, to);
+            _builder = new StringBuilder();
         }
 
-        public static MailMessage GetEmailReminder(Prescription prescription)
+        public MailMessage GetEmailReminder(Prescription prescription)
         {
             var sb = new StringBuilder();
             prescription.PrescriptedMedicines.ForEach(x => sb.Append(x.Name + ", "));
