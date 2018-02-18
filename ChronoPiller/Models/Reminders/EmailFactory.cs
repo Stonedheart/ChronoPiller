@@ -5,6 +5,17 @@ namespace ChronoPiller.Models.Reminders
 {
     public class EmailFactory
     {
+        public string From;
+        public string To;
+        public MailMessage Email;
+
+        public EmailFactory(string @from, string to, MailMessage email)
+        {
+            From = @from;
+            To = to;
+            Email = new MailMessage(from, to);
+        }
+
         public static MailMessage GetEmailReminder(Prescription prescription)
         {
             var sb = new StringBuilder();
