@@ -17,8 +17,8 @@ namespace ChronoPiller.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            _currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ChronoUserManager>()
-                .FindById(Convert.ToInt32(System.Web.HttpContext.Current.User.Identity.GetUserId()));
+            _currentUser = AccountController.GetCurrentUser();
+
             using (var db = new ChronoDbContext())
             {
                 _currentUser.Prescriptions = db.Prescriptions.Where(x => x.UserId == _currentUser.Id).ToList();
