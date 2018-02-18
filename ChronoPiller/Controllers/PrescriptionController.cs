@@ -41,7 +41,7 @@ namespace ChronoPiller.Controllers
                 dateOfIssue = DateTime.Today.ToString();
             }
             var prescription = new Prescription(name, DateTime.Parse(dateOfIssue));
-            var user = GetCurrentUser();
+            var user = AccountController.GetCurrentUser();
 
             using (var db = new ChronoDbContext())
             {
@@ -54,7 +54,7 @@ namespace ChronoPiller.Controllers
 
             SavePrescriptionToDb(prescription);
 
-            BackgroundJob.Enqueue(() => NotificationController.SendConfirmation(prescription));
+            BackgroundJob.Enqueue(() => NotificationController.SendConfirmation(user.Email, prescription));
             var prescriptionId = GePrescriptionId(prescription);
 
             return RedirectToAction("Add", "Medicine", new {id = prescriptionId});
