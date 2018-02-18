@@ -20,6 +20,10 @@ namespace ChronoPiller.Models.Reminders
 
         public MailMessage GetEmailReminder(Prescription prescription)
         {
+            if (_builder.Length > 0)
+            {
+                _builder.Clear();
+            }
             prescription.PrescriptedMedicines.ForEach(x => _builder.Append(x.Name + ", "));
 
             Email.Subject = "Take your daily dose!";
