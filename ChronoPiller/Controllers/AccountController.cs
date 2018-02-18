@@ -151,6 +151,12 @@ namespace ChronoPiller.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public static ChronoUser GetCurrentUser()
+        {
+            var currentUserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            return System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ChronoUserManager>().FindById(int.Parse(currentUserId));
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

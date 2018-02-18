@@ -13,12 +13,6 @@ namespace ChronoPiller.Controllers
 {
     public class PrescriptionController : Controller
     {
-        public ChronoUser GetCurrentUser()
-        {
-            var currentUserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            return System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ChronoUserManager>().FindById(int.Parse(currentUserId));
-        }
-
         [HttpGet]
         public ActionResult Add()
         {
