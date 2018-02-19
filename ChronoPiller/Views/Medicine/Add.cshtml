@@ -6,24 +6,25 @@
 }
 
 <h2>Provide medicine details</h2>
+<h4 style="color: red">@ViewBag.ErrorMessage</h4>
 
 <div>
     <form method="post">
         <label for="name">Name</label>
-        <input name="name" id="name" /><br />
+        <input name="name" id="name" required/><br />
         <label for="startUsageDate">When You should start taking dose</label>
-        <input name="startUsageDate" id="startUsageDate" type="date" /><br />
+        <input name="startUsageDate" id="startUsageDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")"/><br />
         <label for="interval">How many times a day You should take medicine</label>
-        <input name="interval" type="number" id="interval" /><br />
+        <input name="interval" type="number" id="interval" required/><br />
         <label for="dose">How many pills You should take</label>
-        <input name="dose" type="number" id="dose" /><br/>
+        <input name="dose" type="number" id="dose" required/><br/>
         <label for="prescriptedBoxCount">How many box are prescpripted</label>
-        <input type="number" name="prescriptedBoxCount" id="prescriptedBoxCount"/><br/>
-        <input type="hidden" name="prescriptionId" value="@Model"/><br/>
+        <input type="number" name="prescriptedBoxCount" id="prescriptedBoxCount" required/><br/>
+        <input type="hidden" name="prescriptionId" value="@Model" required/><br/>
         <label for="medicineBoxCapacity">Bought medicine box capacity</label>
-        <input type="number" name="medicineBoxCapacity" id="medicineBoxCapacity"/><br/>
+        <input type="number" name="medicineBoxCapacity" id="medicineBoxCapacity" required/><br/>
         <label for="activeSubstanceAmountInMg">Active substance in mg</label>
-        <input type="number" name="activeSubstanceAmountInMg" id="activeSubstanceAmountInMg"/><br/>
+        <input type="number" name="activeSubstanceAmountInMg" id="activeSubstanceAmountInMg" required/><br/>
         <input type="submit" text="Add Med" />
     </form>
 </div>

@@ -5,13 +5,14 @@
 }
 
 <h2>Provide prescription details</h2>
+<h4 style="color: red">@ViewBag.ErrorMessage</h4>
 
 <div>
     <form method="post">
         <label for="name">Name</label>
         <input name="name" value="" id="name"/>
         <label for="dateOfIssue">Date of issue</label>
-        <input name="dateOfIssue" type="date" value="" id="dateOfIssue"/>
+        <input name="dateOfIssue" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" id="dateOfIssue"/>
         <input type="submit" value="Add Prescription"/>
     </form>
 </div>

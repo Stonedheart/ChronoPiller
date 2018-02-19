@@ -5,8 +5,11 @@
 }
 
 <div>
-    <h2>Hello @Model.UserName and @Model.Email organize Your prescriptions</h2>
+    <h2>Hello @Model.UserName organize Your prescriptions</h2>
 </div>
+
+<h4 style="color: red">@ViewBag.ErrorMessage</h4>
+
 
 <div>
     @Html.ActionLink("Add Prescription", "Add", "Prescription")
@@ -28,13 +31,13 @@
             <div>
                 <table class="table table-striped">
                     <thead>
-                    <tr>
-                        <th>
-                            Prescription Name
-                        </th>
-                        <th>
-                        </th>
-                    </tr>
+                        <tr>
+                            <th>
+                                Prescription Name
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
                     </thead>
                     @{
                         foreach (var prescription in Model.Prescriptions)
@@ -44,7 +47,7 @@
                                     @prescription.Name
                                 </td>
                                 <td>
-                                    @Html.ActionLink("View", "Details", "Prescription", new {id = prescription.Id}, null)
+                                    @Html.ActionLink("View", "Details", "Prescription", new { id = prescription.Id }, null)
                                 </td>
                             </tr>
                         }
