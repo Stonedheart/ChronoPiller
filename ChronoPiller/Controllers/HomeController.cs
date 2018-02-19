@@ -17,12 +17,20 @@ namespace ChronoPiller.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            _currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ChronoUserManager>()
-                .FindById(Convert.ToInt32(System.Web.HttpContext.Current.User.Identity.GetUserId()));
-            using (var db = new ChronoDbContext())
+            try
             {
-                _currentUser.Prescriptions = db.Prescriptions.Where(x => x.UserId == _currentUser.Id).ToList();
+                _currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ChronoUserManager>()
+                    .FindById(Convert.ToInt32(System.Web.HttpContext.Current.User.Identity.GetUserId()));
+                using (var db = new ChronoDbContext())
+                {
+                    _currentUser.Prescriptions = db.Prescriptions.Where(x => x.UserId == _currentUser.Id).ToList();
+                }
             }
+            catch (Exception e)
+            {
+                ViewBag.ErrorMessage = e.Message;
+            }
+
             return View(_currentUser);
         }
     }

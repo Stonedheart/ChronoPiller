@@ -12,37 +12,49 @@ namespace ChronoPiller.Controllers
         [HttpGet]
         public ActionResult Add(int id)
         {
-            return View("Add", id);
+            return View(id);
         }
 
         [HttpPost]
         public ActionResult Add(FormCollection form)
         {
-            var name = form["name"];
-            var startUsageDate = form["startUsageDate"];
-            var interval = form["interval"];
             var prescriptionId = form["prescriptionId"];
-            var dose = form["dose"];
-            var prescriptedBoxCount = form["prescriptedBoxCount"];
-            var activeSubstanceAmountInMg = form["activeSubstanceAmountInMg"];
-            var medicineBoxCapacity = form["medicineBoxCapacity"];
 
-            var medicine = new Medicine(name);
-            SaveMedToDb(medicine);
+            try
+            {
+                var name = form["name"];
+                var startUsageDate = form["startUsageDate"];
+                var interval = form["interval"];
+                var dose = form["dose"];
+                var prescriptedBoxCount = form["prescriptedBoxCount"];
+                var activeSubstanceAmountInMg = form["activeSubstanceAmountInMg"];
+                var medicineBoxCapacity = form["medicineBoxCapacity"];
 
-            var medicineId = GetMedicineId(medicine);
-            var medicineBox = new MedicineBox(medicineId, int.Parse(medicineBoxCapacity),
-                float.Parse(activeSubstanceAmountInMg));
-            SaveMedBoxToDb(medicineBox);
+                var medicine = new Medicine(name);
+                SaveMedToDb(medicine);
 
-            var medicineBoxId = GetMedicineBoxId(medicineId);
-            var prescriptedMedicine = new PrescriptedMedicine(name, DateTime.Parse(startUsageDate),
-                int.Parse(prescriptedBoxCount), int.Parse(dose), int.Parse(interval), int.Parse(prescriptionId),
-                medicineBoxId);
-            SavePrescriptedMedToDb(prescriptedMedicine);
+                var medicineId = GetMedicineId(medicine);
+                var medicineBox = new MedicineBox(medicineId, int.Parse(medicineBoxCapacity),
+                    float.Parse(activeSubstanceAmountInMg));
+                SaveMedBoxToDb(medicineBox);
 
-            RecurringJob.AddOrUpdate(() => NotificationController.SendReminder(GetPrescriptionById(int.Parse(prescriptionId))), Cron.Daily);
-            return RedirectToAction("Details", "Prescription", new {id = int.Parse(prescriptionId)});
+                var medicineBoxId = GetMedicineBoxId(medicineId);
+                var prescriptedMedicine = new PrescriptedMedicine(name, DateTime.Parse(startUsageDate).Date,
+                    int.Parse(prescriptedBoxCount), int.Parse(dose), int.Parse(interval), int.Parse(prescriptionId),
+                    medicineBoxId);
+                SavePrescriptedMedToDb(prescriptedMedicine);
+
+                RecurringJob.AddOrUpdate(
+                    () => NotificationController.SendReminder(GetPrescriptionById(int.Parse(prescriptionId))),
+                    Cron.Daily);
+                return RedirectToAction("Details", "Prescription", new {id = int.Parse(prescriptionId)});
+            }
+            catch (Exception e)
+            {
+                ViewBag.ErrorMessage = e.Message;
+                var idParsed = int.TryParse(prescriptionId, out var id);
+                return View(id);
+            }
         }
 
         private Prescription GetPrescriptionById(int id)

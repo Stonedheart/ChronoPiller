@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -28,42 +30,34 @@ namespace ChronoPiller.Controllers
         [HttpPost]
         public ActionResult Add(FormCollection form)
         {
-            string name;
-            string dateOfIssue;
             try
             {
-                name = form["name"];
+                var name = form["name"] ?? "Prescription: " + DateTime.Today;
+                var dateOfIssue = form["dateOfIssue"] ?? DateTime.Today.ToString();
+                var prescription = new Prescription(name, DateTime.Parse(dateOfIssue).Date);
+                var user = GetCurrentUser();
+
+                using (var db = new ChronoDbContext())
+                {
+                    user.Prescriptions = db.Prescriptions.Where(x => x.UserId == user.Id).ToList();
+                }
+
+                prescription.UserId = user.Id;
+
+                user.Prescriptions.Add(prescription);
+
+                SavePrescriptionToDb(prescription);
+
+                BackgroundJob.Enqueue(() => NotificationController.SendConfirmation(prescription));
+                var prescriptionId = GePrescriptionId(prescription);
+
+                return RedirectToAction("Add", "Medicine", new {id = prescriptionId});
             }
-            catch (NullReferenceException)
+            catch (Exception e)
             {
-                name = "Prescription: " + DateTime.Today;
+                ViewBag.ErrorMessage = e.Message;
+                return View();
             }
-            try
-            {
-                dateOfIssue = form["dateOfIssue"];
-            }
-            catch (NullReferenceException)
-            {
-                dateOfIssue = DateTime.Today.ToString();
-            }
-            var prescription = new Prescription(name, DateTime.Parse(dateOfIssue));
-            var user = GetCurrentUser();
-
-            using (var db = new ChronoDbContext())
-            {
-                user.Prescriptions = db.Prescriptions.Where(x => x.UserId == user.Id).ToList();
-            }
-
-            prescription.UserId = user.Id;
-
-            user.Prescriptions.Add(prescription);
-
-            SavePrescriptionToDb(prescription);
-
-            BackgroundJob.Enqueue(() => NotificationController.SendConfirmation(prescription));
-            var prescriptionId = GePrescriptionId(prescription);
-
-            return RedirectToAction("Add", "Medicine", new {id = prescriptionId});
         }
 
         private void SavePrescriptionToDb(Prescription prescription)
@@ -90,15 +84,21 @@ namespace ChronoPiller.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
-            Prescription prescription;
+            Prescription prescription = null;
 
-            using (var dbContext = new ChronoDbContext())
+            try
             {
-                prescription = dbContext.Prescriptions.FirstOrDefault(y => y.Id == id);
+                using (var dbContext = new ChronoDbContext())
+                {
+                    prescription = dbContext.Prescriptions.FirstOrDefault(y => y.Id == id);
+                }
+
+                prescription.PrescriptedMedicines = GetPrescriptedMedsList(prescription.Id);
             }
-
-            prescription.PrescriptedMedicines = GetPrescriptedMedsList(prescription.Id);
-
+            catch (Exception e)
+            {
+               ViewBag.ErrorMessage = e.Message;
+            }
             return View(prescription);
         }
 
@@ -142,6 +142,12 @@ namespace ChronoPiller.Controllers
                     })
                     .Where(x => x.PrescriptionId == id)
                     .ToList();
+
+                foreach (var element in prescriptedMedicines)
+                {
+                    element.Prescription = dbContext.Prescriptions.FirstOrDefault(x => x.Id == element.PrescriptionId);
+                    element.MedicineBox = dbContext.MedicineBoxes.FirstOrDefault(x => x.Id == element.MedicineBoxId);
+                }
             }
 
             return prescriptedMedicines;
