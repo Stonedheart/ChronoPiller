@@ -60,8 +60,6 @@
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PrescriptionController.cs" />
     <Compile Include="DAL\ChronoDbContext.cs" />
-    <Compile Include="ErrorHandling\RuleViolation.cs" />
-    <Compile Include="ErrorHandling\RuleViolationManager.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
