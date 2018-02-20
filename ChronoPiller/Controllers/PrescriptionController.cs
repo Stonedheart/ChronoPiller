@@ -3,24 +3,15 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ChronoPiller.DAL;
 using ChronoPiller.Models;
 using Hangfire;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 
 namespace ChronoPiller.Controllers
 {
     public class PrescriptionController : Controller
     {
-        public ChronoUser GetCurrentUser()
-        {
-            var currentUserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            return System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ChronoUserManager>().FindById(int.Parse(currentUserId));
-        }
-
         [HttpGet]
         public ActionResult Add()
         {
@@ -35,7 +26,7 @@ namespace ChronoPiller.Controllers
                 var name = form["name"] ?? "Prescription: " + DateTime.Today;
                 var dateOfIssue = form["dateOfIssue"] ?? DateTime.Today.ToString();
                 var prescription = new Prescription(name, DateTime.Parse(dateOfIssue).Date);
-                var user = GetCurrentUser();
+                var user = AccountController.GetCurrentUser();
 
                 using (var db = new ChronoDbContext())
                 {
@@ -48,8 +39,8 @@ namespace ChronoPiller.Controllers
 
                 SavePrescriptionToDb(prescription);
 
-                BackgroundJob.Enqueue(() => NotificationController.SendConfirmation(prescription));
-                var prescriptionId = GePrescriptionId(prescription);
+            BackgroundJob.Enqueue(() => NotificationController.SendConfirmation(user.Email, prescription));
+            var prescriptionId = GePrescriptionId(prescription);
 
                 return RedirectToAction("Add", "Medicine", new {id = prescriptionId});
             }

@@ -5,32 +5,47 @@ namespace ChronoPiller.Models.Reminders
 {
     public class EmailFactory
     {
-        public static MailMessage GetEmailReminder(Prescription prescription)
-        {
-            var sb = new StringBuilder();
-            prescription.PrescriptedMedicines.ForEach(x => sb.Append(x.Name + ", "));
+        public readonly string From;
+        public string To;
+        public MailMessage Email;
+        private readonly StringBuilder _builder;
 
-            var email = new MailMessage("chrono@piller.com", "chronopiller@gmail.com");
-            email.Subject = "Take your daily dose!";
-            email.Body = $"Hello there!\n\n" +
-                         $"Your friendly neighbourhood ChronoPiller would like to remind you about " +
-                         $"your daily dose of {sb} from prescription {prescription.Name}!\n\n" +
-                         $"Take it or You'll be sorry!\n\n" +
-                         $"Cheers!";
-            return email;
+        public EmailFactory(string to)
+        {
+            From = "chronopiller@gmail.com";
+            To = to;
+            Email = new MailMessage();
+            _builder = new StringBuilder();
         }
 
-        public static MailMessage GetEmailConfirmation(Prescription prescription)
+        public MailMessage GetEmailReminder(Prescription prescription)
         {
-            var email = new MailMessage("chrono@piller.com", "chronopiller@gmail.com");
-            email.Subject = "A new prescription has been created!";
-            email.Body = $"Hello there!\n\n" +
+            if (_builder.Length > 0)
+            {
+                _builder.Clear();
+            }
+            prescription.PrescriptedMedicines.ForEach(x => _builder.Append(x.Name + ", "));
+
+            Email.Subject = "Take your daily dose!";
+            Email.Body = $"Hello there!\n\n" +
+                         $"Your friendly neighbourhood ChronoPiller would like to remind you about " +
+                         $"your daily dose of {_builder} from prescription {prescription.Name}!\n\n" +
+                         $"Take it or You'll be sorry!\n\n" +
+                         $"Cheers!";
+
+            return Email;
+        }
+
+        public MailMessage GetEmailConfirmation(Prescription prescription)
+        {
+            Email.Subject = "A new prescription has been created!";
+            Email.Body = $"Hello there!\n\n" +
                          $"Your friendly neighbourhood ChronoPiller would like to inform " +
                          $"that a new prescription {prescription.Name} has been created!\n\n" +
                          $"Take your pills or You'll be sorry!\n\n" +
                          $"Cheers!";
 
-            return email;
+            return Email;
         }
     }
 }

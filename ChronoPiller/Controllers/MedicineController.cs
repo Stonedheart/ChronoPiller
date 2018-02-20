@@ -43,10 +43,10 @@ namespace ChronoPiller.Controllers
                     int.Parse(prescriptedBoxCount), int.Parse(dose), int.Parse(interval), int.Parse(prescriptionId),
                     medicineBoxId);
                 SavePrescriptedMedToDb(prescriptedMedicine);
+                var user = AccountController.GetCurrentUser();
 
-                RecurringJob.AddOrUpdate(
-                    () => NotificationController.SendReminder(GetPrescriptionById(int.Parse(prescriptionId))),
-                    Cron.Daily);
+                RecurringJob.AddOrUpdate(() => NotificationController.SendReminder(user.Email, GetPrescriptionById(int.Parse(prescriptionId))), Cron.Daily);
+
                 return RedirectToAction("Details", "Prescription", new {id = int.Parse(prescriptionId)});
             }
             catch (Exception e)
