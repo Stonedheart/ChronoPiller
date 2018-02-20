@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201802131516407_Intitial.Designer.cs">
       <DependentUpon>201802131516407_Intitial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802201430507_Add-Pills-Column-And-Dose-Table.cs" />
+    <Compile Include="Migrations\201802201430507_Add-Pills-Column-And-Dose-Table.Designer.cs">
+      <DependentUpon>201802201430507_Add-Pills-Column-And-Dose-Table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="App_Start\ChronoUserManager.cs" />
@@ -228,6 +232,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201802131516407_Intitial.resx">
       <DependentUpon>201802131516407_Intitial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802201430507_Add-Pills-Column-And-Dose-Table.resx">
+      <DependentUpon>201802201430507_Add-Pills-Column-And-Dose-Table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
