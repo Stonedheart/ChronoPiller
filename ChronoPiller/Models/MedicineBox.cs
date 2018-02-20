@@ -14,6 +14,8 @@ namespace ChronoPiller.Models
         [Required]
         public int Capacity { get; set; }
         [Required]
+        public int PillsInBox { get; set; }
+        [Required]
         public float ActiveSubstanceAmountInMg { get; set; }
         [NotMapped]
         public List<PrescriptedMedicine> OccurancesOnPrescriptions { get; set; }
@@ -23,6 +25,7 @@ namespace ChronoPiller.Models
             MedicineId = medicineId;
             Capacity = capacity;
             ActiveSubstanceAmountInMg = activeSubstanceAmountInMg;
+            PillsInBox = Capacity;
         }
 
         public MedicineBox()
