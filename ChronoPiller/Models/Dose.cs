@@ -8,7 +8,8 @@ namespace ChronoPiller.Models
         [Key]
         public int Id { get; set; }
         [ForeignKey("MedicineBox")]
-        public int MedicineId { get; set; }
+        public int MedicineBoxId { get; set; }
+        public MedicineBox MedicineBox { get; set; }
         [Required]
         public int Pills { get; set; }
 
