@@ -64,6 +64,14 @@ namespace ChronoPiller.Controllers
             using (var context = new ChronoDbContext())
             {
                 prescription = context.Prescriptions.FirstOrDefault(x => x.Id == id);
+
+
+                foreach (var med in prescription.PrescriptedMedicines)
+                {
+                    var dose = context.Doses.FirstOrDefault(x => x.MedicineBoxId == med.MedicineBoxId);
+                    prescription.Doses.Add(dose);
+
+                }
             }
 
             var prescriptedMedList = PrescriptionController.GetPrescriptedMedsList(id);
