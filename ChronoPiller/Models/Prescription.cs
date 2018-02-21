@@ -19,6 +19,8 @@ namespace ChronoPiller.Models
         public ChronoUser User { get; set; }
         [NotMapped]
         public List<PrescriptedMedicine> PrescriptedMedicines { get; set; }
+        [NotMapped]
+        public List<Dose> Doses { get; set; }
 
         public Prescription()
         {
