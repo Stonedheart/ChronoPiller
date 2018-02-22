@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using ChronoPiller.Database;
 using ChronoPiller.DAL;
 using ChronoPiller.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 
 namespace ChronoPiller.Controllers
 {
     public class HomeController : Controller
     {
-
         private ChronoUser _currentUser;
 
         [Authorize]
@@ -19,7 +16,7 @@ namespace ChronoPiller.Controllers
         {
             try
             {
-            _currentUser = AccountController.GetCurrentUser();
+                _currentUser = new DbService().User;
 
             using (var db = new ChronoDbContext())
             {

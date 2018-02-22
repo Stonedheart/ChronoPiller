@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
+using ChronoPiller.Database;
 using ChronoPiller.DAL;
 using ChronoPiller.Models;
 using Hangfire;
@@ -12,6 +11,8 @@ namespace ChronoPiller.Controllers
 {
     public class PrescriptionController : Controller
     {
+        public DbService Db = new DbService();
+
         [HttpGet]
         public ActionResult Add()
         {
@@ -26,7 +27,7 @@ namespace ChronoPiller.Controllers
                 var name = form["name"] ?? "Prescription: " + DateTime.Today;
                 var dateOfIssue = form["dateOfIssue"] ?? DateTime.Today.ToString();
                 var prescription = new Prescription(name, DateTime.Parse(dateOfIssue).Date);
-                var user = AccountController.GetCurrentUser();
+                var user = Db.User;
 
                 using (var db = new ChronoDbContext())
                 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using ChronoPiller.Database;
 using ChronoPiller.DAL;
 using ChronoPiller.Models;
 using Hangfire;
@@ -43,7 +44,7 @@ namespace ChronoPiller.Controllers
                     int.Parse(prescriptedBoxCount), int.Parse(dose), int.Parse(interval), int.Parse(prescriptionId),
                     medicineBoxId);
                 SavePrescriptedMedToDb(prescriptedMedicine);
-                var user = AccountController.GetCurrentUser();
+                var user = new DbService().User;
 
                 RecurringJob.AddOrUpdate(() => NotificationController.SendReminder(user.Email, GetPrescriptionById(int.Parse(prescriptionId))), Cron.Daily);
 
