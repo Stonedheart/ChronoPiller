@@ -24,7 +24,7 @@ namespace ChronoPiller.Models.Reminders
             {
                 _builder.Clear();
             }
-            prescription.PrescriptedMedicines.ForEach(x => _builder.Append(x.Name + ", "));
+            prescription.PrescriptedMedicines.ForEach(x => _builder.Append($"{x.Dose} pills of {x.Name}"));
 
             Email.Subject = "Take your daily dose!";
             Email.Body = $"Hello there!\n\n" +
