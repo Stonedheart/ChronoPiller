@@ -22,7 +22,7 @@ namespace ChronoPiller.Database
             var context = HttpContext.Current;
             var id = context.User.Identity.GetUserId();
             var user = context.GetOwinContext().GetUserManager<ChronoUserManager>().FindById(int.Parse(id));
-            user.Prescriptions = GetPrescriptions(user.Id);
+            user.Prescriptions = GetUserPrescriptions(user.Id);
             return user;
         }
 
@@ -40,7 +40,7 @@ namespace ChronoPiller.Database
             return prescription;
         }
 
-        public List<Prescription> GetPrescriptions(int id)
+        public List<Prescription> GetUserPrescriptions(int id)
         {
             using (var db = new ChronoDbContext())
             {
