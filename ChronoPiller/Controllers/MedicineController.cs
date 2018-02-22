@@ -81,6 +81,18 @@ namespace ChronoPiller.Controllers
             return prescription;
         }
 
+        public void TakePill(int prescriptionId)
+        {
+            using (var context = new ChronoDbContext())
+            {
+                var medicines = context.PrescriptedMedicines.Where(x => x.PrescriptionId == prescriptionId);
+                foreach (var med in medicines)
+                {
+                    med.MedicineBox.PillsInBox -= med.Dose;
+                }
+                context.SaveChanges();
+            }
+        }
 
         private int GetMedicineBoxId(int medicineId)
         {
