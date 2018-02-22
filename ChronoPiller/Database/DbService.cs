@@ -26,6 +26,20 @@ namespace ChronoPiller.Database
             return user;
         }
 
+        public Prescription GetPrescriptionById(int id)
+        {
+            Prescription prescription;
+
+            using (var context = new ChronoDbContext())
+            {
+                prescription = context.Prescriptions.FirstOrDefault(x => x.Id == id);
+            }
+
+            prescription.PrescriptedMedicines = GetPrescriptedMedsList(id);
+
+            return prescription;
+        }
+
         public List<Prescription> GetPrescriptions(int id)
         {
             using (var db = new ChronoDbContext())
@@ -47,7 +61,9 @@ namespace ChronoPiller.Database
         {
             using (var dbContext = new ChronoDbContext())
             {
-                return dbContext.Prescriptions.FirstOrDefault(x => x.Name == prescription.Name).Id;
+                return dbContext.Prescriptions.FirstOrDefault(
+                    x => x.Name == prescription.Name && x.DateOfIssue == prescription.DateOfIssue)
+                    .Id;
             }
         }
 
@@ -102,42 +118,20 @@ namespace ChronoPiller.Database
             return prescriptedMedicines;
         }
 
-        public Prescription GetPrescriptionById(int id)
-        {
-            Prescription prescription;
-
-            using (var context = new ChronoDbContext())
-            {
-                prescription = context.Prescriptions.FirstOrDefault(x => x.Id == id);
-            }
-
-            prescription.PrescriptedMedicines = GetPrescriptedMedsList(id);
-
-            return prescription;
-        }
-
         public int GetMedicineBoxId(int medicineId)
         {
-            int medicineBoxId;
-
             using (var dbContext = new ChronoDbContext())
             {
-                medicineBoxId = dbContext.MedicineBoxes.FirstOrDefault(x => x.MedicineId == medicineId).Id;
+                return dbContext.MedicineBoxes.FirstOrDefault(x => x.MedicineId == medicineId).Id;
             }
-
-            return medicineBoxId;
         }
 
         public int GetMedicineId(Medicine medicine)
         {
-            int medicineId;
-
             using (var dbContext = new ChronoDbContext())
             {
-                medicineId = dbContext.Medicines.FirstOrDefault(x => x.Name == medicine.Name).Id;
+                return dbContext.Medicines.FirstOrDefault(x => x.Name == medicine.Name).Id;
             }
-
-            return medicineId;
         }
 
         public void SaveMedToDb(Medicine medicine)
