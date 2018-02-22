@@ -81,6 +81,14 @@ namespace ChronoPiller.Controllers
             return prescription;
         }
 
+        public void TakePill(int id)
+        {
+            var prescription = GetPrescriptionById(id);
+            foreach (PrescriptedMedicine med in prescription.PrescriptedMedicines)
+            {
+                med.MedicineBox.PillsInBox -= med.Dose;
+            }
+        }
 
         private int GetMedicineBoxId(int medicineId)
         {
