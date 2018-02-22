@@ -88,7 +88,14 @@ namespace ChronoPiller.Controllers
                 var medicines = context.PrescriptedMedicines.Where(x => x.PrescriptionId == prescriptionId);
                 foreach (var med in medicines)
                 {
-                    med.MedicineBox.PillsInBox -= med.Dose;
+                    if (med.MedicineBox.PillsInBox >= med.Dose)
+                    {
+                        med.MedicineBox.PillsInBox -= med.Dose;
+                    }
+                    else
+                    {
+                        throw new NotEnoughPillsException();
+                    }
                 }
                 context.SaveChanges();
             }
@@ -145,4 +152,11 @@ namespace ChronoPiller.Controllers
                 }
             }
         }
+
+    public class NotEnoughPillsException : Exception
+    {
+        public NotEnoughPillsException(string message = "There's not enough pills in the box!") : base(message)
+        {
+        }
     }
+}
