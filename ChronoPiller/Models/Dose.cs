@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Core.Objects;
+using ChronoPiller.DAL;
 
 namespace ChronoPiller.Models
 {
@@ -12,6 +14,5 @@ namespace ChronoPiller.Models
         public MedicineBox MedicineBox { get; set; }
         [Required]
         public int Pills { get; set; }
-
     }
 }
