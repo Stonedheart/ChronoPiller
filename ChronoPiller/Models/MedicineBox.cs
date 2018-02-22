@@ -19,7 +19,7 @@ namespace ChronoPiller.Models
         public float ActiveSubstanceAmountInMg { get; set; }
 
         [NotMapped]
-        public List<PrescriptedMedicine> OccurancesOnPrescriptions { get; set; }
+        public List<PrescriptedMedicine> OccurancesOnPrescriptions { get; set; } 
 
         [NotMapped]
         public Dose Dose { get; set; }

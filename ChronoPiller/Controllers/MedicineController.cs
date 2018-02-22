@@ -95,54 +95,54 @@ namespace ChronoPiller.Controllers
         }
 
         private int GetMedicineBoxId(int medicineId)
-        {
-            int medicineBoxId;
-
-            using (var dbContext = new ChronoDbContext())
             {
-                medicineBoxId = dbContext.MedicineBoxes.FirstOrDefault(x => x.MedicineId == medicineId).Id;
+                int medicineBoxId;
+
+                using (var dbContext = new ChronoDbContext())
+                {
+                    medicineBoxId = dbContext.MedicineBoxes.FirstOrDefault(x => x.MedicineId == medicineId).Id;
+                }
+
+                return medicineBoxId;
             }
 
-            return medicineBoxId;
-        }
-
-        private int GetMedicineId(Medicine medicine)
-        {
-            int medicineId;
-
-            using (var dbContext = new ChronoDbContext())
+            private int GetMedicineId(Medicine medicine)
             {
-                medicineId = dbContext.Medicines.FirstOrDefault(x => x.Name == medicine.Name).Id;
+                int medicineId;
+
+                using (var dbContext = new ChronoDbContext())
+                {
+                    medicineId = dbContext.Medicines.FirstOrDefault(x => x.Name == medicine.Name).Id;
+                }
+
+                return medicineId;
             }
 
-            return medicineId;
-        }
-
-        private void SaveMedToDb(Medicine medicine)
-        {
-            using (var dbContext = new ChronoDbContext())
+            private void SaveMedToDb(Medicine medicine)
             {
-                dbContext.Medicines.Add(medicine);
-                dbContext.SaveChanges();
+                using (var dbContext = new ChronoDbContext())
+                {
+                    dbContext.Medicines.Add(medicine);
+                    dbContext.SaveChanges();
+                }
             }
-        }
 
-        private void SaveMedBoxToDb(MedicineBox medBox)
-        {
-            using (var dbContext = new ChronoDbContext())
+            private void SaveMedBoxToDb(MedicineBox medBox)
             {
-                dbContext.MedicineBoxes.Add(medBox);
-                dbContext.SaveChanges();
+                using (var dbContext = new ChronoDbContext())
+                {
+                    dbContext.MedicineBoxes.Add(medBox);
+                    dbContext.SaveChanges();
+                }
             }
-        }
 
-        private void SavePrescriptedMedToDb(PrescriptedMedicine prescriptedMedicine)
-        {
-            using (var dbContext = new ChronoDbContext())
+            private void SavePrescriptedMedToDb(PrescriptedMedicine prescriptedMedicine)
             {
-                dbContext.PrescriptedMedicines.Add(prescriptedMedicine);
-                dbContext.SaveChanges();
+                using (var dbContext = new ChronoDbContext())
+                {
+                    dbContext.PrescriptedMedicines.Add(prescriptedMedicine);
+                    dbContext.SaveChanges();
+                }
             }
         }
     }
-}
