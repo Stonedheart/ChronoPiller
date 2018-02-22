@@ -59,5 +59,29 @@ namespace ChronoPiller.Controllers
             }
             return View(prescription);
         }
+
+        private void TakePill(Prescription prescription)
+        {
+            foreach (var med in prescription.PrescriptedMedicines)
+            {
+                if (med.MedicineBox.PillsInBox >= med.Dose)
+                {
+                    med.MedicineBox.PillsInBox -= med.Dose;
+                }
+                else
+                {
+                    throw new NotEnoughPillsException("Not enough pills in " + med.Name);
+                }
+                Db.SaveMedBoxToDb(med.MedicineBox);
+            }
+            ;
+        }
+    }
+
+    internal class NotEnoughPillsException : Exception
+    {
+        public NotEnoughPillsException(string message = "There's not enough pills in the box!") : base(message)
+        {
+        }
     }
 }
