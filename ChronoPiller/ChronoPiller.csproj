@@ -60,7 +60,8 @@
     <Compile Include="Controllers\MedicineController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PrescriptionController.cs" />
-    <Compile Include="DAL\ChronoDbContext.cs" />
+    <Compile Include="Database\ChronoDbContext.cs" />
+    <Compile Include="Database\DbService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
