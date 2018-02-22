@@ -29,11 +29,6 @@ namespace ChronoPiller.Controllers
                 var prescription = new Prescription(name, DateTime.Parse(dateOfIssue).Date);
                 var user = Db.User;
 
-                using (var db = new ChronoDbContext())
-                {
-                    user.Prescriptions = db.Prescriptions.Where(x => x.UserId == user.Id).ToList();
-                }
-
                 prescription.UserId = user.Id;
 
                 user.Prescriptions.Add(prescription);
