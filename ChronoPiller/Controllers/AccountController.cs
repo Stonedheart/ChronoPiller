@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data.Entity.Validation;
+﻿using System.Data.Entity.Validation;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -149,12 +148,6 @@ namespace ChronoPiller.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
-        }
-
-        public static ChronoUser GetCurrentUser()
-        {
-            var currentUserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            return System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ChronoUserManager>().FindById(int.Parse(currentUserId));
         }
 
         protected override void Dispose(bool disposing)
