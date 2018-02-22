@@ -45,7 +45,9 @@ namespace ChronoPiller.Controllers
                 SavePrescriptedMedToDb(prescriptedMedicine);
                 var user = AccountController.GetCurrentUser();
 
-                RecurringJob.AddOrUpdate(() => NotificationController.SendReminder(user.Email, GetPrescriptionById(int.Parse(prescriptionId))), Cron.Daily);
+                RecurringJob.AddOrUpdate(
+                    () => NotificationController.SendReminder(user.Email,
+                        GetPrescriptionById(int.Parse(prescriptionId))), Cron.Daily);
 
                 return RedirectToAction("Details", "Prescription", new {id = int.Parse(prescriptionId)});
             }
@@ -70,7 +72,6 @@ namespace ChronoPiller.Controllers
                 {
                     var dose = context.Doses.FirstOrDefault(x => x.MedicineBoxId == med.MedicineBoxId);
                     prescription.Doses.Add(dose);
-
                 }
             }
 
@@ -79,6 +80,7 @@ namespace ChronoPiller.Controllers
 
             return prescription;
         }
+
 
         private int GetMedicineBoxId(int medicineId)
         {
