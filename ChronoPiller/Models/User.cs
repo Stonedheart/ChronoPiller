@@ -59,7 +59,17 @@ namespace ChronoPiller.Models
 
         public static ChronoRoleManager Create(IdentityFactoryOptions<ChronoRoleManager> options, IOwinContext context)
         {
-            return new ChronoRoleManager(new RoleStore<ChronoRole, int, ChronoUserRole>(context.Get<ChronoDbContext>()));
+            var manager =
+                new ChronoRoleManager(new RoleStore<ChronoRole, int, ChronoUserRole>(context.Get<ChronoDbContext>()));
+            if (!manager.RoleExists("User"))
+            {
+                manager.Create(new ChronoRole("User"));
+            }
+            if (!manager.RoleExists("Admin"))
+            {
+                manager.Create(new ChronoRole("Admin"));
+            }
+            return manager;
         }
     }
 
