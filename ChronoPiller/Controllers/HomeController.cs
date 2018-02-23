@@ -8,14 +8,13 @@ namespace ChronoPiller.Controllers
     public class HomeController : Controller
     {
         private ChronoUser _currentUser;
-        private DbService _db = new DbService();
 
         [Authorize]
         public ActionResult Index()
         {
             try
             {
-                _currentUser = _db.User;
+                _currentUser = new DbService().User;
             }
             catch (Exception e)
             {

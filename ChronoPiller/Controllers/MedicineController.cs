@@ -8,8 +8,6 @@ namespace ChronoPiller.Controllers
 {
     public class MedicineController : Controller
     {
-        public DbService Db = new DbService();
-
         [HttpGet]
         public ActionResult Add(int id)
         {
@@ -20,6 +18,7 @@ namespace ChronoPiller.Controllers
         public ActionResult Add(FormCollection form)
         {
             var prescriptionId = form["prescriptionId"];
+            var Db = new DbService();
 
             try
             {

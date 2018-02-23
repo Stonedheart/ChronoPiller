@@ -37,5 +37,12 @@ namespace ChronoPiller.Controllers
             var mail = factory.GetEmailConfirmation(prescription);
             EmailClient.Send(mail);
         }
+
+        public static void SendWarning(string to, Prescription prescription)
+        {
+            var factory = new EmailFactory(to);
+            var mail = factory.GetEmailWarning(prescription);
+            EmailClient.Send(mail);
+        }
     }
 }

@@ -8,7 +8,6 @@ namespace ChronoPiller.Controllers
 {
     public class PrescriptionController : Controller
     {
-        public DbService Db = new DbService();
 
         [HttpGet]
         public ActionResult Add()
@@ -19,6 +18,7 @@ namespace ChronoPiller.Controllers
         [HttpPost]
         public ActionResult Add(FormCollection form)
         {
+            var Db = new DbService();
             try
             {
                 var name = form["name"] ?? "Prescription: " + DateTime.Today;
@@ -32,8 +32,8 @@ namespace ChronoPiller.Controllers
 
                 Db.SavePrescriptionToDb(prescription);
 
-            BackgroundJob.Enqueue(() => NotificationController.SendConfirmation(user.Email, prescription));
-            var prescriptionId = Db.GetPrescriptionId(prescription);
+                BackgroundJob.Enqueue(() => NotificationController.SendConfirmation(user.Email, prescription));
+                var prescriptionId = Db.GetPrescriptionId(prescription);
 
                 return RedirectToAction("Add", "Medicine", new {id = prescriptionId});
             }
@@ -47,6 +47,7 @@ namespace ChronoPiller.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
+            var Db = new DbService();
             Prescription prescription = null;
 
             try
@@ -55,13 +56,14 @@ namespace ChronoPiller.Controllers
             }
             catch (Exception e)
             {
-               ViewBag.ErrorMessage = e.Message;
+                ViewBag.ErrorMessage = e.Message;
             }
             return View(prescription);
         }
 
         private void TakePill(Prescription prescription)
         {
+            var Db = new DbService();
             foreach (var med in prescription.PrescriptedMedicines)
             {
                 if (med.MedicineBox.PillsInBox >= med.Dose)
@@ -74,7 +76,32 @@ namespace ChronoPiller.Controllers
                 }
                 Db.SaveMedBoxToDb(med.MedicineBox);
             }
-            ;
+        }
+
+        public void SetSchedule(Prescription prescription)
+        {
+            var Db = new DbService();
+            var user = Db.User;
+            var id = $"{user.Id}.{prescription.Id}";
+
+            RecurringJob.AddOrUpdate(id,
+                () => TakeAndRemind(prescription), Cron.Daily);
+        }
+
+        private void TakeAndRemind(Prescription prescription)
+        {
+            var Db = new DbService();
+            var user = Db.User;
+            var id = $"{user.Id}.{prescription.Id}";
+            try
+            {
+                this.TakePill(prescription);
+                NotificationController.SendReminder(user.Email, prescription);
+            }
+            catch (NotEnoughPillsException)
+            {
+                RecurringJob.RemoveIfExists(id);
+            }
         }
     }
 

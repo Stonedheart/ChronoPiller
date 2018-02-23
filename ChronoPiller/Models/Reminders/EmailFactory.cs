@@ -47,5 +47,17 @@ namespace ChronoPiller.Models.Reminders
 
             return Email;
         }
+
+        public MailMessage GetEmailWarning(Prescription prescription)
+        {
+            Email.Subject = "You've ran out of pills!";
+            Email.Body = $"Hello there!\n\n" +
+                         $"Your friendly neighbourhood ChronoPiller would like to inform " +
+                         $"that prescription {prescription.Name} has been fully realized!\n\n" +
+                         $"Either you're finished or fucked :3!\n\n" +
+                         $"Cheers!";
+
+            return Email;
+        }
     }
 }
