@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ChronoPiller.DAL;
@@ -10,7 +11,7 @@ namespace ChronoPiller.Database
 {
     public class DbService
     {
-        public ChronoUser User { get; set; }
+        public ChronoUser User { get; }
 
         public DbService()
         {
@@ -19,9 +20,17 @@ namespace ChronoPiller.Database
 
         private ChronoUser GetCurrentUser()
         {
-            var context = HttpContext.Current;
-            var id = context.User.Identity.GetUserId();
-            var user = context.GetOwinContext().GetUserManager<ChronoUserManager>().FindById(int.Parse(id));
+            ChronoUser user;
+            try
+            {
+                var context = HttpContext.Current;
+                var id = context.User.Identity.GetUserId();
+                user = context.GetOwinContext().GetUserManager<ChronoUserManager>().FindById(int.Parse(id));
+            }
+            catch (NullReferenceException)
+            {
+                throw new UserNotLoggedException();
+            }
             user.Prescriptions = GetUserPrescriptions(user.Id);
             return user;
         }
@@ -62,7 +71,7 @@ namespace ChronoPiller.Database
             using (var dbContext = new ChronoDbContext())
             {
                 return dbContext.Prescriptions.FirstOrDefault(
-                    x => x.Name == prescription.Name && x.DateOfIssue == prescription.DateOfIssue)
+                        x => x.Name == prescription.Name && x.DateOfIssue == prescription.DateOfIssue)
                     .Id;
             }
         }
@@ -77,11 +86,11 @@ namespace ChronoPiller.Database
                     .Join(dbContext.MedicineBoxes,
                         prescriptedMed => prescriptedMed.MedicineBoxId,
                         medBox => medBox.Id,
-                        (prescriptedMed, medBox) => new { prescriptedMed, medBox })
+                        (prescriptedMed, medBox) => new {prescriptedMed, medBox})
                     .Join(dbContext.Medicines,
                         medBox => medBox.medBox.MedicineId,
                         med => med.Id,
-                        (medBox, med) => new { medBox, med })
+                        (medBox, med) => new {medBox, med})
                     .Select(x => new
                     {
                         Id = x.medBox.prescriptedMed.Id,
@@ -160,5 +169,9 @@ namespace ChronoPiller.Database
                 dbContext.SaveChanges();
             }
         }
+    }
+
+    internal class UserNotLoggedException : Exception
+    {
     }
 }
