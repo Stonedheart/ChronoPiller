@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ChronoPiller.Models;
+using ChronoPiller.Models.Reminders;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -15,6 +16,7 @@ namespace ChronoPiller.Controllers
         private ChronoSignInManager _signInManager;
         private ChronoUserManager _userManager;
         private ChronoRoleManager _roleManager;
+        private EmailFactory _emailFactory;
 
         public AccountController()
         {
@@ -122,13 +124,9 @@ namespace ChronoPiller.Controllers
                         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                         var callbackUrl = Url.Action("ConfirmEmail", "Account", new {userId = user.Id, code = code},
                             protocol: Request.Url.Scheme);
-                        var message = new IdentityMessage
-                        {
-                            Destination = user.Email,
-                            Body = "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>",
-                            Subject = "Confirm your account"
-                        };
-                        await UserManager.EmailService.SendAsync(message);
+                        _emailFactory = new EmailFactory(user.Email);
+
+                        await UserManager.EmailService.SendAsync(_emailFactory.GetConfirmationEmail(callbackUrl));
 
 
                         return View("DisplayEmail");
@@ -152,7 +150,6 @@ namespace ChronoPiller.Controllers
                 AddErrors(result);
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -185,20 +182,15 @@ namespace ChronoPiller.Controllers
                 var user = await UserManager.FindByNameAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
                 }
 
                 var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new {userId = user.Id, code = code},
                     protocol: Request.Url.Scheme);
-                var message = new IdentityMessage
-                {
-                    Destination = user.Email,
-                    Body = "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>",
-                    Subject = "Reset Password"
-                };
-                await UserManager.EmailService.SendAsync(message);
+                _emailFactory = new EmailFactory(user.Email);
+
+                await UserManager.EmailService.SendAsync(_emailFactory.GetResetPasswordEmail(callbackUrl));
                 ;
                 ViewBag.Link = callbackUrl;
                 return View("ForgotPasswordConfirmation");
