@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Net.Mail;
 
@@ -15,5 +16,6 @@ namespace ChronoPiller.Models
             UseDefaultCredentials = false;
             Credentials = new NetworkCredential(name, pass);
         }
+
     }
 }
