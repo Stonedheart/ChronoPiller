@@ -1,17 +1,49 @@
 ﻿using System;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Configuration;
 using ChronoPiller.DAL;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using SendGrid.Helpers.Mail;
 
 namespace ChronoPiller.Models
 {
+    public class ChronoEmailService : IIdentityMessageService
+    {
+        public Task SendAsync(IdentityMessage message)
+        {
+            return configureSendMailAsync(message);
+        }
+
+        private async Task configureSendMailAsync(IdentityMessage message)
+        {
+            var myMessage = new MailMessage();
+            myMessage.To.Add(message.Destination);
+            myMessage.From = new MailAddress("chronopiller@gmail.com", "ChronoPiller Team");
+            myMessage.Subject = message.Subject;
+            myMessage.Body = message.Body;
+
+            var client = new DefaultEmailClient("chronopiller@gmail.com",
+                "dupadupadupa");
+
+            await client.SendMailAsync(myMessage);
+        }
+    }
+
     public class ChronoUserManager : UserManager<ChronoUser, int>
     {
+        private IIdentityMessageService _emaiService { get; set; }
+
+        public new IIdentityMessageService EmailService => _emaiService ?? new ChronoEmailService();
+
+
         public ChronoUserManager(IUserStore<ChronoUser, int> store) : base(store)
         {
         }
@@ -68,7 +100,8 @@ namespace ChronoPiller.Models
 
     public class ChronoSignInManager : SignInManager<ChronoUser, int>
     {
-        public ChronoSignInManager(UserManager<ChronoUser, int> userManager, IAuthenticationManager authenticationManager) : base(userManager, authenticationManager)
+        public ChronoSignInManager(UserManager<ChronoUser, int> userManager,
+            IAuthenticationManager authenticationManager) : base(userManager, authenticationManager)
         {
         }
 
