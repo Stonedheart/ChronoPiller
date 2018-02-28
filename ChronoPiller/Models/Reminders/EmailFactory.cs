@@ -19,7 +19,7 @@ namespace ChronoPiller.Models.Reminders
             _builder = new StringBuilder();
         }
 
-        public MailMessage GetEmailReminder(Prescription prescription)
+        public IdentityMessage GetIdentityEmailReminder(Prescription prescription)
         {
             if (_builder.Length > 0)
             {
@@ -34,10 +34,11 @@ namespace ChronoPiller.Models.Reminders
                           $"Take it or You'll be sorry!\n\n" +
                           $"Cheers!";
 
-            return _email;
+            var message = CreateIdentityMessage(_email.Subject, _email.Body);
+            return ;
         }
 
-        public MailMessage GetEmailConfirmation(Prescription prescription)
+        public IdentityMessage GetIdentityEmailConfirmation(Prescription prescription)
         {
             _email.Subject = "A new prescription has been created!";
             _email.Body = $"Hello there!\n\n" +
@@ -46,10 +47,11 @@ namespace ChronoPiller.Models.Reminders
                           $"Take your pills or You'll be sorry!\n\n" +
                           $"Cheers!";
 
-            return _email;
+            var message = CreateIdentityMessage(_email.Subject, _email.Body);
+            return message;
         }
 
-        public MailMessage GetEmailWarning(Prescription prescription)
+        public IdentityMessage GetIdentityEmailWarning(Prescription prescription)
         {
             _email.Subject = "You've ran out of pills!";
             _email.Body = $"Hello there!\n\n" +
@@ -57,8 +59,9 @@ namespace ChronoPiller.Models.Reminders
                           $"that prescription {prescription.Name} has been fully realized!\n\n" +
                           $"Either you're finished or fucked :3!\n\n" +
                           $"Cheers!";
-
-            return _email;
+            var message = CreateIdentityMessage(_email.Subject, _email.Body);
+            return 
+            message;
         }
 
         private IdentityMessage CreateIdentityMessage(string subject, string body)
@@ -67,7 +70,7 @@ namespace ChronoPiller.Models.Reminders
             return message;
         }
 
-        public IdentityMessage GetConfirmationEmail(string callbackUrl)
+        public IdentityMessage GetIdentityConfirmationEmail(string callbackUrl)
         {
             _email.Subject = "Confirm your account";
             _email.Body = "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>";
@@ -76,7 +79,7 @@ namespace ChronoPiller.Models.Reminders
         }
 
 
-        public IdentityMessage GetResetEmail(string callbackUrl)
+        public IdentityMessage GetIdentityResetPasswordEmail(string callbackUrl)
         {
             _email.Subject = "Reset Password";
             _email.Body = "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>";

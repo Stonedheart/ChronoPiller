@@ -14,6 +14,7 @@ namespace ChronoPiller.Controllers
             new DefaultEmailClient(MailName, MailPassword);
 
         private static EmailFactory _emailFactory;
+        private static ChronoEmailService _service;
 
 
         [HttpGet]
@@ -30,21 +31,21 @@ namespace ChronoPiller.Controllers
         {
             _emailFactory = new EmailFactory(to);
             var mail = _emailFactory.GetEmailReminder(prescription);
-            EmailClient.Send(mail);
+            _service.SendAsync(mail);
         }
 
         public static void SendConfirmation(string to, Prescription prescription)
         {
             _emailFactory = new EmailFactory(to);
             var mail = _emailFactory.GetEmailConfirmation(prescription);
-            EmailClient.Send(mail);
+            _service.SendAsync(mail);
         }
 
         public static void SendWarning(string to, Prescription prescription)
         {
             _emailFactory = new EmailFactory(to);
             var mail = _emailFactory.GetEmailWarning(prescription);
-            EmailClient.Send(mail);
+            _service.SendAsync(mail);
         }
     }
 }
