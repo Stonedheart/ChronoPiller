@@ -13,6 +13,8 @@ namespace ChronoPiller.Controllers
         public static DefaultEmailClient EmailClient =
             new DefaultEmailClient(MailName, MailPassword);
 
+        private static EmailFactory _emailFactory;
+
 
         [HttpGet]
         public ActionResult Check(string clientDate)
@@ -26,22 +28,22 @@ namespace ChronoPiller.Controllers
 
         public static void SendReminder(string to, Prescription prescription)
         {
-            var factory = new EmailFactory(to);
-            var mail = factory.GetEmailReminder(prescription);
+            _emailFactory = new EmailFactory(to);
+            var mail = _emailFactory.GetEmailReminder(prescription);
             EmailClient.Send(mail);
         }
 
         public static void SendConfirmation(string to, Prescription prescription)
         {
-            var factory = new EmailFactory(to);
-            var mail = factory.GetEmailConfirmation(prescription);
+            _emailFactory = new EmailFactory(to);
+            var mail = _emailFactory.GetEmailConfirmation(prescription);
             EmailClient.Send(mail);
         }
 
         public static void SendWarning(string to, Prescription prescription)
         {
-            var factory = new EmailFactory(to);
-            var mail = factory.GetEmailWarning(prescription);
+            _emailFactory = new EmailFactory(to);
+            var mail = _emailFactory.GetEmailWarning(prescription);
             EmailClient.Send(mail);
         }
     }
