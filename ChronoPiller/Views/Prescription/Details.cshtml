@@ -10,7 +10,7 @@
 
 <div>
     @{
-        @Html.ActionLink("Add Med", "Add", "Medicine", new {id = Model.Id}, null)
+        @Html.ActionLink("Add Med", "Add", "Medicine", new { id = Model.Id }, null)
         if (Equals(Model.PrescriptedMedicines.Count, 0))
         {
             <div>
@@ -82,3 +82,4 @@
         }
     }
 </div>
+@RenderPage("~/Views/Shared/LogoutButton.cshtml")
