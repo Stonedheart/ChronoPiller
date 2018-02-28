@@ -17,10 +17,7 @@ namespace ChronoPiller.Models
 {
     public class ChronoEmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
-        {
-            return configureSendMailAsync(message);
-        }
+        public Task SendAsync(IdentityMessage message) => configureSendMailAsync(message);
 
         private async Task configureSendMailAsync(IdentityMessage message)
         {
@@ -29,6 +26,7 @@ namespace ChronoPiller.Models
             myMessage.From = new MailAddress("chronopiller@gmail.com", "ChronoPiller Team");
             myMessage.Subject = message.Subject;
             myMessage.Body = message.Body;
+            myMessage.IsBodyHtml = true;
 
             var client = new DefaultEmailClient("chronopiller@gmail.com",
                 "dupadupadupa");

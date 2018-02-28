@@ -35,7 +35,7 @@ namespace ChronoPiller.Models.Reminders
                           $"Cheers!";
 
             var message = CreateIdentityMessage(_email.Subject, _email.Body);
-            return ;
+            return message;
         }
 
         public IdentityMessage GetIdentityEmailConfirmation(Prescription prescription)
@@ -60,8 +60,8 @@ namespace ChronoPiller.Models.Reminders
                           $"Either you're finished or fucked :3!\n\n" +
                           $"Cheers!";
             var message = CreateIdentityMessage(_email.Subject, _email.Body);
-            return 
-            message;
+            return
+                message;
         }
 
         private IdentityMessage CreateIdentityMessage(string subject, string body)

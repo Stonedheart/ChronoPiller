@@ -64,6 +64,7 @@ namespace ChronoPiller.Controllers
             }
 
             int userId;
+
             try
             {
                 userId = UserManager.FindByEmail(model.Email).Id;
@@ -126,7 +127,7 @@ namespace ChronoPiller.Controllers
                             protocol: Request.Url.Scheme);
                         _emailFactory = new EmailFactory(user.Email);
 
-                        await UserManager.EmailService.SendAsync(_emailFactory.GetConfirmationEmail(callbackUrl));
+                        await UserManager.EmailService.SendAsync(_emailFactory.GetIdentityConfirmationEmail(callbackUrl));
 
 
                         return View("DisplayEmail");
@@ -190,7 +191,7 @@ namespace ChronoPiller.Controllers
                     protocol: Request.Url.Scheme);
                 _emailFactory = new EmailFactory(user.Email);
 
-                await UserManager.EmailService.SendAsync(_emailFactory.GetResetPasswordEmail(callbackUrl));
+                await UserManager.EmailService.SendAsync(_emailFactory.GetIdentityResetPasswordEmail(callbackUrl));
                 ;
                 ViewBag.Link = callbackUrl;
                 return View("ForgotPasswordConfirmation");
@@ -243,10 +244,7 @@ namespace ChronoPiller.Controllers
         //
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
-        public ActionResult ResetPasswordConfirmation()
-        {
-            return View();
-        }
+        public ActionResult ResetPasswordConfirmation() => View();
 
         [HttpGet]
         [ValidateAntiForgeryToken]
@@ -276,10 +274,7 @@ namespace ChronoPiller.Controllers
             base.Dispose(disposing);
         }
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get { return HttpContext.GetOwinContext().Authentication; }
-        }
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
         private void AddErrors(IdentityResult result)
         {
