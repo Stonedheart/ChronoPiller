@@ -1,4 +1,5 @@
-﻿using System.Data.Entity.Validation;
+﻿using System;
+using System.Data.Entity.Validation;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -60,10 +61,29 @@ namespace ChronoPiller.Controllers
                 return View(model);
             }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            int userId;
+            try
+            {
+                userId = UserManager.FindByEmail(model.Email).Id;
+            }
+            catch (NullReferenceException)
+            {
+                ModelState.AddModelError("", @"Invalid login attempt.");
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
+                return View(model);
+            }
+            if (!UserManager.IsEmailConfirmed(userId))
+            {
+                return View("EmailNotConfirmed");
+            }
+            ;
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe,
                 shouldLockout: false);
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -74,7 +94,7 @@ namespace ChronoPiller.Controllers
 //                    return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, RememberMe = model.RememberMe});
 //                case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", @"Invalid login attempt.");
                     return View(model);
             }
         }
@@ -99,22 +119,27 @@ namespace ChronoPiller.Controllers
                     result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new {userId = user.Id, code = code},
+                            protocol: Request.Url.Scheme);
+                        var message = new IdentityMessage
+                        {
+                            Destination = user.Email,
+                            Body = "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>",
+                            Subject = "Confirm your account"
+                        };
+                        await UserManager.EmailService.SendAsync(message);
 
-                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                        // Send an email with this link
-                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                        return RedirectToAction("Index", "Home");
+                        return View("DisplayEmail");
                     }
                 }
                 catch (DbEntityValidationException e)
                 {
                     foreach (var eve in e.EntityValidationErrors)
                     {
-                        System.Diagnostics.Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        System.Diagnostics.Debug.WriteLine(
+                            "Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
                             eve.Entry.Entity.GetType().Name, eve.Entry.State);
                         foreach (var ve in eve.ValidationErrors)
                         {
@@ -141,6 +166,7 @@ namespace ChronoPiller.Controllers
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
+
 //
 //        [HttpPost]
 //        [ValidateAntiForgeryToken]
@@ -172,10 +198,7 @@ namespace ChronoPiller.Controllers
 
         private IAuthenticationManager AuthenticationManager
         {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
+            get { return HttpContext.GetOwinContext().Authentication; }
         }
 
         private void AddErrors(IdentityResult result)
@@ -195,7 +218,7 @@ namespace ChronoPiller.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-        
+
         public void CreateUserRole()
         {
             if (!_roleManager.RoleExists("User"))
@@ -204,7 +227,7 @@ namespace ChronoPiller.Controllers
                 _roleManager.Create(role);
             }
         }
-        
+
         public void CreateAdminRole()
         {
             if (!_roleManager.RoleExists("Admin"))
