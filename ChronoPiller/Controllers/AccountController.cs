@@ -190,14 +190,16 @@ namespace ChronoPiller.Controllers
                 }
 
                 var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new {userId = user.Id, code = code},
+                    protocol: Request.Url.Scheme);
                 var message = new IdentityMessage
                 {
                     Destination = user.Email,
                     Body = "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>",
                     Subject = "Reset Password"
                 };
-                await UserManager.EmailService.SendAsync(message); ;
+                await UserManager.EmailService.SendAsync(message);
+                ;
                 ViewBag.Link = callbackUrl;
                 return View("ForgotPasswordConfirmation");
             }
@@ -254,9 +256,9 @@ namespace ChronoPiller.Controllers
             return View();
         }
 
-        //
-        //        [HttpPost]
-        //        [ValidateAntiForgeryToken]
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult LogOut()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);

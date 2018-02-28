@@ -135,6 +135,7 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\DisplayEmail.cshtml" />
     <Content Include="Views\Account\EmailNotConfirmed.cshtml" />
+    <Content Include="Views\Shared\LogoutButton.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
