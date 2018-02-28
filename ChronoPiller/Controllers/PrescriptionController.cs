@@ -10,12 +10,14 @@ namespace ChronoPiller.Controllers
     {
 
         [HttpGet]
+        [Authorize]
         public ActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Add(FormCollection form)
         {
             var Db = new DbService();
@@ -45,6 +47,7 @@ namespace ChronoPiller.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Details(int id)
         {
             var Db = new DbService();

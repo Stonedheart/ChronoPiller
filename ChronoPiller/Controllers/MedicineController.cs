@@ -9,12 +9,14 @@ namespace ChronoPiller.Controllers
     public class MedicineController : Controller
     {
         [HttpGet]
+        [Authorize]
         public ActionResult Add(int id)
         {
             return View(id);
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Add(FormCollection form)
         {
             var prescriptionId = form["prescriptionId"];

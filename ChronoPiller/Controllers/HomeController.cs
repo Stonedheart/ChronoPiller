@@ -16,9 +16,9 @@ namespace ChronoPiller.Controllers
             {
                 _currentUser = new DbService().User;
             }
-            catch (Exception e)
+            catch (UserNotLoggedException)
             {
-                ViewBag.ErrorMessage = e.Message;
+                Redirect("Account/Login");
             }
             return View(_currentUser);
         }
