@@ -127,7 +127,8 @@ namespace ChronoPiller.Controllers
                             protocol: Request.Url.Scheme);
                         _emailFactory = new EmailFactory(user.Email);
 
-                        await UserManager.EmailService.SendAsync(_emailFactory.GetIdentityConfirmationEmail(callbackUrl));
+                        await UserManager.EmailService.SendAsync(_emailFactory.GetConfirmationEmail(callbackUrl)
+                            .ToIdentityMessage());
 
 
                         return View("DisplayEmail");
@@ -191,7 +192,8 @@ namespace ChronoPiller.Controllers
                     protocol: Request.Url.Scheme);
                 _emailFactory = new EmailFactory(user.Email);
 
-                await UserManager.EmailService.SendAsync(_emailFactory.GetIdentityResetPasswordEmail(callbackUrl));
+                await UserManager.EmailService.SendAsync(_emailFactory.GetResetPasswordEmail(callbackUrl)
+                    .ToIdentityMessage());
                 ;
                 ViewBag.Link = callbackUrl;
                 return View("ForgotPasswordConfirmation");
@@ -292,24 +294,6 @@ namespace ChronoPiller.Controllers
                 return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "Home");
-        }
-
-        public void CreateUserRole()
-        {
-            if (!_roleManager.RoleExists("User"))
-            {
-                var role = new ChronoRole("User");
-                _roleManager.Create(role);
-            }
-        }
-
-        public void CreateAdminRole()
-        {
-            if (!_roleManager.RoleExists("Admin"))
-            {
-                var role = new ChronoRole("Admin");
-                _roleManager.Create(role);
-            }
         }
     }
 }
