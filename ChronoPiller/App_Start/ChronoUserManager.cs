@@ -34,15 +34,6 @@ namespace ChronoPiller
 
     public class ChronoUserManager : UserManager<ChronoUser, int>
     {
-        private IIdentityMessageService _emaiService { get; set; }
-
-        public new IIdentityMessageService EmailService
-        {
-            get => _emaiService ?? new ChronoEmailService();
-            set { throw new NotImplementedException(); }
-        }
-
-
         public ChronoUserManager(IUserStore<ChronoUser, int> store) : base(store)
         {
         }
