@@ -163,6 +163,10 @@ namespace ChronoPiller.Controllers
                 return View("Error");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
+            if (result.Succeeded)
+            {
+                UserManager.AddToRoleAsync(userId, "User");
+            }
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
