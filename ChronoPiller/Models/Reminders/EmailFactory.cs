@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using Microsoft.AspNet.Identity;
@@ -19,7 +20,7 @@ namespace ChronoPiller.Models.Reminders
             _builder = new StringBuilder();
         }
 
-        public IdentityMessage GetIdentityEmailReminder(Prescription prescription)
+        public MailMessage GetIdentityEmailReminder(Prescription prescription)
         {
             if (_builder.Length > 0)
             {
@@ -34,11 +35,10 @@ namespace ChronoPiller.Models.Reminders
                           $"Take it or You'll be sorry!\n\n" +
                           $"Cheers!";
 
-            var message = CreateIdentityMessage(_email.Subject, _email.Body);
-            return message;
+            return _email;
         }
 
-        public IdentityMessage GetIdentityEmailConfirmation(Prescription prescription)
+        public MailMessage GetIdentityEmailConfirmation(Prescription prescription)
         {
             _email.Subject = "A new prescription has been created!";
             _email.Body = $"Hello there!\n\n" +
@@ -47,11 +47,10 @@ namespace ChronoPiller.Models.Reminders
                           $"Take your pills or You'll be sorry!\n\n" +
                           $"Cheers!";
 
-            var message = CreateIdentityMessage(_email.Subject, _email.Body);
-            return message;
+            return _email;
         }
 
-        public IdentityMessage GetIdentityEmailWarning(Prescription prescription)
+        public MailMessage GetIdentityEmailWarning(Prescription prescription)
         {
             _email.Subject = "You've ran out of pills!";
             _email.Body = $"Hello there!\n\n" +
@@ -59,9 +58,8 @@ namespace ChronoPiller.Models.Reminders
                           $"that prescription {prescription.Name} has been fully realized!\n\n" +
                           $"Either you're finished or fucked :3!\n\n" +
                           $"Cheers!";
-            var message = CreateIdentityMessage(_email.Subject, _email.Body);
             return
-                message;
+                _email;
         }
 
         private IdentityMessage CreateIdentityMessage(string subject, string body)
@@ -70,21 +68,41 @@ namespace ChronoPiller.Models.Reminders
             return message;
         }
 
-        public IdentityMessage GetIdentityConfirmationEmail(string callbackUrl)
+        public MailMessage GetIdentityConfirmationEmail(string callbackUrl)
         {
             _email.Subject = "Confirm your account";
-            _email.Body = "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>";
-            var identityMessage = CreateIdentityMessage(_email.Subject, _email.Body);
-            return identityMessage;
+            _email.Body = "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>\n" +
+                          "If link above doesn't work, try this: \n\n" +
+                          callbackUrl;
+            return _email;
         }
 
 
-        public IdentityMessage GetIdentityResetPasswordEmail(string callbackUrl)
+        public MailMessage GetIdentityResetPasswordEmail(string callbackUrl)
         {
             _email.Subject = "Reset Password";
-            _email.Body = "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>";
-            var identityMessage = CreateIdentityMessage(_email.Subject, _email.Body);
+            _email.Body = "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>\n" +
+                          "If link above doesn't work, try this: \n\n" +
+                          callbackUrl;
+            return _email;
+        }
+
+        
+    }
+
+    public static class IdentityMailExtension
+    {
+        public static IdentityMessage ToIdentityMessage(this MailMessage message)
+        {
+            var identityMessage = new IdentityMessage
+            {
+                Body = message.Body,
+                Destination = message.To.FirstOrDefault()?.ToString(),
+                Subject = message.Subject
+            };
+
             return identityMessage;
+
         }
     }
 }

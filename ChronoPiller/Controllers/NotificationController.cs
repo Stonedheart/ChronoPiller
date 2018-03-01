@@ -7,12 +7,6 @@ namespace ChronoPiller.Controllers
 {
     public class NotificationController : Controller
     {
-        private const string MailName = "chronopiller@gmail.com";
-        private const string MailPassword = "dupadupadupa";
-
-        public static DefaultEmailClient EmailClient =
-            new DefaultEmailClient(MailName, MailPassword);
-
         private static EmailFactory _emailFactory;
         private static readonly ChronoEmailService Service = new ChronoEmailService();
 
@@ -30,22 +24,22 @@ namespace ChronoPiller.Controllers
         public static void SendReminder(string to, Prescription prescription)
         {
             _emailFactory = new EmailFactory(to);
-            var mail = _emailFactory.GetIdentityEmailReminder(prescription);
-            Service.SendAsync(mail);
+            var mail = _emailFactory.GetEmailReminder(prescription);
+            Service.SendAsync(mail.ToIdentityMessage());
         }
 
         public static void SendConfirmation(string to, Prescription prescription)
         {
             _emailFactory = new EmailFactory(to);
-            var mail = _emailFactory.GetIdentityEmailConfirmation(prescription);
-            Service.SendAsync(mail);
+            var mail = _emailFactory.GetEmailConfirmation(prescription);
+            Service.SendAsync(mail.ToIdentityMessage());
         }
 
         public static void SendWarning(string to, Prescription prescription)
         {
             _emailFactory = new EmailFactory(to);
-            var mail = _emailFactory.GetIdentityEmailWarning(prescription);
-            Service.SendAsync(mail);
+            var mail = _emailFactory.GetEmailWarning(prescription);
+            Service.SendAsync(mail.ToIdentityMessage());
         }
     }
 }
