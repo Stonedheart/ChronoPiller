@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Net;
 using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Configuration;
 using ChronoPiller.DAL;
+using ChronoPiller.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using SendGrid.Helpers.Mail;
 
-namespace ChronoPiller.Models
+namespace ChronoPiller
 {
     public class ChronoEmailService : IIdentityMessageService
     {
@@ -39,7 +36,11 @@ namespace ChronoPiller.Models
     {
         private IIdentityMessageService _emaiService { get; set; }
 
-        public new IIdentityMessageService EmailService => _emaiService ?? new ChronoEmailService();
+        public new IIdentityMessageService EmailService
+        {
+            get => _emaiService ?? new ChronoEmailService();
+            set { throw new NotImplementedException(); }
+        }
 
 
         public ChronoUserManager(IUserStore<ChronoUser, int> store) : base(store)
@@ -81,7 +82,7 @@ namespace ChronoPiller.Models
                 BodyFormat = "Your security code is {0}"
             });
 
-//            manager.EmailService = new EmailService();
+            manager.EmailService = new ChronoEmailService();
 //            manager.SmsService = new SmsService();
 
             var dataProtectionProvider = options.DataProtectionProvider;
