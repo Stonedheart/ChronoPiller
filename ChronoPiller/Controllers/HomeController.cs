@@ -18,6 +18,7 @@ namespace ChronoPiller.Controllers
             }
             catch (UserNotLoggedException)
             {
+                System.Diagnostics.Debug.WriteLine("O Kurwa!");
                 Redirect("Account/Login");
             }
             return View(_currentUser);

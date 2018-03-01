@@ -198,7 +198,6 @@ namespace ChronoPiller.Controllers
 
                 await UserManager.EmailService.SendAsync(_emailFactory.GetResetPasswordEmail(callbackUrl)
                     .ToIdentityMessage());
-                ;
                 ViewBag.Link = callbackUrl;
                 return View("ForgotPasswordConfirmation");
             }
