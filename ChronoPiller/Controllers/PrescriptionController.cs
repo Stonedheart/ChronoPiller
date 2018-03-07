@@ -56,6 +56,7 @@ namespace ChronoPiller.Controllers
             try
             {
                 prescription = Db.GetPrescriptionById(id);
+                SetSchedule(prescription);
             }
             catch (Exception e)
             {

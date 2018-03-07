@@ -45,9 +45,6 @@ namespace ChronoPiller.Controllers
                     int.Parse(prescriptedBoxCount), int.Parse(dose), int.Parse(interval), int.Parse(prescriptionId),
                     medicineBoxId);
                 Db.SavePrescriptedMedToDb(prescriptedMedicine);
-                var user = new DbService().User;
-
-                RecurringJob.AddOrUpdate(() => NotificationController.SendReminder(user.Email, Db.GetPrescriptionById(int.Parse(prescriptionId))), Cron.Daily);
 
                 return RedirectToAction("Details", "Prescription", new {id = int.Parse(prescriptionId)});
             }
