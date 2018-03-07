@@ -67,7 +67,7 @@ namespace ChronoPiller.Controllers
 
         private void TakePill(Prescription prescription)
         {
-            var Db = new DbService();
+            var Db = new DbService(prescription.UserId);
             foreach (var med in prescription.PrescriptedMedicines)
             {
                 if (med.MedicineBox.PillsInBox >= med.Dose)
@@ -89,13 +89,12 @@ namespace ChronoPiller.Controllers
             var id = $"{user.Id}.{prescription.Id}";
 
             RecurringJob.AddOrUpdate(id,
-                () => TakeAndRemind(prescription), "30 14 * * *");
+                () => TakeAndRemind(user.Id, prescription), "12 15 * * *");
         }
 
-        public void TakeAndRemind(Prescription prescription)
+        public void TakeAndRemind(int userId ,Prescription prescription)
         {
-            var Db = new DbService();
-            var user = Db.User;
+            var user = DbService.GetUserById(userId);
             var id = $"{user.Id}.{prescription.Id}";
             try
             {
@@ -104,6 +103,7 @@ namespace ChronoPiller.Controllers
             }
             catch (NotEnoughPillsException)
             {
+                NotificationController.SendWarning(user.Email, prescription);
                 RecurringJob.RemoveIfExists(id);
             }
         }
