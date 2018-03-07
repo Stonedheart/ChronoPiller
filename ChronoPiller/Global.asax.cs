@@ -58,11 +58,12 @@ namespace ChronoPiller
                 HostingEnvironment.RegisterObject(this);
 
                 GlobalConfiguration.Configuration
-                    .UseSqlServerStorage(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ChronoPiller.DAL.ChronoPillerDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
-                new SqlServerStorageOptions
-                {
-                    QueuePollInterval = TimeSpan.FromSeconds(1)
-                });
+                    .UseSqlServerStorage(
+                        @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ChronoPiller.DAL.ChronoPillerDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
+                        new SqlServerStorageOptions
+                        {
+                            QueuePollInterval = TimeSpan.FromSeconds(1)
+                        });
 
 
                 _backgroundJobServer = new BackgroundJobServer();

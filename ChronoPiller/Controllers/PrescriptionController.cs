@@ -89,10 +89,10 @@ namespace ChronoPiller.Controllers
             var id = $"{user.Id}.{prescription.Id}";
 
             RecurringJob.AddOrUpdate(id,
-                () => TakeAndRemind(prescription), Cron.Daily);
+                () => TakeAndRemind(prescription), "30 14 * * *");
         }
 
-        private void TakeAndRemind(Prescription prescription)
+        public void TakeAndRemind(Prescription prescription)
         {
             var Db = new DbService();
             var user = Db.User;

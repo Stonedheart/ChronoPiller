@@ -1,4 +1,5 @@
 using System;
+using System.Web.Hosting;
 using ChronoPiller.DAL;
 using ChronoPiller.Models;
 using Hangfire;
@@ -13,10 +14,11 @@ using Owin;
 
 namespace ChronoPiller
 {
-    public class Startup
+    public class Startup 
     {
         public void Configuration(IAppBuilder app)
         {
+
             ConfigureAuth(app);
 
             GlobalConfiguration.Configuration
