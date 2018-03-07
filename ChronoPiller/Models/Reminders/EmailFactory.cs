@@ -20,7 +20,7 @@ namespace ChronoPiller.Models.Reminders
             _builder = new StringBuilder();
         }
 
-        public MailMessage GetIdentityEmailReminder(Prescription prescription)
+        public MailMessage GetEmailReminder(Prescription prescription)
         {
             if (_builder.Length > 0)
             {
@@ -38,7 +38,7 @@ namespace ChronoPiller.Models.Reminders
             return _email;
         }
 
-        public MailMessage GetIdentityEmailConfirmation(Prescription prescription)
+        public MailMessage GetEmailConfirmation(Prescription prescription)
         {
             _email.Subject = "A new prescription has been created!";
             _email.Body = $"Hello there!\n\n" +
@@ -50,7 +50,7 @@ namespace ChronoPiller.Models.Reminders
             return _email;
         }
 
-        public MailMessage GetIdentityEmailWarning(Prescription prescription)
+        public MailMessage GetEmailWarning(Prescription prescription)
         {
             _email.Subject = "You've ran out of pills!";
             _email.Body = $"Hello there!\n\n" +
@@ -62,13 +62,7 @@ namespace ChronoPiller.Models.Reminders
                 _email;
         }
 
-        private IdentityMessage CreateIdentityMessage(string subject, string body)
-        {
-            var message = new IdentityMessage {Body = body, Subject = subject, Destination = this.To};
-            return message;
-        }
-
-        public MailMessage GetIdentityConfirmationEmail(string callbackUrl)
+        public MailMessage GetConfirmationEmail(string callbackUrl)
         {
             _email.Subject = "Confirm your account";
             _email.Body = "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>\n" +
@@ -78,7 +72,7 @@ namespace ChronoPiller.Models.Reminders
         }
 
 
-        public MailMessage GetIdentityResetPasswordEmail(string callbackUrl)
+        public MailMessage GetResetPasswordEmail(string callbackUrl)
         {
             _email.Subject = "Reset Password";
             _email.Body = "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>\n" +
@@ -86,8 +80,6 @@ namespace ChronoPiller.Models.Reminders
                           callbackUrl;
             return _email;
         }
-
-        
     }
 
     public static class IdentityMailExtension
@@ -102,7 +94,6 @@ namespace ChronoPiller.Models.Reminders
             };
 
             return identityMessage;
-
         }
     }
 }
