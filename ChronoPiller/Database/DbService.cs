@@ -18,6 +18,11 @@ namespace ChronoPiller.Database
             User = GetCurrentUser();
         }
 
+        public DbService(int userId)
+        {
+            User = GetUserById(userId);
+        }
+
         private ChronoUser GetCurrentUser()
         {
             ChronoUser user;
@@ -168,6 +173,17 @@ namespace ChronoPiller.Database
                 dbContext.PrescriptedMedicines.Add(prescriptedMedicine);
                 dbContext.SaveChanges();
             }
+        }
+
+        public static ChronoUser GetUserById(int userId)
+        {
+            ChronoUser user;
+            using (var context = new ChronoDbContext())
+            {
+                user = context.Users.FirstOrDefault(x => x.Id == userId);
+            }
+
+            return user;
         }
     }
 
