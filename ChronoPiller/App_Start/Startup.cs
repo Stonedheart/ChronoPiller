@@ -19,12 +19,14 @@ namespace ChronoPiller
         {
             ConfigureAuth(app);
 
-            GlobalConfiguration.Configuration.UseSqlServerStorage(
-                @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ChronoPiller.DAL.ChronoPillerDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
-                new SqlServerStorageOptions
-                {
-                    QueuePollInterval = TimeSpan.FromSeconds(1)
-                });
+            GlobalConfiguration.Configuration
+                .UseSqlServerStorage(
+                    @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ChronoPiller.DAL.ChronoPillerDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
+                    new SqlServerStorageOptions
+                    {
+                        QueuePollInterval = TimeSpan.FromSeconds(1)
+                    });
+
             app.UseHangfireDashboard();
             app.UseHangfireServer();
         }
@@ -49,6 +51,14 @@ namespace ChronoPiller
                         getUserIdCallback: (id) => (id.GetUserId<int>()))
                 }
             });
+        }
+    }
+
+    public class ApplicationPreload : System.Web.Hosting.IProcessHostPreloadClient
+    {
+        public void Preload(string[] parameters)
+        {
+            HangfireBootstrapper.Instance.Start();
         }
     }
 }

@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using ChronoPiller.Database;
 using ChronoPiller.Models;
-using Hangfire;
 
 namespace ChronoPiller.Controllers
 {
@@ -45,7 +44,7 @@ namespace ChronoPiller.Controllers
                     int.Parse(prescriptedBoxCount), int.Parse(dose), int.Parse(interval), int.Parse(prescriptionId),
                     medicineBoxId);
                 Db.SavePrescriptedMedToDb(prescriptedMedicine);
-
+                
                 return RedirectToAction("Details", "Prescription", new {id = int.Parse(prescriptionId)});
             }
             catch (Exception e)
