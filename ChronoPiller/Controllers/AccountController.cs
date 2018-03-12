@@ -83,23 +83,17 @@ namespace ChronoPiller.Controllers
             {
                 return View("EmailNotConfirmed");
             }
-            ;
+
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe,
                 shouldLockout: false);
 
-            switch (result)
+            if (result == SignInStatus.Success)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-//                case SignInStatus.LockedOut:
-//                    return View("Lockout");
-//                case SignInStatus.RequiresVerification:
-//                    return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, RememberMe = model.RememberMe});
-//                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", @"Invalid login attempt.");
-                    return View(model);
+                return RedirectToLocal(returnUrl);
             }
+
+                ModelState.AddModelError("", @"Invalid login attempt.");
+                return View(model);
         }
 
         [AllowAnonymous]
@@ -163,6 +157,7 @@ namespace ChronoPiller.Controllers
                 return View("Error");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
+
             if (result.Succeeded)
             {
                 UserManager.AddToRoleAsync(userId, "User");

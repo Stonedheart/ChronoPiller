@@ -82,11 +82,6 @@ namespace ChronoPiller.Models
 
         public ICollection<Prescription> Prescriptions { get; set; }
 
-        public ChronoUser()
-        {
-        }
-
-
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(
             UserManager<ChronoUser, int> manager)
         {
