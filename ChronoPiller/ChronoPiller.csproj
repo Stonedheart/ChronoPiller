@@ -139,6 +139,7 @@
     <Content Include="Views\Account\DisplayEmail.cshtml" />
     <Content Include="Views\Account\EmailNotConfirmed.cshtml" />
     <Content Include="Views\Shared\LogoutButton.cshtml" />
+    <Content Include="Views\Shared\_MedPopUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

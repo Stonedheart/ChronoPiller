@@ -13,6 +13,7 @@
         <input name="name" value="" id="name" />
         <label for="dateOfIssue">Date of issue</label>
         <input name="dateOfIssue" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" id="dateOfIssue" />
+        @RenderPage("~/Views/Shared/_MedPopUp.cshtml")
         <input type="submit" value="Add Prescription" />
     </form>
 </div>
