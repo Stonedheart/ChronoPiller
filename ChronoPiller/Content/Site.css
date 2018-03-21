@@ -30,3 +30,26 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.form {
+    width: 25%;
+    height: 25%;
+    background-color: white;
+    text-align: center;
+    margin: auto;
+    padding: 10px;
+    border-radius: 25px;
+    box-shadow: 1px 1px 20px darkblue, 0 0 25px darkviolet, 0 0 10px darkblue;
+}
+
+.btn {
+    border-radius: 45px;
+}
+
+    .btn:hover {
+        box-shadow: 1px 1px 10px darkviolet, 0 0 15px darkviolet, 0 0 10px darkviolet;
+    }
+
+fieldset {
+    border: solid 1px white;
+}
