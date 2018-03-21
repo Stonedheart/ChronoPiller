@@ -91,9 +91,16 @@
     <Compile Include="App_Start\Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\blister.png" />
+    <Content Include="Content\Images\blueMagentaPill.png" />
+    <Content Include="Content\Images\bluePill.png" />
+    <Content Include="Content\Images\openedPill.png" />
+    <Content Include="Content\Images\pillBoxRound.png" />
     <Content Include="Content\Images\yoda.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\LoginPage.css" />
+    <Content Include="Content\_Layout.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
