@@ -1,0 +1,49 @@
+﻿img {
+    width: 25%;
+    height: 25%;
+    display: inline;
+}
+
+.upper_images {
+    position: relative;
+}
+
+.lower_images {
+    position: relative;
+}
+
+.upper_left {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.upper_right {
+    position: absolute;
+    top: 0;
+    right: 0%;
+}
+
+.upper_right img {
+    float: right;
+}
+
+.lower_left {
+    position: absolute;
+    bottom: 0%;
+    left: 0;
+}
+
+.lower_right {
+    position: absolute;
+    bottom: 0%;
+    right: 0%;
+}
+
+.lower_right img {
+    float: right;
+}
+
+    footer {
+        background-color: #03c1ff
+    }

@@ -1,0 +1,23 @@
+﻿.form {
+    width: 25%;
+    height: 25%;
+    background-color: white;
+    text-align: center;
+    margin: auto;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.row {
+    position: relative;
+}
+
+.loginForm {
+    display: block;
+    margin-top: 150px;
+    text-align: center;
+}
+
+fieldset {
+    border: solid 1px white;
+}
