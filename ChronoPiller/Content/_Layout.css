@@ -20,8 +20,8 @@
 
 .upper_right {
     position: absolute;
-    top: 0;
-    right: 0%;
+    top: 2%;
+    right: 1%;
 }
 
 .upper_right img {
@@ -30,20 +30,32 @@
 
 .lower_left {
     position: absolute;
-    bottom: 0%;
-    left: 0;
+    bottom: 7%;
+    left: 1%;
 }
 
 .lower_right {
     position: absolute;
-    bottom: 0%;
-    right: 0%;
+    bottom: 7%;
+    right: 1%;
 }
 
 .lower_right img {
     float: right;
 }
 
-    footer {
-        background-color: #03c1ff
-    }
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 90%;
+    line-height: 75%;
+    font-size: 75%;
+    font-weight: bold;
+}
+
+hr {
+    position: absolute;
+    width: 99.9%;
+    left: 0;
+    bottom: 3%;
+}
