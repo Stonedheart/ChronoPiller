@@ -5,7 +5,7 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-    height: 100%;
+    margin-top: 7%;
     background: linear-gradient(180deg, magenta 50%, #03c1ff 50%);
     background-repeat: no-repeat;
     background-size: cover;
