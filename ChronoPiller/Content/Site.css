@@ -2,13 +2,24 @@
     height: 100%;
 }
 
+@keyframes slide {
+    from {
+        background-position-y: center;
+    }
+    to {
+        background-position-y: 100%;
+    }
+}
+
 body {
     padding-top: 50px;
     padding-bottom: 20px;
     margin-top: 7%;
-    background: linear-gradient(180deg, magenta 50%, #03c1ff 50%);
-    background-repeat: no-repeat;
-    background-size: cover;
+    background: url("../Content/Images/pillsForBackground.png"), linear-gradient(#FF00FF, #FF0090, indigo);
+    background-position: center, center;
+    background-repeat: repeat, no-repeat;
+    background-attachment: fixed, fixed;
+    animation: slide 40s linear infinite;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -39,7 +50,8 @@ textarea {
     margin: auto;
     padding: 10px;
     border-radius: 25px;
-    box-shadow: 1px 1px 20px darkblue, 0 0 25px darkviolet, 0 0 10px darkblue;
+        box-shadow: 1px 1px 20px darkblue, 0 0 50px darkviolet, 0 0 10px darkblue;
+/*    box-shadow: 1px 1px 20px #aef83f, 0 0 50px #ae0001, 0 0 10px #aef83f;*/
 }
 
 .btn {
