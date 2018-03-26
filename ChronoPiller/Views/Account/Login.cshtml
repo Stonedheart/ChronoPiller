@@ -5,40 +5,39 @@
     ViewBag.Title = "Login";
 }
 <link href="@Url.Content("~/Content/LoginPage.css")" rel="stylesheet" type="text/css" />
-<h2 style="text-align: center">@ViewBag.Title</h2>
-       
+<h2 style="text-align: center">@ViewBag.Title</h2>    
 <div class="form">
     @Html.ValidationMessageFor(m => m, "", new {@class = "text-danger"})
 
-        @using (Html.BeginForm("Login", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
-        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "")
-            <fieldset>
-                @Html.LabelFor(m => m.Email)
-                <br />
-                @Html.TextBoxFor(m => m.Email)
-                <br />
-                @Html.ValidationMessageFor(m => m.Email, "")
-                <br />
+    @using (Html.BeginForm("Login", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "")
+        <fieldset>
+            @Html.LabelFor(m => m.Email)
+            <br />
+            @Html.TextBoxFor(m => m.Email)
+            <br />
+            @Html.ValidationMessageFor(m => m.Email, "")
+            <br />
 
-                @Html.LabelFor(m => m.Password)
-                <br />
-                @Html.PasswordFor(m => m.Password)
-                <br />
-                @Html.ValidationMessageFor(m => m.Password, "")
-                <br />
-                @Html.CheckBoxFor(m => m.RememberMe)
-                @Html.LabelFor(m => m.RememberMe)
-            </fieldset>
-            <input type="image" src="~/Content/Images/pillButton.png" value="Log in" class="btn" />
-            <p>
-                @Html.ActionLink("Register as a new user", "Register")
-            </p>
-            <p>
-                @Html.ActionLink("Forgot your password?", "ForgotPassword")
-            </p>
-        }
+            @Html.LabelFor(m => m.Password)
+            <br />
+            @Html.PasswordFor(m => m.Password)
+            <br />
+            @Html.ValidationMessageFor(m => m.Password, "")
+            <br />
+            @Html.CheckBoxFor(m => m.RememberMe)
+            @Html.LabelFor(m => m.RememberMe)
+        </fieldset>
+        <input type="image" src="~/Content/Images/pillButton.png" value="Log in" class="btn" />
+        <p>
+            @Html.ActionLink("Register as a new user", "Register")
+        </p>
+        <p>
+            @Html.ActionLink("Forgot your password?", "ForgotPassword")
+        </p>
+    }
 </div>
 @*            <div class="col-md-4">*@
 @*                <section id="socialLoginForm">*@
