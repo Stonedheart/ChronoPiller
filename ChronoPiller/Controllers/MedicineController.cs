@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using ChronoPiller.Database;
 using ChronoPiller.Models;
+using Newtonsoft.Json.Linq;
 
 namespace ChronoPiller.Controllers
 {
@@ -25,7 +27,6 @@ namespace ChronoPiller.Controllers
             {
                 var name = form["name"];
                 var startUsageDate = form["startUsageDate"];
-                var interval = form["interval"];
                 var dose = form["dose"];
                 var prescriptedBoxCount = form["prescriptedBoxCount"];
                 var activeSubstanceAmountInMg = form["activeSubstanceAmountInMg"];
@@ -41,10 +42,10 @@ namespace ChronoPiller.Controllers
 
                 var medicineBoxId = Db.GetMedicineBoxId(medicineId);
                 var prescriptedMedicine = new PrescriptedMedicine(name, DateTime.Parse(startUsageDate).Date,
-                    int.Parse(prescriptedBoxCount), int.Parse(dose), int.Parse(interval), int.Parse(prescriptionId),
+                    int.Parse(prescriptedBoxCount), int.Parse(dose), int.Parse(prescriptionId),
                     medicineBoxId);
                 Db.SavePrescriptedMedToDb(prescriptedMedicine);
-                
+
                 return RedirectToAction("Details", "Prescription", new {id = int.Parse(prescriptionId)});
             }
             catch (Exception e)
