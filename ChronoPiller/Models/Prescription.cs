@@ -39,5 +39,12 @@ namespace ChronoPiller.Models
             DateOfIssue = dateOfIssue;
             Doses = new List<Dose>();
         }
+
+        public Prescription(int userId, string name, DateTime date)
+        {
+            UserId = userId;
+            Name = name;
+            DateOfIssue = date;
+        }
     }
 }

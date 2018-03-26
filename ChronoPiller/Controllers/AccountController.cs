@@ -247,7 +247,7 @@ namespace ChronoPiller.Controllers
         public ActionResult ResetPasswordConfirmation() => View();
 
         [HttpGet]
-        [ValidateAntiForgeryToken]
+//        [ValidateAntiForgeryToken]
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
