@@ -103,7 +103,6 @@ namespace ChronoPiller.Database
                         StartUsageDate = x.medBox.prescriptedMed.StartUsageDate,
                         PrescriptedBoxCount = x.medBox.prescriptedMed.PrescriptedBoxCount,
                         Dose = x.medBox.prescriptedMed.Dose,
-                        Interval = x.medBox.prescriptedMed.Interval,
                         PrescriptionId = x.medBox.prescriptedMed.PrescriptionId,
                         MedicineBoxId = x.medBox.medBox.Id
                     })
@@ -115,7 +114,6 @@ namespace ChronoPiller.Database
                         StartUsageDate = x.StartUsageDate,
                         PrescriptedBoxCount = x.PrescriptedBoxCount,
                         Dose = x.Dose,
-                        Interval = x.Interval,
                         PrescriptionId = x.PrescriptionId,
                         MedicineBoxId = x.MedicineBoxId
                     })
