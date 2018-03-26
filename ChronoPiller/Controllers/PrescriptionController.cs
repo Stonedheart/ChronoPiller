@@ -303,7 +303,7 @@ namespace ChronoPiller.Controllers
                 () => TakeAndRemind(user.Id, prescription), "12 15 * * *");
         }
 
-        public void TakeAndRemind(int userId ,Prescription prescription)
+        public void TakeAndRemind(int userId, Prescription prescription)
         {
             var user = DbService.GetUserById(userId);
             var id = $"{user.Id}.{prescription.Id}";
