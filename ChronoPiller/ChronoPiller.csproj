@@ -74,6 +74,10 @@
     <Compile Include="Migrations\201802201430507_Add-Pills-Column-And-Dose-Table.Designer.cs">
       <DependentUpon>201802201430507_Add-Pills-Column-And-Dose-Table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803221318240_Remove-Interval-Property.cs" />
+    <Compile Include="Migrations\201803221318240_Remove-Interval-Property.Designer.cs">
+      <DependentUpon>201803221318240_Remove-Interval-Property.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="App_Start\ChronoUserManager.cs" />
@@ -81,6 +85,7 @@
     <Compile Include="Models\Medicine.cs" />
     <Compile Include="Models\MedicineBox.cs" />
     <Compile Include="Models\DefaultEmailClient.cs" />
+    <Compile Include="Models\PrescriptionViewModel.cs" />
     <Compile Include="Models\Reminders\AbstractReminder.cs" />
     <Compile Include="Models\Reminders\EmailFactory.cs" />
     <Compile Include="Models\Reminders\PushReminder.cs" />
@@ -111,9 +116,13 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MedFormScripts\FormCollectJs.js" />
+    <Content Include="Scripts\MedFormScripts\PopUpJs.js" />
     <Content Include="Scripts\NotificationJS\RemindNotification.js" />
     <Content Include="Scripts\NotificationJS\RequestNotification.js" />
     <Content Include="Scripts\NotificationJS\yoda.jpg" />
+    <Content Include="Content\medForm.css" />
+    <Content Include="Content\Images\plus-button.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -139,7 +148,7 @@
     <Content Include="Views\Account\DisplayEmail.cshtml" />
     <Content Include="Views\Account\EmailNotConfirmed.cshtml" />
     <Content Include="Views\Shared\LogoutButton.cshtml" />
-    <Content Include="Views\Shared\_MedPopUp.cshtml" />
+    <Content Include="Views\Prescription\_MedPopUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -254,6 +263,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802201430507_Add-Pills-Column-And-Dose-Table.resx">
       <DependentUpon>201802201430507_Add-Pills-Column-And-Dose-Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803221318240_Remove-Interval-Property.resx">
+      <DependentUpon>201803221318240_Remove-Interval-Property.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
