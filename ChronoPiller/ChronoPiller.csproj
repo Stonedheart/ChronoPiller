@@ -97,6 +97,7 @@
     <Content Include="Content\Images\openedPill.png" />
     <Content Include="Content\Images\pillBoxRound.png" />
     <Content Include="Content\Images\pillButton.png" />
+    <Content Include="Content\Images\pillsForBackground.png" />
     <Content Include="Content\Images\yoda.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
