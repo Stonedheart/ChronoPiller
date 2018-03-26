@@ -8,6 +8,13 @@ namespace ChronoPiller.Controllers
 {
     public class PrescriptionController : Controller
     {
+        private DbService _service;
+
+        private DbService DbService
+        {
+            get => _service ?? new DbService();
+            set => _service = value;
+        }
 
         [HttpGet]
         [Authorize]
