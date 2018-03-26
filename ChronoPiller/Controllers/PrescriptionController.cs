@@ -320,9 +320,27 @@ namespace ChronoPiller.Controllers
         }
     }
 
+    internal class InvalidDateException : Exception
+    {
+        public InvalidDateException(string message)
+        {
+        }
+    }
+
     internal class NotEnoughPillsException : Exception
     {
         public NotEnoughPillsException(string message = "There's not enough pills in the box!") : base(message)
+        {
+        }
+    }
+
+    internal class NullNameException : Exception
+    {
+        public NullNameException()
+        {
+        }
+
+        public NullNameException(string message) : base(message)
         {
         }
     }
