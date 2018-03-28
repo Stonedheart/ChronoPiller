@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Management;
 using System.Web.Mvc;
 using ChronoPiller.Database;
 using ChronoPiller.DAL;
 using ChronoPiller.Models;
 using CsQuery.ExtensionMethods.Internal;
-using CsQuery.Utility;
 using Hangfire;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json.Linq;
