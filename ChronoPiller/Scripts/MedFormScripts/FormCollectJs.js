@@ -66,17 +66,15 @@ $(function() {
 
             },
             success: function(data) {
-                console.log(typeof data);
                 console.log(data);
-                console.log(window.location.href);
 
                 if (data["message"] === "success") {
                     window.location.href = "/";
                     sessionStorage.setItem("popUp",
-                        `The prescription${currentPrescription['name']}has been created!`);
+                        `The prescription ${currentPrescription['name']}has been created!`);
                 } else {
                     $("#errorMessage").text(data["message"]);
-                    
+
                 }
 
 

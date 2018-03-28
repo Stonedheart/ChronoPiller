@@ -18,12 +18,10 @@ function checkForPermission() {
             Notification.requestPermission().then(function(result) {
                 if (result === 'granted') {
                     var grantedNote = new Notification("Granted Now", options);
-                } else {
-
-                    console.log("Failed");
                 }
             });
         }
     });
 }
-
+            
+       
