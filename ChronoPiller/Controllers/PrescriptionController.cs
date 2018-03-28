@@ -80,7 +80,6 @@ namespace ChronoPiller.Controllers
             }
             catch (Exception e)
             {
-                ModelState.AddModelError("", e.Message);
                 dict["message"] = e.Message;
                 return Json(dict);
             }
@@ -94,7 +93,7 @@ namespace ChronoPiller.Controllers
 
             var context = new ChronoDbContext();
 
-            var prescriptionId = await SavePrescriptionFromJsonAsync(prescriptionData["name"].ToString(),
+            var prescriptionId = SavePrescriptionFromJsonAsync(prescriptionData["name"].ToString(),
                 prescriptionData["dateOfIssue"].ToString(), context);
 
             var medicineIds = new List<int>();
@@ -102,19 +101,20 @@ namespace ChronoPiller.Controllers
                 medicineIds.Add(await SaveMedicineFromJsonAsync(x["name"].ToString(), context)));
 
 
+
             for (var i = 0; i < medicineIds.Count; i++)
             {
-                var medicineBoxId = await SaveMedicineBoxFromJsonAsync(medicineIds[i],
+                var medicineBoxId = SaveMedicineBoxFromJsonAsync(medicineIds[i],
                     medicinesData[i]["medicineBoxCapacity"].ToString(),
                     medicinesData[i]["activeSubstanceAmountInMg"].ToString(), context);
+
                 await SavePrescriptedMedicineFromJsonAsync(medicinesData[i]["name"].ToString(),
                     medicinesData[i]["startUsageDate"].ToString(),
                     medicinesData[i]["prescriptedBoxCount"].ToString(),
                     medicinesData[i]["dose"].ToString(),
-                    prescriptionId,
-                    medicineBoxId, context);
+                    await prescriptionId,
+                    await medicineBoxId, context);
             }
-            ;
 
             context.Dispose();
         }
@@ -131,7 +131,7 @@ namespace ChronoPiller.Controllers
             {
                 date = DateTime.Parse(dateOfIssue);
             }
-            catch (Exception)
+            catch (FormatException)
             {
                 throw new InvalidDateException("Prescription date is invalid!");
             }
@@ -148,6 +148,7 @@ namespace ChronoPiller.Controllers
                 {
                     writer.Write(e);
                 }
+                throw new EntityException(e.Message);
             }
 
             return prescription.Id;
