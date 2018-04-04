@@ -95,6 +95,7 @@
     <Compile Include="App_Start\Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\fonts\futura\sharefonts.net.txt" />
     <Content Include="Content\Images\blister.png" />
     <Content Include="Content\Images\blueMagentaPill.png" />
     <Content Include="Content\Images\bluePill.png" />
@@ -104,7 +105,6 @@
     <Content Include="Content\Images\pillsForBackground.png" />
     <Content Include="Content\fonts\futura\sharefonts.net.txt" />
     <Content Include="Content\Images\yoda.jpg" />
-    <Content Include="Content\_Layout.css" />
     <Content Include="Content\pill.png" />
     <Content Include="Content\timesForm.css" />
     <Content Include="favicon.ico" />
