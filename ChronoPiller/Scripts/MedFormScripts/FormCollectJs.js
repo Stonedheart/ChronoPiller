@@ -1,6 +1,39 @@
 ﻿var currentPrescription = {};
 var medicines = [];
 
+function checkIfMedNotInArray(med, array) {
+    for (i = 0; i < array.length; i ++) {
+        if (array[i].name === med.name) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function setMedicines() {
+    let sessionMeds = sessionStorage.getItem('medicines');
+    let meds = JSON.parse(sessionMeds);
+    $.each(meds,
+        function(key, val) {
+            medicines.push(val);
+        });
+}
+function appendMedToPageList(selector, medName, boxCount) {
+    let row = '<tr><td>' +
+        medName +
+        '</td><td>' +
+        boxCount +
+        '</td></tr>';
+    $(selector).find('tbody').append(row);
+    $('tr:last').slideDown();
+
+}
+function populateMedList(selector) {
+    $.each(medicines,
+        function (key, val) {
+            appendMedToPageList(selector, val['name'], val['prescriptedBoxCount']);
+        });
+}
 function appendTitle(selector, prescriptionName) {
     $(selector).append(
         `<h3 name="${prescriptionName}> ${prescriptionName} </h3>`);
@@ -23,7 +56,7 @@ function appendMultipleInputs(listOfInputs, id) {
 
     return result;
 }
-function populateList(list, inputs) {
+function populateHourList(list, inputs) {
 
     if ($(list + ' li').length < 1) {
 
@@ -86,14 +119,22 @@ function enableCloseWithEscape() {
     };
 
 }
+
+
 $(function () {
-
-
-    enableCloseWithEscape();
+    if (sessionStorage.getItem('medicines') === null) {
+        let medObj = {};
+        sessionStorage.setItem('medicines', JSON.stringify(medObj));
+    } else {
+        setMedicines();
+        populateMedList('#listTable');
+    }
 
     $("#startUsageDate").val($("#dateOfIssue").val());
 
-    $("#addMed").click(function() {
+
+
+    $("#addMed").click(function () {
         var currentMed = {};
         $(".newMed").each(
             function() {
@@ -101,20 +142,20 @@ $(function () {
                 let value = $(this).val();
                 currentMed[key] = value;
             });
-        medicines.push(currentMed);
 
-        var jsonMed = JSON.stringify(currentMed);
-        console.log(jsonMed);
+
+        let tempMedList = JSON.parse(sessionStorage.getItem('medicines'));
+        if (checkIfMedNotInArray(currentMed)) {
+            tempMedList[currentMed.name] = currentMed;
+            medicines.push(currentMed);
+            sessionStorage.setItem('medicines', JSON.stringify(tempMedList));
+        }
+    
+
         if (!$("#listTable td:contains(" +
                 $("[data-medicine='name']").val() +
-                ")").length >
-            0) {
-            $("#listTable").find('tbody').append(
-                "<tr><td>" +
-                $("[data-medicine='name']").val() +
-                "</td><td>" +
-                $("#prescriptedBoxCount").val() +
-                "</td>");
+                ")").length > 0) {
+            appendMedToPageList('#listTable', $('[data-medicine="name"').val(), $('#prescriptedBoxCount').val());
             $("[data-medicine]").val('');
             $("#startUsageDate").val($("#dateOfIssue").val());
             $('[data-popup="popup-1"]').fadeOut(350);
@@ -151,7 +192,7 @@ $(function () {
 //                        `The prescription ${currentPrescription['name']}has been created!`);
 
                     $('#times').fadeIn(300);
-                    populateList('#hours', Object.keys(data['meds']));
+                    populateHourList('#hours', Object.keys(data['meds']));
                     $(".hour").click(function (e) {
 
 
