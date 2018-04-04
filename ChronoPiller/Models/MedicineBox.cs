@@ -21,9 +21,6 @@ namespace ChronoPiller.Models
         [NotMapped]
         public List<PrescriptedMedicine> OccurancesOnPrescriptions { get; set; } 
 
-        [NotMapped]
-        public Dose Dose { get; set; }
-
         public MedicineBox(int medicineId, int capacity, float activeSubstanceAmountInMg)
         {
             MedicineId = medicineId;

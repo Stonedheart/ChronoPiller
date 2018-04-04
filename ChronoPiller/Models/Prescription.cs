@@ -25,19 +25,16 @@ namespace ChronoPiller.Models
         [NotMapped]
         public List<PrescriptedMedicine> PrescriptedMedicines { get; set; }
 
-        [NotMapped]
-        public List<Dose> Doses { get; set; }
 
         public Prescription()
         {
-            Doses = new List<Dose>();
+
         }
 
         public Prescription(string name, DateTime dateOfIssue)
         {
             Name = name;
             DateOfIssue = dateOfIssue;
-            Doses = new List<Dose>();
         }
     }
 }
