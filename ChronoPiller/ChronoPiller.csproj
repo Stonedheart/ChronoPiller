@@ -95,9 +95,10 @@
     <Compile Include="App_Start\Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\fonts\futura\sharefonts.net.txt" />
     <Content Include="Content\Images\yoda.jpg" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\pill.png" />
+    <Content Include="Content\timesForm.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -108,6 +109,25 @@
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Content\fonts\futura\futur.ttf" />
+    <Content Include="Content\fonts\futura\Futura Bold font.ttf" />
+    <Content Include="Content\fonts\futura\Futura Bold Italic font.ttf" />
+    <Content Include="Content\fonts\futura\Futura Book font.ttf" />
+    <Content Include="Content\fonts\futura\Futura Book Italic font.ttf" />
+    <Content Include="Content\fonts\futura\Futura Extra Black font.ttf" />
+    <Content Include="Content\fonts\futura\Futura Heavy font.ttf" />
+    <Content Include="Content\fonts\futura\Futura Heavy Italic font.ttf" />
+    <Content Include="Content\fonts\futura\futura light bt.ttf" />
+    <Content Include="Content\fonts\futura\Futura Light font.ttf" />
+    <Content Include="Content\fonts\futura\Futura Light Italic font.ttf" />
+    <Content Include="Content\fonts\futura\futura medium bt.ttf" />
+    <Content Include="Content\fonts\futura\futura medium condensed bt.ttf" />
+    <Content Include="Content\fonts\futura\Futura Medium Italic font.ttf" />
+    <Content Include="Content\fonts\futura\Futura XBlk BT.ttf" />
+    <Content Include="Content\fonts\futura\Futura-CondensedLight.otf" />
+    <Content Include="Content\fonts\futura\tt0205m_.ttf" />
+    <Content Include="Content\fonts\futura\unicode.futurab.ttf" />
+    <Content Include="Content\fonts\futura\unicode.futurabb.ttf" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
