@@ -16,7 +16,7 @@ namespace ChronoPiller.Models
         public Prescription Prescription { get; set; }
         [ForeignKey("NotificationType")]
         public int NotificationTypeId { get; set; }
-        public string HangfireId { get; set; }
+        public string HangFireId { get; set; }
         public string Cron { get; set; }
         public DateTime NextExecution { get; set; }
     }
