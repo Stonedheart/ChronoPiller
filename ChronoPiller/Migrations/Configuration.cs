@@ -1,3 +1,5 @@
+using ChronoPiller.Models;
+
 namespace ChronoPiller.Migrations
 {
     using System;
@@ -18,6 +20,15 @@ namespace ChronoPiller.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
+            using (context)
+            {
+                context.NotificationTypes.Add(new NotificationType() { Name = "Dose" });
+                context.NotificationTypes.Add(new NotificationType() { Name = "OutOfPills" });
+                context.NotificationTypes.Add(new NotificationType() { Name = "BeforeMeal" });
+                context.NotificationTypes.Add(new NotificationType() { Name = "AfterMeal" });
+                context.NotificationTypes.Add(new NotificationType() { Name = "PrescriptionExpiration" });
+                context.SaveChanges();
+            }
         }
     }
 }
