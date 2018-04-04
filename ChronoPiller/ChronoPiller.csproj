@@ -3,8 +3,8 @@
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -85,7 +85,6 @@
     <Compile Include="Models\Medicine.cs" />
     <Compile Include="Models\MedicineBox.cs" />
     <Compile Include="Models\DefaultEmailClient.cs" />
-    <Compile Include="Models\PrescriptionViewModel.cs" />
     <Compile Include="Models\Reminders\AbstractReminder.cs" />
     <Compile Include="Models\Reminders\EmailFactory.cs" />
     <Compile Include="Models\Reminders\PushReminder.cs" />
@@ -96,9 +95,18 @@
     <Compile Include="App_Start\Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\blister.png" />
+    <Content Include="Content\Images\blueMagentaPill.png" />
+    <Content Include="Content\Images\bluePill.png" />
+    <Content Include="Content\Images\openedPill.png" />
+    <Content Include="Content\Images\pillBoxRound.png" />
+    <Content Include="Content\Images\pillButton.png" />
+    <Content Include="Content\Images\pillsForBackground.png" />
+    <Content Include="Content\fonts\futura\sharefonts.net.txt" />
     <Content Include="Content\Images\yoda.jpg" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\_Layout.css" />
+    <Content Include="Content\pill.png" />
+    <Content Include="Content\timesForm.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -109,6 +117,25 @@
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Content\fonts\futura\futur.ttf" />
+    <Content Include="Content\fonts\futura\Futura Bold font.ttf" />
+    <Content Include="Content\fonts\futura\Futura Bold Italic font.ttf" />
+    <Content Include="Content\fonts\futura\Futura Book font.ttf" />
+    <Content Include="Content\fonts\futura\Futura Book Italic font.ttf" />
+    <Content Include="Content\fonts\futura\Futura Extra Black font.ttf" />
+    <Content Include="Content\fonts\futura\Futura Heavy font.ttf" />
+    <Content Include="Content\fonts\futura\Futura Heavy Italic font.ttf" />
+    <Content Include="Content\fonts\futura\futura light bt.ttf" />
+    <Content Include="Content\fonts\futura\Futura Light font.ttf" />
+    <Content Include="Content\fonts\futura\Futura Light Italic font.ttf" />
+    <Content Include="Content\fonts\futura\futura medium bt.ttf" />
+    <Content Include="Content\fonts\futura\futura medium condensed bt.ttf" />
+    <Content Include="Content\fonts\futura\Futura Medium Italic font.ttf" />
+    <Content Include="Content\fonts\futura\Futura XBlk BT.ttf" />
+    <Content Include="Content\fonts\futura\Futura-CondensedLight.otf" />
+    <Content Include="Content\fonts\futura\tt0205m_.ttf" />
+    <Content Include="Content\fonts\futura\unicode.futurab.ttf" />
+    <Content Include="Content\fonts\futura\unicode.futurabb.ttf" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />

@@ -1,0 +1,69 @@
+﻿img {
+    width: 55%;
+    height: 55%;
+}
+
+.upper_images {
+    position: relative;
+}
+
+.lower_images {
+    position: relative;
+}
+
+.upper_left {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.upper_right {
+    position: absolute;
+    top: 2%;
+    right: 1%;
+}
+
+.upper_right img {
+    float: right;
+}
+
+.lower_left {
+    position: absolute;
+    bottom: 7%;
+    left: 1%;
+}
+
+.lower_right {
+    position: absolute;
+    bottom: 7%;
+    right: 1%;
+}
+
+.lower_right img {
+    float: right;
+}
+
+footer {
+    border-top: transparent;
+    position: relative;
+    font-size: 1em;
+    bottom: 0;
+    height: 2em;
+    line-height: 75%;
+    font-size: 75%;
+    font-weight: bold;
+    background-color: rgb(204, 229, 255);
+    padding: 1em;
+    width: 100%;
+    margin-left: -1em;
+    margin-bottom: -1em;
+
+}
+
+hr {
+    width: 99.9%;
+    left: 0;
+    bottom: 3%;
+}
+
+

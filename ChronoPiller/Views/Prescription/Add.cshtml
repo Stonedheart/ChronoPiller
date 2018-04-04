@@ -3,6 +3,10 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" type="text/css" href="~/Content/medForm.css">
+<link rel="stylesheet" type="text/css" href="~/Content/timesForm.css">
+
+<script src="~/Scripts/MedFormScripts/PopUpJs.js"></script>
+<script src="~/Scripts/MedFormScripts/FormCollectJs.js"></script>
 
 <h2>Provide prescription details</h2>
 <h4 id="errorMessage" style="color: red">@ViewBag.ErrorMessage</h4>
@@ -10,11 +14,11 @@
 
 <div>
 
-    <div class="prescriptionField">
+    <div class="prescriptionField" id="any">
         <label for="name">Name</label>
-        <input class="newPrescription" value="" id="prescriptionName" data-prescription="name"/>
+        <input class="newPrescription" value="" id="prescriptionName" data-prescription="name" />
         <label for="dateOfIssue">Date of issue</label>
-        <input class="newPrescription" name="dateOfIssue" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" id="dateOfIssue" data-prescription="dateOfIssue"/>
+        <input class="newPrescription" name="dateOfIssue" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" id="dateOfIssue" data-prescription="dateOfIssue" />
     </div>
 
     <div class="medField">
@@ -24,35 +28,35 @@
         <table id="listTable">
 
             <thead>
-            <tr>
-                <th> Name </th>
-                <th> No of boxes </th>
-            </tr>
+                <tr>
+                    <th> Name </th>
+                    <th> No of boxes </th>
+                </tr>
             </thead>
             <tbody></tbody>
         </table>
 
-        <input id="addMedPopUp" type="image" src="~/Content/Images/plus-button.png" data-popup-open="popup-1"  />
+        <input id="addMedPopUp" type="image" src="~/Content/Images/plus-button.png" data-popup-open="popup-1" />
     </div>
 
     <div class="popup" data-popup="popup-1">
         <div class="popup-inner">
 
 
-            <div id="addMedForm"class="addMed">
+            <div id="addMedForm" class="addMed">
                 <label for="name">Name</label>
-                <input class="newMed"data-medicine='name' name="name" id="medicineName" required/><br/>
+                <input class="newMed" data-medicine='name' name="name" id="medicineName" required /><br />
                 <label for="startUsageDate">When You should start taking dose</label>
-                <input  class="newMed" data-medicine='startUsageDate' name="startUsageDate" id="startUsageDate" type="date"/><br/>
+                <input class="newMed" data-medicine='startUsageDate' name="startUsageDate" id="startUsageDate" type="date" /><br />
                 <label for="dose">How many pills You should take</label>
-                <input  class="newMed" data-medicine='dose' name="dose" type="number" id="dose" required/><br/>
+                <input class="newMed" data-medicine='dose' name="dose" type="number" id="dose" required /><br />
                 <label for="prescriptedBoxCount">How many box are prescpripted</label>
-                <input  class="newMed" data-medicine='prescriptedBoxCount' type="number" name="prescriptedBoxCount" id="prescriptedBoxCount" required/><br/>
-                <input type="hidden" name="prescriptionId" value="@Model" required/><br/>
+                <input class="newMed" data-medicine='prescriptedBoxCount' type="number" name="prescriptedBoxCount" id="prescriptedBoxCount" required /><br />
+                <input type="hidden" name="prescriptionId" value="@Model" required /><br />
                 <label for="medicineBoxCapacity">Bought medicine box capacity</label>
-                <input  class="newMed" data-medicine='medicineBoxCapacity' type="number" name="medicineBoxCapacity" id="medicineBoxCapacity" required/><br/>
+                <input class="newMed" data-medicine='medicineBoxCapacity' type="number" name="medicineBoxCapacity" id="medicineBoxCapacity" required /><br />
                 <label for="activeSubstanceAmountInMg">Active substance in mg</label>
-                <input  class="newMed" data-medicine='activeSubstanceAmountInMg' type="number" name="activeSubstanceAmountInMg" id="activeSubstanceAmountInMg" required/><br/>
+                <input class="newMed" data-medicine='activeSubstanceAmountInMg' type="number" name="activeSubstanceAmountInMg" id="activeSubstanceAmountInMg" required /><br />
                 <input id="addMed" type="button" value="Add" text="Add Med"/>
             </div>
 
@@ -63,14 +67,19 @@
             <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
         </div>
     </div>
+    <div class="popup" id="times" data-popup="popup-2">
+
+        <div class="popup-inner">
+            <h3></h3>
+            <ul id="hours"></ul>
+            <button id='submit' value="SUBMIT">SUBMIT</button>
+        </div>
+    </div>
 
 
     <div>
-        <br /><br/>
-        <input type="button" id="addPrescription"value="Add Prescription"/>
+        <br /><br />
+        <input type="button" id="addPrescription" value="Add Prescription" />
     </div>
 </div>
 @RenderPage("~/Views/Shared/LogoutButton.cshtml")
-
-<script src="~/Scripts/MedFormScripts/PopUpJs.js"></script>
-<script src="~/Scripts/MedFormScripts/FormCollectJs.js"></script>

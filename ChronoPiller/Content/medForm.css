@@ -1,7 +1,4 @@
-﻿.medField, .prescriptionField {
-    border: black;
-    border-style: solid;
-}
+﻿
 
 #addMedPopUp {
     width: 50px;
@@ -9,7 +6,6 @@
 }
 
 table #listTable {
-    font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 50%;
     table-layout: fixed;
@@ -91,3 +87,18 @@ tr {
     width: 35px;
     height: auto;
 }
+
+
+
+input {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+input [type="date"] {
+    width: 4em;
+}
+
+    input [type="number"] {
+        width: 1em;
+    }

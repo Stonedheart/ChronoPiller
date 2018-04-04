@@ -1,6 +1,50 @@
-﻿body {
+﻿html {
+    height: 100%;
+}
+.medField, .prescriptionField {
+    border: black;
+    border-style: solid;
+    background-color: rgb(204, 229, 255);
+    border-radius: 30px;
+    padding-left: 2em;
+}
+
+.prescriptionField > p {
+    border-bottom: solid;
+} 
+
+table {
+    padding-bottom: 1em;
+}
+
+#logOut {
+    position: absolute;
+    top: 0;
+    right: 0;
+    float: right;
+    padding: 2em;
+    background-color: red;
+}
+@keyframes slide {
+    from {
+        background-position-y: center;
+    }
+
+    to {
+        background-position-y: 100%;
+    }
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
+    margin-top: 7%;
+    background: url("../Content/Images/pillsForBackground.png"), 
+        linear-gradient(#FF00FF, #FF0090, indigo);
+    background-position: center, center;
+    background-repeat: repeat, no-repeat;
+    background-attachment: fixed, fixed;
+    animation: slide 40s linear infinite;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -16,9 +60,42 @@
     white-space: normal;
 }
 
+
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.form {
+    width: 25%;
+    height: 25%;
+    background-color: white;
+    text-align: center;
+    margin: auto;
+    padding: 10px;
+    border-radius: 25px;
+    box-shadow: 1px 1px 20px darkblue, 0 0 50px darkviolet, 0 0 10px darkblue;
+    /*    box-shadow: 1px 1px 20px #aef83f, 0 0 50px #ae0001, 0 0 10px #aef83f;*/
+}
+.btn {
+    border-radius: 45px;
+}
+
+.btn:hover {
+    box-shadow: 1px 1px 10px darkviolet, 0 0 15px darkviolet, 0 0 10px darkviolet;
+}
+
+fieldset {
+    border: solid 1px white;
+}
+
+@font-face {
+    font-family: 'futura';
+    src:url('fonts/futura/Futura Heavy font.ttf');
+}
+
+body {
+    font-family: futura;
 }

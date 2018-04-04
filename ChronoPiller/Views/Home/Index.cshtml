@@ -4,18 +4,18 @@
     ViewBag.Title = "Manage your prescriptions";
 }
 
-<div>
+<div class="prescriptionField">
     <h2>Hello @Model.UserName organize Your prescriptions</h2>
 </div>
 
 <h4 style="color: red">@ViewBag.ErrorMessage</h4>
 
 
-<div>
+<div class="prescriptionField">
     @Html.ActionLink("Add Prescription", "Add", "Prescription")
 </div>
 
-<div>
+<div class="prescriptionField">
     @{
         if (Equals(Model.Prescriptions.Count, 0) || Equals(Model.Prescriptions, null))
         {
@@ -26,32 +26,25 @@
         else
         {
             <div>
-                Your prescriptions
+                <p>Your prescriptions </p>
             </div>
             <div>
                 <table class="table table-striped">
-                    <thead>
+                    <tbody>
+                        @{
+        foreach (var prescription in Model.Prescriptions)
+        {
                     <tr>
-                        <th>
-                            Prescription Name
-                        </th>
-                        <th>
-                        </th>
+                        <td>
+                            @prescription.Name
+                        </td>
+                        <td>
+                            @Html.ActionLink("View", "Details", "Prescription", new { id = prescription.Id }, null)
+                        </td>
                     </tr>
-                    </thead>
-                    @{
-                        foreach (var prescription in Model.Prescriptions)
-                        {
-                            <tr>
-                                <td>
-                                    @prescription.Name
-                                </td>
-                                <td>
-                                    @Html.ActionLink("View", "Details", "Prescription", new { id = prescription.Id }, null)
-                                </td>
-                            </tr>
+}
                         }
-                    }
+                    </tbody>
                 </table>
             </div>
         }

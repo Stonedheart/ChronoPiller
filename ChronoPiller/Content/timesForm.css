@@ -1,0 +1,72 @@
+
+.popup {
+    overflow: scroll;
+}
+
+ul {
+  list-style-type: none;
+}
+
+
+li:last-child {
+   border-bottom-left-radius: 30px;
+ border-bottom-right-radius: 30px;
+}
+li:first-child {
+border-top-left-radius: 30px;
+border-top-right-radius: 30px;
+}
+
+
+.line {
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+
+}
+
+.hour {
+
+  background-color: rgb(204, 229, 255);
+  text-indent: 2em;
+  width: 25em;
+  text-transform: capitalize;
+}
+
+.hours {
+  margin-left: 0.6em;
+  font-size: 0.7em;
+  color: white;
+}
+
+.minutes {
+  color: black;
+  font-size: 0.7em;
+  margin-right: 0.5em;
+}
+
+.collapsible {
+  display: none;
+  background-color: white;
+  font-size: 0.8em;
+}
+
+.pill {
+
+  background-image: url("pill.png");
+  background-size:cover;
+  background-size: 105%;
+  background-position: 50% 40%;
+
+}
+
+.hour:hover  {
+  border-left-style: inset;
+  border-color: rgb(0, 102, 255);
+
+}
+
+[data-picked="yes"] {
+  border-style: inset;
+  border-color: rgb(0, 102, 255);
+    background-color: rgb(0, 102, 255);
+}
