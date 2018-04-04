@@ -22,3 +22,12 @@ select,
 textarea {
     max-width: 280px;
 }
+
+@font-face {
+    font-family: 'futura';
+    src:url('fonts/futura/Futura Heavy font.ttf');
+}
+
+body {
+    font-family: futura;
+}
