@@ -64,7 +64,11 @@ namespace ChronoPiller.Controllers
         [HttpPost]
         public async Task<JsonResult> AddPrescriptionAsync(string json)
         {
-            var dict = new Dictionary<string, string> {{"message", "success"}};
+            dynamic dict = new Dictionary<string, object>
+            {
+                {"message", "success"}
+            };
+
             if (json == null)
             {
                 throw new ArgumentNullException();
@@ -72,9 +76,16 @@ namespace ChronoPiller.Controllers
 
             try
             {
-                var result = AddAsync(json);
-                await result;
+                var result = await AddAsync(json);
 
+                var meds = dict["meds"] = new Dictionary<string, string>();
+
+                result.ForEach(x => meds[x.Name] = x.Id.ToString());
+                dict["prescription"] =
+                    new Dictionary<string, int>
+                    {
+                        {result.First().Prescription.Name, result.First().Prescription.Id}
+                    };
                 return Json(dict);
             }
             catch (Exception e)
@@ -84,7 +95,7 @@ namespace ChronoPiller.Controllers
             }
         }
 
-        private async Task AddAsync(string json)
+        private async Task<List<PrescriptedMedicine>> AddAsync(string json)
         {
             var jsonObject = JObject.Parse(json);
             var prescriptionData = jsonObject["prescription"];
@@ -99,7 +110,7 @@ namespace ChronoPiller.Controllers
             medicinesData.ForEach(async x =>
                 medicineIds.Add(await SaveMedicineFromJsonAsync(x["name"].ToString(), context)));
 
-
+            var resultList = new List<PrescriptedMedicine>();
 
             for (var i = 0; i < medicineIds.Count; i++)
             {
@@ -107,15 +118,20 @@ namespace ChronoPiller.Controllers
                     medicinesData[i]["medicineBoxCapacity"].ToString(),
                     medicinesData[i]["activeSubstanceAmountInMg"].ToString(), context);
 
-                await SavePrescriptedMedicineFromJsonAsync(medicinesData[i]["name"].ToString(),
+                var prescriptedMed = SavePrescriptedMedicineFromJsonAsync(medicinesData[i]["name"].ToString(),
                     medicinesData[i]["startUsageDate"].ToString(),
                     medicinesData[i]["prescriptedBoxCount"].ToString(),
                     medicinesData[i]["dose"].ToString(),
                     await prescriptionId,
                     await medicineBoxId, context);
+
+                    resultList.Add(await prescriptedMed);
             }
 
             context.Dispose();
+
+            return resultList;
+
         }
 
         private async Task<int> SavePrescriptionFromJsonAsync(string name, string dateOfIssue, ChronoDbContext context)
@@ -203,7 +219,7 @@ namespace ChronoPiller.Controllers
             return id;
         }
 
-        private async Task SavePrescriptedMedicineFromJsonAsync(string name, string startUsageDate,
+        private async Task<PrescriptedMedicine> SavePrescriptedMedicineFromJsonAsync(string name, string startUsageDate,
             string prescriptedBoxCount, string dose, int prescriptionId, int medicineBoxId, ChronoDbContext context)
         {
             if (name.IsNullOrEmpty())
@@ -265,6 +281,8 @@ namespace ChronoPiller.Controllers
                 medicineBoxId);
             context.PrescriptedMedicines.Add(prescriptedMedicine);
             context.SaveChanges();
+
+            return prescriptedMedicine;
         }
 
         [HttpGet]
