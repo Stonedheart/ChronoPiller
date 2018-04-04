@@ -9,6 +9,12 @@ table #listTable {
     border-collapse: collapse;
     width: 50%;
     table-layout: fixed;
+    
+
+}
+
+tbody {
+    background-color: rgb(160, 217, 254);
 }
 
 td, th {
@@ -16,6 +22,7 @@ td, th {
     text-align: center;
     padding: 8px;
     width: 30px;
+    background-color: rgb(160, 217, 254);
 }
 
 tr {
