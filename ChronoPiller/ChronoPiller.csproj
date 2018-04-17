@@ -66,13 +66,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804041254419_AddNotificationRelatedTables.cs" />
-    <Compile Include="Migrations\201804041254419_AddNotificationRelatedTables.Designer.cs">
-      <DependentUpon>201804041254419_AddNotificationRelatedTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802201430507_Add-Pills-Column-And-Dose-Table.cs" />
-    <Compile Include="Migrations\201802201430507_Add-Pills-Column-And-Dose-Table.Designer.cs">
-      <DependentUpon>201802201430507_Add-Pills-Column-And-Dose-Table.cs</DependentUpon>
+    <Compile Include="Migrations\201804171049495_After-Merge-Migration.cs" />
+    <Compile Include="Migrations\201804171049495_After-Merge-Migration.Designer.cs">
+      <DependentUpon>201804171049495_After-Merge-Migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -102,8 +98,6 @@
     <Content Include="Content\fonts\futura\sharefonts.net.txt" />
     <Content Include="Content\fonts\futura\sharefonts.net.txt" />
     <Content Include="Content\Images\yoda.jpg" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\_Layout.css" />
     <Content Include="Content\pill.png" />
     <Content Include="Content\timesForm.css" />
@@ -285,24 +279,13 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201802131516407_Intitial.resx">
-      <DependentUpon>201802131516407_Intitial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802201430507_Add-Pills-Column-And-Dose-Table.resx">
-      <DependentUpon>201802201430507_Add-Pills-Column-And-Dose-Table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803221318240_Remove-Interval-Property.resx">
-      <DependentUpon>201803221318240_Remove-Interval-Property.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804041254419_AddNotificationRelatedTables.resx">
-      <DependentUpon>201804041254419_AddNotificationRelatedTables.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804171049495_After-Merge-Migration.resx">
+      <DependentUpon>201804171049495_After-Merge-Migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,13 +1,7 @@
-﻿img {
-    width: 55%;
-    height: 55%;
-}
+﻿
 
-.upper_images {
-    position: relative;
-}
 
-.lower_images {
+.upper_images, .lower_images {
     position: relative;
 }
 
@@ -15,12 +9,18 @@
     position: absolute;
     top: 0;
     left: 0;
+    width: 20%;
+    height: 20%;
+    z-index: -10;
 }
 
 .upper_right {
     position: absolute;
     top: 2%;
     right: 1%;
+    width: 20%;
+    height: 20%;
+    z-index: -10;
 }
 
 .upper_right img {
@@ -31,12 +31,16 @@
     position: absolute;
     bottom: 7%;
     left: 1%;
+    width: 20%;
+    height: 20%;
 }
 
 .lower_right {
     position: absolute;
     bottom: 7%;
     right: 1%;
+    width: 20%;
+    height: 20%;
 }
 
 .lower_right img {
