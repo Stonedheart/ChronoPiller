@@ -7,13 +7,13 @@ namespace ChronoPiller.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddPillsColumnAndDoseTable : IMigrationMetadata
+    public sealed partial class AfterMergeMigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddPillsColumnAndDoseTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AfterMergeMigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201802201430507_Add-Pills-Column-And-Dose-Table"; }
+            get { return "201804171049495_After-Merge-Migration"; }
         }
         
         string IMigrationMetadata.Source
