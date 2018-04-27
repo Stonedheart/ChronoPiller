@@ -1,0 +1,81 @@
+﻿@model ChronoPiller.Models.Prescription
+
+@{
+    ViewBag.Title = "title";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+<h4 style="color: red">@ViewBag.ErrorMessage</h4>
+
+<div>
+    @{
+        @Html.ActionLink("Add Med", "Add", "Medicine", new { id = Model.Id }, null)
+        if (Equals(Model.PrescriptedMedicines.Count, 0))
+        {
+            <div>
+                Here will display medicines list.
+            </div>
+        }
+        else
+        {
+            <div>
+                Meds on this prescription
+            </div>
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Medicine name
+                            </th>
+                            <th>
+                                Start use from
+                            </th>
+
+                            <th>
+                                How many pills at once
+                            </th>
+                            <th>
+                                Prescripted box count
+                            </th>
+                            <th>
+                                Box capacity
+                            </th>
+                            <th>
+                                Active substance mg
+                            </th>
+                        </tr>
+                    </thead>
+                    @{
+                        foreach (var med in Model.PrescriptedMedicines)
+                        {
+                            <tr>
+                                <td>
+                                    @med.Name
+                                </td>
+                                <td>
+                                    @med.StartUsageDate
+                                </td>
+
+                                <td>
+                                    @med.Dose
+                                </td>
+                                <td>
+                                    @med.PrescriptedBoxCount
+                                </td>
+                                <td>
+                                    @med.MedicineBox.Capacity
+                                </td>
+                                <td>
+                                    @med.MedicineBox.ActiveSubstanceAmountInMg
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        }
+    }
+</div>
+@RenderPage("~/Views/Shared/LogoutButton.cshtml")
