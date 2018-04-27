@@ -1,6 +1,7 @@
 ﻿html {
     height: 100%;
 }
+
 .medField, .prescriptionField {
     border: black;
     border-style: solid;
@@ -23,7 +24,6 @@ table {
     right: 0;
     float: right;
     padding: 2em;
-    background-color: red;
 }
 @keyframes slide {
     from {
@@ -45,6 +45,8 @@ body {
     background-repeat: repeat, no-repeat;
     background-attachment: fixed, fixed;
     animation: slide 40s linear infinite;
+    min-height: 100%;
+
 }
 
 /* Set padding to keep content from hitting the edges */

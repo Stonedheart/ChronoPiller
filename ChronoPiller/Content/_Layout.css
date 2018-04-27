@@ -48,10 +48,10 @@
 }
 
 footer {
+    clear: both;
     border-top: transparent;
-    position: relative;
+    z-index: 10;
     font-size: 1em;
-    bottom: 0;
     height: 2em;
     line-height: 75%;
     font-size: 75%;
@@ -59,9 +59,11 @@ footer {
     background-color: rgb(204, 229, 255);
     padding: 1em;
     width: 100%;
-    margin-left: -1em;
-    margin-bottom: -1em;
-
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
 }
 
 hr {
